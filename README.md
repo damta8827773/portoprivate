@@ -1,4 +1,4 @@
-# 👨‍💻 Damta Noviyan | Personal Portfolio Website
+# 👨‍💻 Damta Noviyan Muhamad Faiz| Personal Portfolio Website
 
 ![Project Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Tech Stack](https://img.shields.io/badge/Built%20With-HTML%20%7C%20CSS%20%7C%20JS-blue)
