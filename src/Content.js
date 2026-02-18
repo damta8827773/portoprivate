@@ -1,0 +1,42 @@
+export const content = {
+  id: {
+    nav_home: "Beranda",
+    nav_profil: "Profil",
+    nav_skill: "Skill",
+    nav_project: "Proyek",
+    nav_cert: "Sertifikat",
+    nav_contact: "Kontak",
+    hero_title: "HAI, SAYA DAMTA NOVIYAN",
+    hero_subtitle: "Full Stack Developer | Mahasiswa Sistem Informasi | Tech Enthusiast",
+    profil_title: "Profil",
+    label_user: "Nama:",
+    label_loc: "Lokasi:",
+    label_guild: "Kampus:",
+    label_role: "Posisi:",
+    skill_title: "Weapons & Skills",
+    project_title: "Featured Projects",
+    cert_title: "Certificates",
+    about_title: "Visi & Misi",
+    footer: "Hak Cipta Dilindungi."
+  },
+  en: {
+    nav_home: "Home",
+    nav_profil: "Profile",
+    nav_skill: "Skills",
+    nav_project: "Projects",
+    nav_cert: "Certificates",
+    nav_contact: "Contact",
+    hero_title: "HI, I AM DAMTA NOVIYAN",
+    hero_subtitle: "Full Stack Developer | Information Systems Student | Tech Enthusiast",
+    profil_title: "Profile",
+    label_user: "Name:",
+    label_loc: "Location:",
+    label_guild: "Guild:",
+    label_role: "Role:",
+    skill_title: "Weapons & Skills",
+    project_title: "Featured Projects",
+    cert_title: "Certificates",
+    about_title: "Vision & Mission",
+    footer: "All Rights Reserved."
+  }
+};
