@@ -1036,28 +1036,6 @@ footer p {
     .history-item.show { animation: fadeInUp 1s ease-out forwards; }
 }
 
-/* =========================================
-   LOGIKA LOGO KHUSUS MOBILE
-   ========================================= */
-
-/* 1. TAMPILAN DEFAULT (LAPTOP/PC) - Sembunyikan Logo */
-.logo-container {
-    display: none; /* Hilang saat layar besar */
-}
-
-/* 2. TAMPILAN MOBILE (HP) - Munculkan Logo */
-@media (max-width: 768px) {
-    .logo-container {
-        display: flex;      /* Munculkan kembali */
-        align-items: center; 
-        height: 40px;       /* Sesuaikan tinggi logo di HP */
-    }
-    
-    .logo-container img {
-        height: 100%;       /* Gambar ikut tinggi wadahnya */
-        width: auto;
-    }
-}
 
 /* =================================================================
    6. SCROLL ANIMATION SYSTEM (DESKTOP & COMMON)

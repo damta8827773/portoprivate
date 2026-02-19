@@ -31,23 +31,15 @@
                 <span></span>
             </div>
 
-            <nav class="navbar">
-    <div class="nav-left">
-        <div class="logo-container">
-            <img src="assets/img/home.png" alt="Home"> 
-        </div>
-    </div>
-
-    <div class="nav-links" id="navMenu">
-        <ul>
-            <li><a href="#home">Beranda</a></li>
-            </ul>
-    </div>
- </nav>
-
             <div class="nav-links" id="navMenu">
                 <ul>
-                    <li><a href="#home" data-i18n="nav_home" onclick="closeMenu()">Beranda</a></li>
+                    <li>
+                        <a href="#home" onclick="closeMenu()" style="display: flex; align-items: center;">
+                            <img src="assets/img/home.png" alt="Home" style="width: 20px; height: 20px; margin-right: 8px;">
+                            <span data-i18n="nav_home">Beranda</span>
+                        </a>
+                    </li>
+
                     <li><a href="#profil" data-i18n="nav_profil" onclick="closeMenu()">Profil</a></li>
                     <li><a href="#skill" data-i18n="nav_skill" onclick="closeMenu()">Kemampuan</a></li>
                     <li><a href="#projects" data-i18n="nav_project" onclick="closeMenu()">Proyek</a></li> 
@@ -58,11 +50,11 @@
                     <div class="controls">
                         <button class="control-btn" onclick="toggleLanguage()">
                             <i class="ri-global-line"></i> 
-                            <span id="lang-text" style="font-size: 0.8rem; font-weight: bold;">ID</span>
+                            <span id="lang-text">ID</span>
                         </button>
                         <button class="control-btn" onclick="toggleTheme()">
                             <i id="theme-icon" class="ri-sun-line"></i> 
-                            <span id="theme-text" style="font-size: 0.8rem; font-weight: bold;">Mode</span>
+                            <span id="theme-text">Mode</span>
                         </button>
                     </div>
                 </ul>
@@ -170,7 +162,7 @@
                 <div class="project-img"><img src="assets/img/Project3.png" alt="Project 3" onerror="this.style.display='none'"></div>
                 <div class="project-info">
                     <h3>Web Absensi Karyawan</h3>
-                    <p data-i18n="desc_p3">Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.</p>
+                    <p data-i18n="desc_p3">Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time.</p>
                     <a href="https://presensi.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
                         <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
                     </a>
@@ -181,7 +173,7 @@
                 <div class="project-img"><img src="assets/img/Project4.png" alt="Project 4" onerror="this.style.display='none'"></div>
                 <div class="project-info">
                     <h3>Web Ecommerce</h3>
-                    <p data-i18n="desc_p4">Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis. Menggunakan CSS modern untuk efek visual Glassmorphism dan tata letak responsif yang rapi di perangkat mobile.</p>
+                    <p data-i18n="desc_p4">Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis.</p>
                     <a href="https://api3.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
                         <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
                     </a>
@@ -203,7 +195,7 @@
                 <div class="project-img"><img src="assets/img/Project6.png" alt="Project 6" onerror="this.style.display='none'"></div>
                 <div class="project-info">
                     <h3>Web Couple</h3>
-                    <p data-i18n="desc_p6">Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.</p>
+                    <p data-i18n="desc_p6">Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font) dan integrasi invoice WA.</p>
                     <a href="https://proyek.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
                         <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
                     </a>
@@ -330,47 +322,23 @@
 
     <footer id="contact">
         <div class="social-links">
-            <a href="https://instagram.com/tadamta_" 
-               target="_blank" 
-               class="social-icon-btn" 
-               data-name="Instagram">
-                <i 
-                   class="ri-instagram-fill"></i>
+            <a href="https://instagram.com/tadamta_" target="_blank" class="social-icon-btn" data-name="Instagram">
+                <i class="ri-instagram-fill"></i>
             </a>
-            <a 
-              href="https://www.linkedin.com/in/damta-faiz-955493221" 
-              target="_blank" 
-              class="social-icon-btn" 
-              data-name="LinkedIn">
-                <i 
-                   class="ri-linkedin-fill"></i>
+            <a href="https://www.linkedin.com/in/damta-faiz-955493221" target="_blank" class="social-icon-btn" data-name="LinkedIn">
+                <i class="ri-linkedin-fill"></i>
             </a>
-            <a 
-               href="https://github.com/damta8827773" 
-               target="_blank" 
-               class="social-icon-btn" 
-               data-name="GitHub">
-                <i 
-                   class="ri-github-fill"></i>
+            <a href="https://github.com/damta8827773" target="_blank" class="social-icon-btn" data-name="GitHub">
+                <i class="ri-github-fill"></i>
             </a>
-            <a 
-                href="mailto:damtafaiz@gmail.com" 
-                target="_blank" 
-                class="social-icon-btn" 
-                data-name="Email">
-                <i 
-                   class="ri-mail-fill"></i>
+            <a href="mailto:damtafaiz@gmail.com" target="_blank" class="social-icon-btn" data-name="Email">
+                <i class="ri-mail-fill"></i>
             </a>
         </div>
         <p>
             &copy; <script>document.write(new Date().getFullYear())</script> Damta Noviyan Muhamad Faiz.
-            <span 
-                  data-i18n="footer" 
-                  style="display: block; 
-                         margin-top: 1px; 
-                         font-size: 1rem; 
-                         opacity: 1;">
-                         All Rights Reserved.
+            <span data-i18n="footer" style="display: block; margin-top: 5px; font-size: 1rem; opacity: 1;">
+                All Rights Reserved.
             </span>
         </p>
     </footer>
@@ -390,7 +358,6 @@
             const hiddenElements = document.querySelectorAll(
                 '.hero, .profil-card, .skill-section, .project-card, .cert-card, .visi-misi-container, .vm-card, .history-item, section h2'
             );
-            
             hiddenElements.forEach((el) => observer.observe(el));
         });
 
@@ -400,17 +367,13 @@
         }
 
         function toggleMenu() {
-            document.getElementById('navMenu')
-            .classList.toggle('active');
-            document.getElementById('hamburger')
-            .classList.toggle('active');
+            document.getElementById('navMenu').classList.toggle('active');
+            document.getElementById('hamburger').classList.toggle('active');
         }
 
         function closeMenu() {
-            document.getElementById('navMenu')
-            .classList.remove('active');
-            document.getElementById('hamburger')
-            .classList.remove('active');
+            document.getElementById('navMenu').classList.remove('active');
+            document.getElementById('hamburger').classList.remove('active');
         }
 
         // --- 3. DATA TRANSLATION (BAHASA) ---
