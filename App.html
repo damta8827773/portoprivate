@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="assets/img/icon2.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Damta Noviyan | Future Tech Leader</title>
+    <title>Damta Noviyan Muhamad Faiz| Future Tech Leader</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,18 +34,53 @@
             <div class="nav-links" id="navMenu">
                 <ul>
                     <li>
-                        <a href="#home" onclick="closeMenu()" style="display: flex; align-items: center;">
-                            <img src="assets/img/home.png" alt="Home" style="width: 20px; height: 20px; margin-right: 8px;">
+                        <a href="#home" onclick="closeMenu()">
+                            <img src="assets/img/home.png" alt="Home" style="width: 18px; height: 18px;" onerror="this.style.display='none'">
                             <span data-i18n="nav_home">Beranda</span>
                         </a>
                     </li>
-
-                    <li><a href="#profil" data-i18n="nav_profil" onclick="closeMenu()">Profil</a></li>
-                    <li><a href="#skill" data-i18n="nav_skill" onclick="closeMenu()">Kemampuan</a></li>
-                    <li><a href="#projects" data-i18n="nav_project" onclick="closeMenu()">Proyek</a></li> 
-                    <li><a href="#certificates" data-i18n="nav_cert" onclick="closeMenu()">Sertifikat</a></li>
-                    <li><a href="#about" data-i18n="about_us" onclick="closeMenu()">Tentang Saya</a></li>
-                    <li><a href="#contact" data-i18n="nav_contact" onclick="closeMenu()">Kontak</a></li>
+                    <li>
+                        <a href="#profil" onclick="closeMenu()">
+                            <img src="assets/img/profil.png" alt="Profil" style="width: 18px; height: 18px;" onerror="this.style.display='none'">
+                            <span data-i18n="nav_profil">Profil</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#skill" onclick="closeMenu()">
+                            <img src="assets/img/skill.png" alt="Skill" style="width: 18px; height: 18px;" onerror="this.style.display='none'">
+                            <span data-i18n="nav_skill">Kemampuan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#projects" onclick="closeMenu()">
+                            <img src="assets/img/proyek.png" alt="Proyek" style="width: 18px; height: 18px;" onerror="this.style.display='none'">
+                            <span data-i18n="nav_project">Proyek</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#certificates" onclick="closeMenu()">
+                            <img src="assets/img/sertif.png" alt="Pencapaian" style="width: 18px; height: 18px;" onerror="this.style.display='none'">
+                            <span data-i18n="nav_cert">Pencapaian</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about" onclick="closeMenu()">
+                            <img src="assets/img/tentang kami.png" alt="Tentang" style="width: 18px; height: 18px;" onerror="this.style.display='none'">
+                            <span data-i18n="about_us">Tentang Saya</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#comments" onclick="closeMenu()">
+                            <img src="assets/img/komen&rate.png" alt="Komentar" style="width: 24px; height: 18px;" onerror="this.style.display='none'">
+                            <span data-i18n="comment_title">Komentar</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#contact" onclick="closeMenu()">
+                            <img src="assets/img/kontak.png" alt="Kontak" style="width: 24px; height: 24px;" onerror="this.style.display='none'">
+                            <span data-i18n="nav_contact">Kontak</span>
+                        </a>
+                    </li>
                     
                     <div class="controls">
                         <button class="control-btn" onclick="toggleLanguage()">
@@ -141,8 +176,8 @@
                 <div class="project-info">
                     <h3>Web Relationship</h3>
                     <p data-i18n="desc_p1">Website RelationShip dengan menggunakan 3 bahasa saja HTML, CSS, dan JavaScript, Tanpa Framework.</p>
-                    <a href="https://dnajwawa02.netlify.app/new.html" target="_blank" class="btn-view" data-i18n="btn_view">
-                        <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
+                    <a href="https://dnajwawa02.netlify.app/new.html" target="_blank" class="btn-view">
+                        <i class="ri-arrow-right-line arrow-icon"></i> <span data-i18n="btn_view">Lihat Website</span>
                     </a>
                 </div>
             </div>
@@ -152,8 +187,8 @@
                 <div class="project-info">
                     <h3>Web Portofolio</h3>
                     <p data-i18n="desc_p2">Web Portofolio dengan menggunakan JS, HTML, dan CSS3, Dengan menggunakan Framework react.js.</p>
-                    <a href="https://projectdam.netlify.app/app#" target="_blank" class="btn-view" data-i18n="btn_view">
-                        <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
+                    <a href="https://projectdam.netlify.app/app#" target="_blank" class="btn-view">
+                        <i class="ri-arrow-right-line arrow-icon"></i> <span data-i18n="btn_view">Lihat Website</span>
                     </a>
                 </div>
             </div>
@@ -163,8 +198,8 @@
                 <div class="project-info">
                     <h3>Web Absensi Karyawan</h3>
                     <p data-i18n="desc_p3">Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.</p>
-                    <a href="https://presensi.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
-                        <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
+                    <a href="https://presensi.ecommercedamta.com/" target="_blank" class="btn-view">
+                        <i class="ri-arrow-right-line arrow-icon"></i> <span data-i18n="btn_view">Lihat Website</span>
                     </a>
                 </div>        
             </div>
@@ -174,8 +209,8 @@
                 <div class="project-info">
                     <h3>Web Ecommerce</h3>
                     <p data-i18n="desc_p4">Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis. Menggunakan CSS modern untuk efek visual Glassmorphism dan tata letak responsif yang rapi di perangkat mobile.</p>
-                    <a href="https://api3.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
-                        <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
+                    <a href="https://api3.ecommercedamta.com/" target="_blank" class="btn-view">
+                        <i class="ri-arrow-right-line arrow-icon"></i> <span data-i18n="btn_view">Lihat Website</span>
                     </a>
                 </div>
             </div>
@@ -185,8 +220,8 @@
                 <div class="project-info">
                     <h3>Web Vidio Viral</h3>
                     <p data-i18n="desc_p5">Web App Roadmap menggunakan PHP, HTML5, dan CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).</p>
-                    <a href="https://damtaproyek.ecommercedamta.com/login.php" target="_blank" class="btn-view" data-i18n="btn_view">
-                        <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
+                    <a href="https://damtaproyek.ecommercedamta.com/login.php" target="_blank" class="btn-view">
+                        <i class="ri-arrow-right-line arrow-icon"></i> <span data-i18n="btn_view">Lihat Website</span>
                     </a>
                 </div>
             </div>
@@ -196,8 +231,8 @@
                 <div class="project-info">
                     <h3>Web Couple</h3>
                     <p data-i18n="desc_p6">Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.</p>
-                    <a href="https://proyek.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
-                        <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
+                    <a href="https://proyek.ecommercedamta.com/" target="_blank" class="btn-view">
+                        <i class="ri-arrow-right-line arrow-icon"></i> <span data-i18n="btn_view">Lihat Website</span>
                     </a>
                 </div>
             </div>
@@ -205,7 +240,7 @@
     </section>
 
     <section id="certificates">
-        <h2 data-i18n="cert_title" style="margin-bottom: 40px;" class="hidden">Sertifikat</h2>
+        <h2 data-i18n="cert_title" style="margin-bottom: 40px;" class="hidden">Pencapaian</h2>
         
         <div class="cert-container">
             <div class="cert-card hidden">
@@ -276,7 +311,7 @@
         <div class="about-us-container">
             <div class="about-us-header" onclick="toggleHistory()">
                 <div class="line"></div>
-                <h3>Tentang Saya</h3>
+                <h3 data-i18n="about_us">Tentang Saya</h3>
                 <div class="line"></div>
             </div>
 
@@ -392,11 +427,11 @@
         </p>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyC80W6y97OPM8m6VeiKs_0vt7oCd5HsTi8",
             authDomain: "projectdamta.firebaseapp.com",
@@ -406,19 +441,25 @@
             appId: "1:118530088464:web:f193173dcc75d7557b7495"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const provider = new firebase.auth.GoogleAuthProvider();
 
         const authSection = document.getElementById('auth-section');
         const commentForm = document.getElementById('comment-form');
         const listContainer = document.getElementById('comments-display-list');
 
-        document.getElementById('btn-login-google').onclick = () => signInWithPopup(auth, provider);
-        document.getElementById('btn-logout').onclick = () => signOut(auth);
+        document.getElementById('btn-login-google').onclick = () => {
+            auth.signInWithPopup(provider).catch((error) => {
+                console.error("Error login:", error);
+                alert("Gagal login: " + error.message);
+            });
+        };
+        
+        document.getElementById('btn-logout').onclick = () => auth.signOut();
 
-        onAuthStateChanged(auth, (user) => {
+        auth.onAuthStateChanged((user) => {
             if (user) {
                 authSection.style.display = 'none';
                 commentForm.style.display = 'block';
@@ -438,21 +479,20 @@
             if (!text || rating == 0) return alert("Isi komentar dan pilih bintang!");
 
             try {
-                await addDoc(collection(db, "comments"), {
+                await db.collection("comments").add({
                     name: user.displayName,
                     photo: user.photoURL,
                     email: user.email,
                     comment: text,
                     rating: parseInt(rating),
-                    timestamp: serverTimestamp()
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
                 document.getElementById('comment-input').value = "";
                 alert("Terima kasih ulasannya!");
             } catch (e) { alert("Gagal mengirim: " + e.message); }
         };
 
-        const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
-        onSnapshot(q, (snapshot) => {
+        db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
             listContainer.innerHTML = "";
             if (snapshot.empty) listContainer.innerHTML = "<p>Belum ada ulasan.</p>";
             snapshot.forEach((doc) => {
@@ -512,7 +552,7 @@
                 nav_profil: "Profil", 
                 nav_skill: "Kemampuan", 
                 nav_project: "Proyek",
-                nav_cert: "Sertifikat", 
+                nav_cert: "Pencapaian", 
                 about_us: "Tentang Saya", 
                 nav_contact: "Kontak",
                 hero_title: "HAI, SAYA <br> DAMTA NOVIYAN MUHAMAD FAIZ",
@@ -524,14 +564,14 @@
                 label_role: "Posisi:",
                 skill_title: "Alat & Kemampuan", 
                 project_title: "Proyek Unggulan",
-                desc_p1: "Website RelationShip dengan menggunakan 3 bahasa saja HTML, CSS, dan JavaScript, Tanpa Framework.",
-                desc_p2: "Web Portofolio dengan menggunakan JS, HTML, dan CSS3, Dengan menggunakan Framework react.js.",
+                desc_p1: "Website interaktif yang didesain khusus secara personal dengan antarmuka yang manis dan memanjakan mata. Dibangun murni menggunakan HTML, CSS, dan Vanilla JavaScript tanpa framework untuk memastikan performa yang ringan dan animasi yang mulus.",
+                desc_p2: "Website portofolio profesional bergaya modern dengan efek visual Glassmorphism dan animasi Neon 6D. Dikembangkan secara dinamis dan responsif menggunakan framework React.js, HTML5, dan CSS3.",
                 desc_p3: "Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.",
                 desc_p4: "Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis. Menggunakan CSS modern untuk efek visual Glassmorphism dan tata letak responsif yang rapi di perangkat mobile.",
                 desc_p5: "Web App Roadmap menggunakan PHP, HTML5, dan CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).",
                 desc_p6: "Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.",
                 btn_view: "Lihat Website",
-                cert_title: "Sertifikat", 
+                cert_title: "Pencapaian", 
                 cert_1: "Belajar Public Speaking", 
                 desc_c1: "Menyelesaikan Program yang Berfokus gimana caranya Public Speaking.",
                 cert_2: "Belajar Dasar AI", 
@@ -553,7 +593,7 @@
                 nav_profil: "Profile", 
                 nav_skill: "Skills", 
                 nav_project: "Projects",
-                nav_cert: "Certificates", 
+                nav_cert: "Achievements", 
                 about_us: "About Us", 
                 nav_contact: "Contact",
                 hero_title: "HI, I AM <br> DAMTA NOVIYAN MUHAMAD FAIZ",
@@ -565,14 +605,14 @@
                 label_role: "Role:",
                 skill_title: "Weapons & Skills", 
                 project_title: "Featured Projects",
-                desc_p1: "Relationship Website using only 3 languages: HTML, CSS, and JavaScript, without Framework.",
-                desc_p2: "Web Portfolio using JS, HTML, and CSS3, with React.js Framework.",
+                desc_p1: "A personalized interactive website designed with a sweet and eye-catching interface. Built purely using HTML, CSS, and Vanilla JavaScript without any frameworks to ensure lightweight performance and smooth animations.",
+                desc_p2: "A professional modern portfolio website featuring Glassmorphism visual effects and 6D Neon animations. Developed dynamically and responsively using the React.js framework, HTML5, and CSS3.",
                 desc_p3: "Web-based attendance system integrated with PHP and MySQL for real-time employee verification.",
                 desc_p4: "Database-driven online store system with PHP Native logic. Uses modern CSS for Glassmorphism.",
                 desc_p5: "Web App Roadmap uses PHP, HTML5, and CSS3 Neon Style. Backend uses MySQL with Google Login (OAuth 2.0).",
                 desc_p6: "Interactive web ordering system using PHP Native and MySQL. Features design customization and WhatsApp invoice integration.",
                 btn_view: "View Website",
-                cert_title: "Certificates", 
+                cert_title: "Achievements", 
                 cert_1: "Learning Public Speaking", 
                 desc_c1: "Completed a program focused on Public Speaking skills.",
                 cert_2: "Learning Basic AI", 
