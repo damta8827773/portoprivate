@@ -1,34 +1,45 @@
-/* =========================================
-   1. SETUP & VARIABLES
-   ========================================= */
+/* ==========================================================================
+   1. SETUP FONT & VARIABEL GLOBAL
+   Bagian ini digunakan untuk mengimpor font dan mengatur warna tema
+   (Mode Gelap dan Mode Terang) menggunakan CSS Variables (:root).
+   ========================================================================== */
+
+/* Mengimpor Font Poppins dari Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
 
+/* --- VARIABEL TEMA GELAP (DEFAULT) --- */
 :root {
-    /* --- TEMA DARK (DEFAULT) --- */
+    /* Background utama berbentuk gradient radial */
     --bg-gradient: radial-gradient(circle at top left, #0f0c29, #302b63, #24243e);
+    
+    /* Warna teks utama dan teks sekunder */
     --text-color: #ffffff;
     --text-muted: #b0b0d0;
     
-    /* Glassmorphism */
+    /* Efek Glassmorphism (Kaca) untuk kartu */
     --card-bg: rgba(255, 255, 255, 0.05);
     --card-border: 1px solid rgba(255, 255, 255, 0.1);
     --glass-highlight: rgba(255, 255, 255, 0.15); 
     
-    /* Navbar Transparan */
+    /* Warna Navbar transparan */
     --navbar-bg: rgba(15, 12, 41, 0.6); 
     
-    /* Neon Colors */
-    --primary-neon: #00f3ff;   /* Cyan Electric */
-    --secondary-neon: #bc13fe; /* Purple Cyber */
-    --accent-neon: #ff0055;    /* Pink Accent */
+    /* Warna Neon untuk aksen desain */
+    --primary-neon: #00f3ff; 
+    --secondary-neon: #bc13fe; 
+    --accent-neon: #ff0055; 
     
+    /* Warna bayangan dan filter untuk ikon */
     --shadow-color: rgba(0, 0, 0, 0.37);
     --filter-icon: drop-shadow(0 0 5px rgba(255,255,255,0.5));
+    
+    /* Background khusus sertifikat dan menu mobile */
     --cert-bg: #000;
     --mobile-menu-bg: #0f0c29; 
 }
 
-/* --- TEMA LIGHT --- */
+/* --- VARIABEL TEMA TERANG --- */
+/* Aktif ketika class 'light-mode' ditambahkan ke tag body */
 body.light-mode {
     --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     --text-color: #333333;
@@ -46,26 +57,10 @@ body.light-mode {
     --mobile-menu-bg: #ffffff;
 }
 
-/* =========================================
-   FIX: HERO SECTION (MUNCUL OTOMATIS)
-   ========================================= */
-section#home.hidden {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-}
-section#home h1 {
-    opacity: 0; 
-    animation: fadeInUp 1s ease-out forwards 0.2s; 
-}
-section#home p {
-    opacity: 0; 
-    animation: fadeInUp 1s ease-out forwards 0.8s; 
-}
-
-/* =========================================
-   2. GLOBAL RESET
-   ========================================= */
+/* ==========================================================================
+   2. RESET GLOBAL & SCROLLBAR
+   Mereset margin/padding bawaan browser dan mendesain scrollbar.
+   ========================================================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -75,20 +70,36 @@ section#home p {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: #0f0c29; }
+/* Desain Scrollbar Browser (Lebar 10px) */
+::-webkit-scrollbar { 
+    width: 10px; 
+}
+
+/* Jalur belakang scrollbar */
+::-webkit-scrollbar-track { 
+    background: #0f0c29; 
+}
+
+/* Pegangan (thumb) scrollbar dengan gradien neon */
 ::-webkit-scrollbar-thumb { 
     background: linear-gradient(var(--primary-neon), var(--secondary-neon)); 
     border-radius: 10px; 
 }
-::-webkit-scrollbar-thumb:hover { background: var(--primary-neon); }
 
-html, body { 
+/* Hover pada pegangan scrollbar */
+::-webkit-scrollbar-thumb:hover { 
+    background: var(--primary-neon); 
+}
+
+/* Mengunci lebar maksimal agar tidak ada scroll horizontal yang bocor */
+html, 
+body { 
     width: 100%; 
     max-width: 100%;
     overflow-x: hidden; 
 }
 
+/* Pengaturan dasar Body dengan animasi gradien berjalan */
 body {
     background: var(--bg-gradient);
     background-size: 400% 400%;
@@ -102,12 +113,7 @@ body {
     padding-top: 0; 
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
+/* Pembungkus utama untuk membatasi lebar konten di tengah layar */
 .container { 
     max-width: 1200px; 
     width: 100%; 
@@ -115,9 +121,10 @@ body {
     padding: 0 20px; 
 }
 
-/* =========================================
-   3. NAVBAR MODERN
-   ========================================= */
+/* ==========================================================================
+   3. DESAIN NAVBAR (MENU NAVIGASI)
+   ========================================================================== */
+/* Membungkus navbar agar tetap melayang (sticky/fixed) di atas layar */
 .navbar-container { 
     position: fixed; 
     top: 20px; 
@@ -130,6 +137,7 @@ body {
     transform: translateX(-50%);
 }
 
+/* Kotak navbar utama dengan efek kaca (glassmorphism) */
 .navbar {
     background: var(--navbar-bg); 
     backdrop-filter: blur(15px); 
@@ -147,28 +155,45 @@ body {
     width: 100%; 
 }
 
+/* Tempat logo di kiri navbar */
 .logo-container {
     height: 55px; 
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+/* BLOKIR ANIMASI UNTUK LOGO "D"
+   Memastikan logo D tidak membesar, tidak berubah warna, dan tidak ada filter
+*/
 .logo-container img { 
     height: 250%; 
     width: auto; 
     object-fit: contain; 
     border-radius: 0; 
-    filter: none; 
-    transition: transform 0.3s;
+    filter: none !important; 
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
 }
-.logo-container:hover img { transform: scale(1.1); }
 
+/* Mematikan hover effect pada logo */
+.logo-container:hover img { 
+    transform: none !important; 
+    cursor: default;
+}
+
+/* Pengaturan daftar menu (Beranda, Profil, dll) */
 .nav-links ul { 
     display: flex; 
     list-style: none; 
     gap: 20px; 
     align-items: center; 
 }
+
+/* EFEK ANIMASI GARIS BAWAH PADA MENU NAVBAR
+   Pengaturan dasar untuk teks link
+*/
 .nav-links a {
     text-decoration: none; 
     color: var(--text-color);
@@ -177,10 +202,36 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px; 
     transition: all 0.3s;
+    position: relative; /* Wajib untuk garis bawah (::after) */
+    padding: 5px 0;
 }
-.nav-links a:hover { color: var(--primary-neon); }
 
-/* --- HAMBURGER MENU --- */
+/* Garis bawah neon yang awalnya lebarnya 0 */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-neon);
+    transition: width 0.3s ease-out;
+    box-shadow: 0 0 10px var(--primary-neon);
+}
+
+/* Lebar garis menjadi 100% saat di-hover */
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Teks berubah menjadi putih, naik sedikit, dan bersinar saat di-hover */
+.nav-links a:hover { 
+    color: #fff; 
+    text-shadow: 0 0 8px var(--primary-neon), 0 0 20px var(--secondary-neon);
+    transform: translateY(-2px);
+}
+
+/* Ikon garis tiga (Hamburger) untuk menu di versi HP */
 .hamburger { 
     display: none; 
     flex-direction: column; 
@@ -193,6 +244,8 @@ body {
     border: none; 
     padding: 0;
 }
+
+/* Garis-garis penyusun hamburger menu */
 .hamburger span {
     display: block; 
     width: 100%; 
@@ -201,17 +254,27 @@ body {
     border-radius: 3px; 
     transition: 0.3s ease-in-out;
 }
-.hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-/* --- CONTROLS --- */
+/* Animasi Hamburger berubah menjadi tanda "X" (Silang) saat di-klik */
+.hamburger.active span:nth-child(1) { 
+    transform: translateY(8px) rotate(45deg); 
+}
+.hamburger.active span:nth-child(2) { 
+    opacity: 0; 
+}
+.hamburger.active span:nth-child(3) { 
+    transform: translateY(-9px) rotate(-45deg); 
+}
+
+/* Grup Tombol Bahasa dan Tema di pojok kanan Navbar */
 .controls { 
-             display: flex; 
-             gap: 10px; 
-             align-items: center; 
-             margin-left: 10px; }
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
+    margin-left: 10px; 
+}
 
+/* Desain tombol ID/EN dan Tema */
 .control-btn {
     background: rgba(255, 255, 255, 0.1) !important; 
     border: 1px solid rgba(255, 255, 255, 0.2) !important; 
@@ -233,12 +296,16 @@ body {
     height: 40px; 
     font-size: 1rem;
 }
+
+/* Efek Hover untuk tombol kontrol */
 .control-btn:hover { 
     background: rgba(255, 255, 255, 0.25) !important; 
     transform: translateY(-2px); 
     border-color: var(--primary-neon) !important; 
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
+
+/* Penyesuaian tombol kontrol untuk Tema Terang */
 body.light-mode .control-btn {
     background: rgba(255, 255, 255, 0.6) !important;
     border: 1px solid rgba(0, 0, 0, 0.1) !important; 
@@ -249,9 +316,11 @@ body.light-mode .control-btn:hover {
     border-color: var(--primary-neon) !important;
 }
 
-/* =========================================
-   4. SECTION STYLES
-   ========================================= */
+/* ==========================================================================
+   4. SECTION UTAMA & KARTU (CARDS)
+   Digunakan untuk membatasi jarak antar konten dan gaya efek kaca.
+   ========================================================================== */
+/* Pengaturan standar untuk semua blok konten (section) */
 section { 
     padding: 100px 20px; 
     min-height: 85vh; 
@@ -263,10 +332,24 @@ section {
     width: 100%; 
     max-width: 1200px; 
     margin: 0 auto; 
-    overflow: hidden; /* Mencegah scroll samping */
+    overflow: hidden; 
 }
 
-.hero { margin-top: 80px; }
+/* Jarak khusus untuk halaman paling depan (Hero) */
+.hero { 
+    margin-top: 80px; 
+    perspective: 1000px; 
+    overflow: visible; 
+}
+
+/* Menangani agar elemen hero selalu muncul di awal tanpa menunggu scroll */
+section#home.hidden {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+}
+
+/* Judul besar di halaman Hero (Dengan animasi langsung muncul) */
 .hero h1 { 
     font-size: 3.5rem; 
     font-weight: 800; 
@@ -275,74 +358,29 @@ section {
     line-height: 1.1; 
     color: var(--text-color); 
     text-shadow: 0 0 20px rgba(0, 243, 255, 0.4); 
+    opacity: 1; 
+    transform: none; 
+    animation: none;
 }
-body.light-mode .hero h1 { text-shadow: none; color: #333; }
+
+/* Judul besar Hero tanpa neon di mode terang */
+body.light-mode .hero h1 { 
+    text-shadow: none; 
+    color: #333; 
+}
+
+/* Teks sub-judul di halaman Hero */
 .hero p { 
     font-size: 1.3rem; 
     color: var(--text-muted); 
     max-width: 700px; 
     font-weight: 300; 
+    opacity: 1; 
+    transform: none;
+    animation: none;
 }
 
-/* --- FIX FOOTER MODE TERANG --- */
-body.light-mode footer {
-    background-color: #ffffff; /* Ubah background footer jadi putih */
-    border-top: 1px solid #ddd;
-    color: #333;
-}
-
-body.light-mode .social-icon-btn {
-    border-color: var(--primary-neon);
-    color: var(--primary-neon); /* Pastikan ikon berwarna */
-}
-
-body.light-mode .social-icon-btn:hover {
-    background-color: var(--primary-neon);
-    color: #fff;
-}
-
-/* =========================================
-   3D HERO ANIMATION (EFEK AWAL KEREN)
-   ========================================= */
-
-/* 1. Aktifkan Ruang 3D di Section Hero */
-.hero { 
-    margin-top: 80px;
-    perspective: 1000px; /* Memberikan kedalaman 3D */
-    overflow: visible;   /* Biar efek 3D tidak terpotong */
-}
-
-/* 2. Keyframes Animasi 3D "Jatuh dari Belakang" */
-@keyframes hero3DReveal {
-    0% {
-        opacity: 0;
-        transform: rotateX(40deg) translateY(100px) translateZ(-100px); /* Miring ke belakang, turun, mundur */
-        filter: blur(10px); /* Efek buram */
-    }
-    100% {
-        opacity: 1;
-        transform: rotateX(0deg) translateY(0) translateZ(0); /* Posisi Normal */
-        filter: blur(0);
-    }
-}
-
-/* 3. Terapkan ke Judul (H1) */
-section#home h1 { 
-    opacity: 0; 
-    /* Animasi Elastic (Mental sedikit) */
-    animation: hero3DReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.2s; 
-    transform-origin: center bottom;
-}
-
-/* 4. Terapkan ke Subjudul (P) */
-section#home p { 
-    opacity: 0; 
-    /* Delay 0.5s supaya muncul setelah judul */
-    animation: hero3DReveal 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.5s; 
-    transform-origin: center bottom;
-}
-
-/* CARDS */
+/* Pengelompokan desain kaca untuk semua tipe kartu (Profil, Proyek, Sertifikat) */
 .profil-card, 
 .tech-item, 
 .project-card, 
@@ -354,9 +392,11 @@ section#home p {
     border-radius: 20px; 
     color: var(--text-color);
     box-shadow: 0 0 20px var(--shadow-color); 
-    transition: 0.3s;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
 }
 
+/* Ukuran dan posisi Kartu Profil */
 .profil-card { 
     padding: 50px; 
     width: 100%; 
@@ -367,10 +407,14 @@ section#home p {
     margin-left: auto; 
     margin-right: auto;
 }
+
+/* Hover Kartu Profil (Naik ke atas) */
 .profil-card:hover { 
     transform: translateY(-10px); 
     box-shadow: 0 0 50px var(--secondary-neon); 
 }
+
+/* Judul di dalam Kartu Profil */
 .profil-card h2 { 
     text-align: center; 
     margin: 0 auto 30px auto; 
@@ -378,6 +422,8 @@ section#home p {
     display: table; 
     padding-bottom: 10px; 
 }
+
+/* Baris data dalam Kartu Profil (Nama, Lokasi, dll) */
 .detail-row { 
     display: flex; 
     justify-content: space-between; 
@@ -385,9 +431,14 @@ section#home p {
     border-bottom: 1px solid var(--card-border); 
     padding-bottom: 10px; 
 }
+
+/* Label data Profil */
 .detail-label { 
-                 font-weight: bold; 
-                 color: var(--primary-neon); }
+    font-weight: bold; 
+    color: var(--primary-neon); 
+}
+
+/* Efek cahaya radial di belakang Kartu Profil */
 .profil-bg-decoration { 
     position: absolute; 
     width: 120%; 
@@ -397,8 +448,10 @@ section#home p {
     pointer-events: none; 
 }
 
-h2, .neon-title, 
-    .neon-title-blue { 
+/* Format Judul Utama tiap Section */
+h2, 
+.neon-title, 
+.neon-title-blue { 
     text-align: center; 
     margin-bottom: 50px; 
     font-size: 2.5rem; 
@@ -406,53 +459,41 @@ h2, .neon-title,
     text-shadow: 0 0 10px var(--secondary-neon); 
     color: var(--text-color);
 }
-.neon-title-blue { text-shadow: 0 0 10px var(--primary-neon); }
-body.light-mode h2, 
-body.light-mode 
-.neon-title { 
-              text-shadow: none; 
-              color: var(--secondary-neon); }
-body.light-mode 
 .neon-title-blue { 
-                   text-shadow: none; 
-                   color: var(--primary-neon); }
-
-/* =========================================
-   3D HOVER EFFECT (KARTU TIMBUL)
-   ========================================= */
-
-/* Transisi Lebih Smooth & Kenyal */
-.project-card, 
-.cert-card, 
-.profil-card,
-.vm-card {
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efek per/bouncy */
-    transform-style: preserve-3d; /* Menjaga elemen anak tetap 3D */
+    text-shadow: 0 0 10px var(--primary-neon); 
+}
+body.light-mode h2, 
+body.light-mode .neon-title { 
+    text-shadow: none; 
+    color: var(--secondary-neon); 
+}
+body.light-mode .neon-title-blue { 
+    text-shadow: none; 
+    color: var(--primary-neon); 
 }
 
-/* Efek Saat Hover (Khusus Desktop) */
+/* Efek Kartu 3D Saat Hover di Komputer (Desktop) */
 @media (min-width: 769px) {
     .project-card:hover, 
     .cert-card:hover,
     .profil-card:hover,
     .vm-card:hover { 
-        /* Naik ke atas (-15px), Membesar sedikit, Miring sedikit (3D) */
         transform: translateY(-15px) scale(1.02) rotateX(5deg); 
-        
-        /* Bayangan Neon Lebih Kuat & Jauh */
         box-shadow: 0 30px 60px rgba(0, 243, 255, 0.25); 
         border-color: var(--primary-neon);
         z-index: 10;
     }
     
-    /* Gambar di dalam kartu ikut zoom (Parallax effect) */
+    /* Gambar di dalam proyek akan ikut membesar sedikit (Zoom) */
     .project-card:hover .project-img img,
     .cert-card:hover .cert-img-box img {
         transform: scale(1.15) translateY(-5px);
     }
-}                   
+}                  
 
-/* SKILLS */
+/* ==========================================================================
+   5. BAGIAN KEMAMPUAN / SKILLS (ANIMASI MARQUEE BERJALAN)
+   ========================================================================== */
 .skill-section { 
     padding: 60px 0; 
     width: 100%; 
@@ -462,6 +503,8 @@ body.light-mode
     margin-right: auto; 
     position: relative;
 }
+
+/* Pembungkus area skill dengan efek transparan di kiri/kanannya */
 .marquee-wrapper { 
     display: flex; 
     width: 100%; 
@@ -470,14 +513,19 @@ body.light-mode
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
     -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
+
+/* Lintasan berjalan untuk ikon skill */
 .marquee-content { 
     display: flex; 
+    flex-wrap: nowrap;
     gap: 3rem; 
     padding-right: 3rem; 
     align-items: center; 
     width: max-content; 
     will-change: transform;
 }
+
+/* Kotak individu untuk tiap ikon skill (HTML, CSS, dll) */
 .tech-item { 
     display: flex; 
     flex-direction: column; 
@@ -487,12 +535,18 @@ body.light-mode
     height: 160px; 
     padding: 15px; 
     flex-shrink: 0; 
-    
-    /* FIX: Skill tidak boleh hilang */
+    /* Memastikan selalu muncul tanpa putus saat animasi */
     opacity: 1 !important; 
     transform: none !important;
     animation: none !important;
+    background: var(--card-bg); 
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(15px); 
+    border-radius: 20px; 
+    transition: all 0.3s ease;
 }
+
+/* Ukuran dan filter ikon skill */
 .tech-item img { 
     width: 100px; 
     height: 100px; 
@@ -503,17 +557,34 @@ body.light-mode
     background: rgba(255, 255, 255, 0.1); 
     padding: 10px; 
 }
+
+/* Hover kotak skill (Membesar) */
 .tech-item:hover { 
     background: rgba(188, 19, 254, 0.2); 
-    transform: scale(1.2); 
+    transform: scale(1.1) !important; 
     border-color: var(--secondary-neon); 
+    box-shadow: 0 0 15px var(--secondary-neon);
 }
-.scroll-left { animation: scrollLeft 30s linear infinite; }
-.scroll-right { animation: scrollRight 30s linear infinite; }
-@keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-@keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-/* PROJECTS & CERTIFICATES */
+/* Kecepatan putaran baris skill (Memaksa agar selalu berjalan) */
+.scroll-left { 
+    animation: scrollLeft 25s linear infinite !important; 
+}
+.scroll-right { 
+    animation: scrollRight 25s linear infinite !important; 
+}
+
+/* Berhenti berjalan saat disorot mouse */
+.marquee-wrapper:hover .scroll-left,
+.marquee-wrapper:hover .scroll-right {
+    animation-play-state: paused !important;
+}
+
+/* ==========================================================================
+   6. BAGIAN PROYEK & SERTIFIKAT
+   Menggunakan Grid agar responsif (Menyusun otomatis).
+   ========================================================================== */
+/* Membentuk grid kotak untuk Proyek dan Sertifikat */
 .project-grid, 
 .cert-container { 
     display: grid; 
@@ -524,6 +595,8 @@ body.light-mode
     margin-left: auto; 
     margin-right: auto;
 }
+
+/* Kartu individu Proyek dan Sertifikat */
 .project-card, 
 .cert-card { 
     display: flex; 
@@ -533,12 +606,10 @@ body.light-mode
     height: 100%; 
     position: relative; 
 }
-.project-card:hover, .cert-card:hover { 
-    transform: translateY(-10px); 
-    border-color: var(--primary-neon); 
-    box-shadow: 0 0 25px rgba(0, 243, 255, 0.3); 
-}
-.project-img, .cert-img-box {
+
+/* Warna box gambar di dalam proyek/sertifikat */
+.project-img, 
+.cert-img-box {
      width: 100%; 
      height: 200px; 
      background-color: #333; 
@@ -553,30 +624,37 @@ body.light-mode
     justify-content: center; 
     align-items: center; 
 }
+
+/* Gaya gambar proyek agar menutup seluruh area */
 .project-img img, 
 .cert-img-box img { 
-                     width: 100%; 
-                     height: 100%; 
-                     object-fit: cover; 
-                     transition: 0.5s; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: 0.5s; 
 }
-.cert-img-box img { object-fit: contain; }
-.project-card:hover 
-.project-img img { transform: scale(1.1); }
-.cert-card:hover 
-.cert-img-box img { transform: scale(1.05); }
+.cert-img-box img { 
+    object-fit: contain; 
+}
+
+/* Ruang teks di bawah gambar */
 .project-info, 
 .cert-content { 
-                 padding: 25px; 
-                 flex-grow: 1; 
-                 display: flex; 
-                 flex-direction: column; 
+    padding: 25px; 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
 }
-.project-info h3, .cert-content h4 { 
+
+/* Judul Proyek / Sertifikat */
+.project-info h3, 
+.cert-content h4 { 
     color: var(--primary-neon); 
     margin-bottom: 10px; 
     font-size: 1.4rem; 
 }
+
+/* Deskripsi Proyek / Sertifikat */
 .project-info p, 
 .cert-content p { 
     font-size: 0.9rem; 
@@ -584,7 +662,7 @@ body.light-mode
     margin-bottom: 15px; 
 }
 
-/* --- UPDATE: TOMBOL ROLLING DOOR (GAYA BARU) --- */
+/* Tombol link (Kunjungi Website) */
 .btn-view { 
     display: inline-flex; 
     align-items: center; 
@@ -603,6 +681,8 @@ body.light-mode
     transition: color 0.4s ease; 
     z-index: 1;
 }
+
+/* Efek warna mengisi tombol saat Hover */
 .btn-view::before {
     content: ''; 
     position: absolute; 
@@ -614,25 +694,35 @@ body.light-mode
     z-index: -1; 
     transition: width 0.4s ease-in-out;
 }
-.btn-view:hover::before { width: 100%; }
+.btn-view:hover::before { 
+    width: 100%; 
+}
 .btn-view:hover { 
-                  color: #fff; 
-                  box-shadow: 0 0 15px var(--secondary-neon); }
-.arrow-icon { 
-              margin-right: 8px; 
-              transition: transform 0.3s ease; }
-.btn-view:hover .arrow-icon { transform: translateX(5px); }
-
-/* VISI MISI & ABOUT */
-#about { 
-          position: relative; 
-          padding: 80px 20px; 
-          min-height: auto; 
-          overflow: hidden; 
-          width: 100%;
+    color: #fff; 
+    box-shadow: 0 0 15px var(--secondary-neon); 
 }
 
-/* --- FOTO SAMAR DI BELAKANG (FULL SECTION) --- */
+/* Ikon panah di tombol maju saat di-hover */
+.arrow-icon { 
+    margin-right: 8px; 
+    transition: transform 0.3s ease; 
+}
+.btn-view:hover .arrow-icon { 
+    transform: translateX(5px); 
+}
+
+/* ==========================================================================
+   7. BAGIAN ABOUT (VISI MISI & HISTORY ZIGZAG)
+   ========================================================================== */
+#about { 
+    position: relative; 
+    padding: 80px 20px; 
+    min-height: auto; 
+    overflow: hidden; 
+    width: 100%;
+}
+
+/* Background image samar di belakang About */
 .about-profile-img { 
     position: absolute; 
     top: 0; 
@@ -658,17 +748,20 @@ body.light-mode
     transition: all 0.5s ease;
     max-width: none; 
 }
-#about:hover 
- .about-profile-img img { 
-                           opacity: 0.25; 
-                           transform: scale(1.02); }
+#about:hover .about-profile-img img { 
+    opacity: 0.25; 
+    transform: scale(1.02); 
+}
 
+/* Menjaga z-index teks About di atas gambar latar */
 #about h2, 
 .visi-misi-container, 
 .about-us-container { 
-                      position: relative; 
-                      z-index: 2; }
+    position: relative; 
+    z-index: 2; 
+}
 
+/* Box untuk Visi Misi yang berjajar */
 .visi-misi-container { 
     display: flex; 
     gap: 30px; 
@@ -679,6 +772,8 @@ body.light-mode
     margin-left: auto; 
     margin-right: auto;
 }
+
+/* Box per item Visi/Misi */
 .vm-card { 
     flex: 1; 
     background: linear-gradient(145deg, rgba(15, 32, 39, 0.9), rgba(32, 58, 67, 0.9)); 
@@ -691,49 +786,58 @@ body.light-mode
     backdrop-filter: blur(5px);
 }
 .vm-card:hover { 
-                 transform: translateY(-5px); 
-                 border-color: var(--primary-neon); }
-.vm-card h3 { 
-                 color: var(--primary-neon); 
-                 font-size: 1.8rem; 
-                 margin-bottom: 15px; 
-                 text-transform: uppercase; }
-.vm-card p { 
-             font-size: 1rem; 
-             line-height: 1.6; 
-             color: #ddd; }
-
-/* ABOUT US HEADER & ANIMASI */
-.about-us-container { 
-                       width: 100%; 
-                       max-width: 900px; 
-                       display: flex; 
-                       flex-direction: column; 
-                       align-items: center; 
-                       margin-left: auto; 
-                       margin-right: auto;
+    transform: translateY(-5px); 
+    border-color: var(--primary-neon); 
 }
+.vm-card h3 { 
+    color: var(--primary-neon); 
+    font-size: 1.8rem; 
+    margin-bottom: 15px; 
+    text-transform: uppercase; 
+}
+.vm-card p { 
+    font-size: 1rem; 
+    line-height: 1.6; 
+    color: #ddd; 
+}
+
+/* Kontainer utama "Tentang Saya" (History Perjalanan) */
+.about-us-container { 
+    width: 100%; 
+    max-width: 900px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+/* Judul "Tentang Saya" yang bisa di-klik untuk membuka/tutup konten */
 .about-us-header { 
-                   display: flex; 
-                   align-items: center; 
-                   justify-content: center; 
-                   gap: 20px; 
-                   width: 100%; 
-                   cursor: pointer; 
-                   margin-bottom: 40px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 20px; 
+    width: 100%; 
+    cursor: pointer; 
+    margin-bottom: 40px; 
 }
 .about-us-header h3 { 
-                      font-size: 2rem; 
-                      color: var(--primary-neon); 
-                      text-transform: uppercase; 
-                      margin: 0; 
-                      font-weight: 800; 
+    font-size: 2rem; 
+    color: var(--primary-neon); 
+    text-transform: uppercase; 
+    margin: 0; 
+    font-weight: 800; 
 }
-.line { 
-         height: 3px; 
-         flex-grow: 1; 
-         background: var(--primary-neon); }
 
+/* Garis di kanan kiri judul "Tentang Saya" */
+.line { 
+    height: 3px; 
+    flex-grow: 1; 
+    background: var(--primary-neon); 
+}
+
+/* Kontainer isi History (Awalnya tersembunyi/0px) */
 .history-content { 
     max-height: 0; 
     overflow: hidden; 
@@ -743,13 +847,15 @@ body.light-mode
     flex-direction: column; 
     gap: 30px; 
 }
+
+/* Kontainer isi History saat DIBUKA */
 .history-content.active { 
     max-height: 5000px; 
     padding-top: 10px; 
-    animation: slideDownAbout 0.6s ease-out; /* Animasi Baru */
+    animation: slideDownAbout 0.6s ease-out;
 }
 
-/* --- HISTORY ITEM: OVERLAY + ZIGZAG + FULL IMAGE --- */
+/* Kotak untuk tiap tahun history */
 .history-item { 
     position: relative; 
     display: flex; 
@@ -765,40 +871,36 @@ body.light-mode
     transition: 0.3s;
 }
 .history-item:hover { 
-                      transform: translateY(-5px); 
-                      border-color: var(--primary-neon); }
+    transform: translateY(-5px); 
+    border-color: var(--primary-neon); 
+}
 
-/* Background Image Full */
+/* Gambar latar belakang tiap tahun history */
 .hist-img { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%;
-            z-index: 0; 
-            margin: 0; 
-            padding: 0; 
-            border-radius: 0;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    z-index: 0; 
+    margin: 0; 
+    padding: 0; 
+    border-radius: 0;
 }
 .hist-img img { 
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-    
-    /* PERUBAHAN DISINI */
-    opacity: 1; /* Gambar terlihat jelas sepenuhnya */
-    filter: none; /* Warna asli (tidak ada efek abu-abu) */
-    
+    opacity: 1; 
+    filter: none; 
     transition: transform 0.6s ease, opacity 0.3s ease;
 }
 .history-item:hover .hist-img img { 
-    transform: scale(1.1); /* Efek zoom saat hover tetap ada */
-    
-    /* PERUBAHAN DISINI */
-    opacity: 1; /* Tetap jelas saat di-hover */
+    transform: scale(1.1); 
+    opacity: 1; 
 }
 
-/* Teks di Depan */
+/* Posisi Teks History */
 .hist-text { 
     position: relative; 
     z-index: 2; 
@@ -806,25 +908,68 @@ body.light-mode
     text-shadow: 0 2px 10px rgba(0,0,0,0.9); 
 }
 
-/* ZIGZAG LOGIC - DESKTOP */
+/* ZigZag: Konten Ganjil di Kiri */
 .history-item:nth-child(odd) { 
-                                 justify-content: flex-start; 
-                                 text-align: left; }
+    justify-content: flex-start; 
+    text-align: left; 
+}
+
+/* ZigZag: Konten Genap di Kanan */
 .history-item:nth-child(even) { 
-                                 justify-content: flex-end; 
-                                 text-align: right; }
+    justify-content: flex-end; 
+    text-align: right; 
+}
 
+/* Ukuran Teks Tahun di History */
 .hist-text h4 { 
-                 font-size: 3rem; 
-                 color: var(--primary-neon); 
-                 margin-bottom: 15px; 
-                 font-weight: 800; }
+    font-size: 3rem; 
+    color: var(--primary-neon); 
+    margin-bottom: 15px; 
+    font-weight: 800; 
+}
 .hist-text p { 
-                 font-size: 1.1rem; 
-                 line-height: 1.6; 
-                 color: #fff; }
+    font-size: 1.1rem; 
+    line-height: 1.6; 
+    color: #fff; 
+}
 
-/* FOOTER */
+/* ==========================================================================
+   8. KOMENTAR & RATING BINTANG
+   ========================================================================== */
+/* Desain kotak urutan Bintang */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+/* Sembunyikan radio button asli */
+.star-rating input { 
+    display: none; 
+}
+
+/* Tampilan bintang (default abu-abu) */
+.star-rating label { 
+    cursor: pointer; 
+    color: #444; 
+    transition: 0.2s; 
+}
+
+/* Warna bintang saat diklik atau saat ditaruh kursor */
+.star-rating input:checked ~ label { 
+    color: #ffcc00; 
+}
+.star-rating label:hover,
+.star-rating label:hover ~ label { 
+    color: #ffeb3b; 
+}
+
+/* ==========================================================================
+   9. FOOTER (BAGIAN BAWAH)
+   ========================================================================== */
 footer { 
     background-color: rgba(0,0,0,0.8); 
     padding: 50px 20px; 
@@ -836,76 +981,114 @@ footer {
     text-align: center; 
     width: 100%; 
 }
-footer p { 
-          text-align: center; 
-          width: 100%; 
-          margin: 0; 
-          color: var(--text-muted); 
-          font-size: 0.9rem; }
-.social-links { 
-                margin-bottom: 30px; 
-                display: flex; 
-                justify-content: center; 
-                gap: 25px; 
-                width: 100%; }
-.social-icon-btn { 
-                   width: 55px; 
-                   height: 55px; 
-                   border-radius: 50%; 
-                   border: 2px solid var(--primary-neon); 
-                   color: var(--text-color); 
-                   display: flex; 
-                   align-items: center; 
-                   justify-content: center; 
-                   font-size: 1.6rem; 
-                   text-decoration: none; 
-                   transition: 0.3s; 
-                   position: relative; 
-}
-.social-icon-btn:hover { 
-                         background: var(--primary-neon); 
-                         color: #000; 
-                         box-shadow: 0 0 25px var(--primary-neon); 
-                         transform: translateY(-5px); 
-}
-.social-icon-btn::after { 
-                          content: attr(data-name); 
-                           position: absolute; 
-                            top: -40px; 
-                             left: 50%; 
-                              transform: translateX(-50%); 
-                               background: var(--primary-neon); 
-                                color: #000; 
-                                 padding: 5px 12px; 
-                                  border-radius: 5px; 
-                                  font-size: 0.85rem; 
-                                   font-weight: bold; 
-                                    opacity: 0; 
-                                     pointer-events: none; 
-                                      transition: 0.3s; 
-                                       white-space: nowrap; 
-                                        box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
-}
-.social-icon-btn::before { 
-                             content: ''; 
-                              position: absolute; 
-                               top: -10px; 
-                                left: 50%; 
-                                 transform: translateX(-50%); 
-                                   border-width: 6px; 
-                                    border-style: solid; 
-                                     border-color: var(--primary-neon) transparent transparent transparent; 
-                                      opacity: 0; 
-                                       transition: 0.3s; 
-}
-.social-icon-btn:hover::after { opacity: 1; top: -50px; }
-.social-icon-btn:hover::before { opacity: 1; top: -14px; }
 
-/* =================================================================
-   5. OPTIMASI MOBILE (HP - MAX WIDTH 768PX)
-   ================================================================= */
+footer p { 
+    text-align: center; 
+    width: 100%; 
+    margin: 0; 
+    color: var(--text-muted); 
+    font-size: 0.9rem; 
+}
+
+/* Pembungkus Ikon Sosial Media */
+.social-links { 
+    margin-bottom: 30px; 
+    display: flex; 
+    justify-content: center; 
+    gap: 25px; 
+    width: 100%; 
+}
+
+/* Lingkaran Ikon Sosial Media */
+.social-icon-btn { 
+    width: 55px; 
+    height: 55px; 
+    border-radius: 50%; 
+    border: 2px solid var(--primary-neon); 
+    color: var(--text-color); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 1.6rem; 
+    text-decoration: none; 
+    transition: 0.3s; 
+    position: relative; 
+}
+
+/* Hover Lingkaran Sosial Media */
+.social-icon-btn:hover { 
+    background: var(--primary-neon); 
+    color: #000; 
+    box-shadow: 0 0 25px var(--primary-neon); 
+    transform: translateY(-5px); 
+}
+
+/* Kotak Popup Nama Sosial Media (Tooltip) */
+.social-icon-btn::after { 
+    content: attr(data-name); 
+    position: absolute; 
+    top: -40px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: var(--primary-neon); 
+    color: #000; 
+    padding: 5px 12px; 
+    border-radius: 5px; 
+    font-size: 0.85rem; 
+    font-weight: bold; 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: 0.3s; 
+    white-space: nowrap; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
+}
+
+/* Segitiga panah ke bawah untuk Tooltip */
+.social-icon-btn::before { 
+    content: ''; 
+    position: absolute; 
+    top: -10px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    border-width: 6px; 
+    border-style: solid; 
+    border-color: var(--primary-neon) transparent transparent transparent; 
+    opacity: 0; 
+    transition: 0.3s; 
+}
+
+/* Munculkan Tooltip saat Hover */
+.social-icon-btn:hover::after { 
+    opacity: 1; 
+    top: -50px; 
+}
+.social-icon-btn:hover::before { 
+    opacity: 1; 
+    top: -14px; 
+}
+
+/* Gaya Footer saat Mode Terang */
+body.light-mode footer {
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+    color: #333;
+}
+body.light-mode .social-icon-btn {
+    border-color: var(--primary-neon);
+    color: var(--primary-neon);
+}
+body.light-mode .social-icon-btn:hover {
+    background-color: var(--primary-neon);
+    color: #fff;
+}
+
+/* ==========================================================================
+   10. MEDIA QUERIES (OPTIMASI UNTUK HANDPHONE)
+   Kode ini berjalan otomatis jika layar berukuran 768px atau lebih kecil.
+   ========================================================================== */
 @media (max-width: 768px) {
-.navbar { 
+    /* Navbar HP */
+    .navbar { 
         height: auto; 
         padding: 15px 20px; 
         background: var(--navbar-bg); 
@@ -914,192 +1097,255 @@ footer p {
         flex-wrap: wrap; 
         justify-content: space-between; 
         align-items: center; 
-        
-        /* UPDATE: Biar atasnya bulat, bawahnya rata (nyambung sama menu) */
         border-radius: 20px 20px 0 0; 
-        border-bottom: none; /* Hilangkan garis bawah */
+        border-bottom: none; 
     }
+    
+    /* Tampilkan ikon Menu Hamburger */
     .hamburger {  
-                  display: flex !important; 
-                   margin-left: auto; }
- .nav-links { 
+        display: flex !important; 
+        margin-left: auto; 
+    }
+    
+    /* Box Menu Dropdown HP */
+    .nav-links { 
         position: absolute; 
-        
-        /* UPDATE: Tempel persis di bawah navbar */
         top: 100%; 
         left: 0; 
         width: 100%; 
         background: var(--mobile-menu-bg); 
-        
-        /* UPDATE: Garis & Radius biar seolah satu kotak */
         border: 1px solid var(--card-border); 
-        border-top: none; /* Hilangkan garis atas */
-        border-radius: 0 0 20px 20px; /* Bawah bulat, atas rata */
-        
+        border-top: none; 
+        border-radius: 0 0 20px 20px; 
         flex-direction: column; 
         padding: 20px; 
         display: none; 
         z-index: 999; 
-        
-        /* Bayangan biar rapi */
         box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
+    
+    /* Animasi Buka Menu HP */
     .nav-links.active { 
-                        display: flex; 
-                         animation: slideDown 0.3s ease forwards; }
+        display: flex; 
+        animation: slideDown 0.3s ease forwards; 
+    }
+    
     .nav-links ul { 
-                     flex-direction: column; 
-                      width: 100%; 
-                       gap: 15px; }
+        flex-direction: column; 
+        width: 100%; 
+        gap: 15px; 
+    }
+    
+    /* Box tombol Bahasa & Mode HP */
     .controls { 
-                 margin-top: 20px; 
-                  justify-content: center; 
-                   width: 100%; }
+        margin-top: 20px; 
+        justify-content: center; 
+        width: 100%; 
+    }
     
-    .hero h1 { font-size: 2.2rem !important; }
+    .hero h1 { 
+        font-size: 2.2rem !important; 
+    }
     
-    /* UKURAN SKILL (PERSIS SEPERTI SEBELUMNYA) */
+    /* Ukuran Icon Skill HP */
     .tech-item { 
-                 width: 120px; 
-                  height: 120px; 
-                   padding: 10px; }
+        width: 120px; 
+        height: 120px; 
+        padding: 10px; 
+    }
     .tech-item img { 
-                      width: 60px; 
-                       height: 60px; 
-                        margin-bottom: 5px; }
-    .marquee-content { gap: 1.5rem; }
+        width: 60px; 
+        height: 60px; 
+        margin-bottom: 5px; 
+    }
+    .marquee-content { 
+        gap: 1.5rem; 
+    }
 
-    section { padding: 60px 15px; 
-                min-height: auto; 
-                  overflow-x: hidden; }
+    section { 
+        padding: 60px 15px; 
+        min-height: auto; 
+        overflow-x: hidden; 
+    }
+    
     .profil-card { 
-                   padding: 30px; 
-                    width: 100%; }
+        padding: 30px; 
+        width: 100%; 
+    }
+    
     .detail-row { 
-                  flex-direction: column; 
-                   gap: 5px; 
-                    text-align: center; }
+        flex-direction: column; 
+        gap: 5px; 
+        text-align: center; 
+    }
     
+    /* Proyek dan Sertifikat memanjang ke bawah (1 Kolom) */
     .project-grid, 
-    .cert-container { grid-template-columns: 1fr; }
-    .visi-misi-container { flex-direction: column; }
-    .about-profile-img img {  
-                              width: 90%; 
-                              opacity: 0.4; }
+    .cert-container { 
+        grid-template-columns: 1fr; 
+    }
     
-    /* FIX HP TETAP ZIGZAG KONTENNYA, TAPI LAYOUT 1 KOLOM */
+    .visi-misi-container { 
+        flex-direction: column; 
+    }
+    
+    .about-profile-img img {  
+        width: 90%; 
+        opacity: 0.4; 
+    }
+    
+    /* History menjadi blok lurus ke bawah di HP */
     .history-item { 
-                   min-height: 250px; 
-                   padding: 20px; 
-                   width: 100%; 
-                    flex-direction: column; 
-                     justify-content: center; 
-                     text-align: flex;
+        min-height: 250px; 
+        padding: 20px; 
+        width: 100%; 
+        flex-direction: column; 
+        justify-content: center; 
+        text-align: left;
     }
-    .history-item:nth-child(odd) {
-                                    align-items: flex-start; /* Kotak teks di kiri */
-                                    text-align: left;        /* Teks rata kiri */
+    
+    /* Mematikan efek ZigZag untuk di HP */
+    .history-item:nth-child(odd),
+    .history-item:nth-child(even) {
+        align-items: flex-start;
+        text-align: left;
     }
-                     
-    .history-item:nth-child(even) {  
-                                    align-items: flex-end;   /* Kotak teks di kanan */
-                                    text-align: right;       /* Teks rata kanan */
+                      
+    .hist-text { 
+        width: 90%; 
+    } 
+    .hist-text h4 { 
+        font-size: 1.8rem; 
+        margin-bottom: 10px; 
     }
-    .hist-text { width: 90%; } 
-    .hist-text h4 { font-size: 1.8rem; 
-                    margin-bottom: 10px; }
-    .hist-text p { font-size: 0.95rem; }
+    .hist-text p { 
+        font-size: 0.95rem; 
+    }
 
-    /* ===================================================
-       ANIMASI KHUSUS HP (KANAN - KIRI) SAAT SCROLL
-       =================================================== */
-    /* RESET DELAY */
-    .project-card, .cert-card, .vm-card, .history-item {
+    /* MENGATUR ANIMASI MUNCUL UNTUK HP */
+    /* Menghapus delay agar tidak lag */
+    .project-card, 
+    .cert-card, 
+    .vm-card, 
+    .history-item {
         animation-delay: 0s !important;
     }
 
-    /* Project & Cert Ganjil (Dari Kiri) */
+    /* Slide Kiri & Kanan Berdasarkan Urutan */
     .project-card:nth-child(odd).show, 
-    .cert-card:nth-child(odd).show { animation: slideInLeft 0.8s ease-out forwards; }
-    
-    /* Project & Cert Genap (Dari Kanan) */
+    .cert-card:nth-child(odd).show { 
+        animation: slideInLeft 0.8s ease-out forwards; 
+    }
     .project-card:nth-child(even).show, 
-    .cert-card:nth-child(even).show { animation: slideInRight 0.8s ease-out forwards; }
+    .cert-card:nth-child(even).show { 
+        animation: slideInRight 0.8s ease-out forwards; 
+    }
 
-    /* Visi (Kiri) */
-    .vm-card:first-child.show { animation: slideInLeft 0.8s ease-out forwards; }
-    
-    /* Misi (Kanan) */
-    .vm-card:last-child.show { animation: slideInRight 0.8s ease-out forwards; }
+    .vm-card:first-child.show { 
+        animation: slideInLeft 0.8s ease-out forwards; 
+    }
+    .vm-card:last-child.show { 
+        animation: slideInRight 0.8s ease-out forwards; 
+    }
 
-    /* History (Fade In) */
-    .history-item.show { animation: fadeInUp 1s ease-out forwards; }
+    .history-item.show { 
+        animation: fadeInUp 1s ease-out forwards; 
+    }
 }
 
-
-/* =================================================================
-   6. SCROLL ANIMATION SYSTEM (DESKTOP & COMMON)
-   ================================================================= */
-/* Default State (Tersembunyi) */
+/* ==========================================================================
+   11. SISTEM ANIMASI SCROLL & KEYFRAMES GLOBAL
+   Kumpulan logika animasi yang digunakan di seluruh web
+   ========================================================================== */
+/* Memastikan elemen tersembunyi sebelum masuk area scroll */
 .project-card, 
 .cert-card, 
 .vm-card, 
 .history-item, 
 .profil-card, 
-section h2, 
-.hero p {
+section h2 {
     opacity: 0; 
 }
 
-/* State Aktif (Muncul) */
-.show { animation: fadeInUp 1s ease-out forwards; }
-
-/* 1. Fade Up (Default untuk Desktop) */
-@keyframes fadeInUp { from { 
-                             opacity: 0; 
-                             transform: translateY(50px); 
-                             filter: blur(5px); } to { 
-                                                       opacity: 1; 
-                                                       transform: translateY(0); 
-                                                       filter: blur(0); } }
-
-          /* 2. Slide In Left (Untuk HP Ganjil) */
-             @keyframes slideInLeft { from { 
-                                             opacity: 0; 
-                                             transform: translateX(-100px); 
-                                             filter: blur(5px); } to { 
-                                                                       opacity: 1; 
-                                                                       transform: translateX(0); 
-                                                                       filter: blur(0); } }
-
-          /* 3. Slide In Right (Untuk HP Genap) */
-             @keyframes slideInRight { from { 
-                                              opacity: 0; 
-                                              transform: translateX(100px); 
-                                              filter: blur(5px); } to { 
-                                                                        opacity: 1; 
-                                                                        transform: translateX(0); 
-                                                                        filter: blur(0); } }
-
-     /* 4. Slide Down (About Us) */
-    @keyframes slideDownAbout { from { 
-                                   opacity: 0; 
-                                   transform: translateY(-30px); } to { 
-                                                                         opacity: 1; 
-                                                                         transform: translateY(0); } }
-
-/* DELAY ANIMASI (STAGGER) - HANYA UNTUK DESKTOP */
-@media (min-width: 769px) {
-    .project-card:nth-child(1) { animation-delay: 0.3s; }
-    .project-card:nth-child(2) { animation-delay: 0.4s; }
-    .project-card:nth-child(3) { animation-delay: 0.5s; }
-    .project-card:nth-child(4) { animation-delay: 0.6s; }
-    .project-card:nth-child(5) { animation-delay: 0.7s; }
-    .project-card:nth-child(6) { animation-delay: 0.8s; }
+/* Memanggil animasi ketika class .show ditambahkan oleh JavaScript */
+.show { 
+    animation: fadeInUp 1s ease-out forwards; 
 }
 
-      /* Hero Title Pengecualian (Langsung Muncul) */
-         .hero h1 {  
-                    opacity: 1;  
-                    transform: none; 
-                    animation: none; }
+/* Keyframes untuk Slider Skill ke Kiri */
+@keyframes scrollLeft { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
+}
+
+/* Keyframes untuk Slider Skill ke Kanan */
+@keyframes scrollRight { 
+    0% { transform: translateX(-50%); } 
+    100% { transform: translateX(0); } 
+}
+
+/* Animasi Muncul dari Bawah (Untuk Konten Scroll) */
+@keyframes fadeInUp { 
+    from { 
+        opacity: 0; 
+        transform: translateY(50px); 
+        filter: blur(5px); 
+    } 
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+        filter: blur(0); 
+    } 
+}
+
+/* Animasi Masuk dari Kiri (Khusus HP) */
+@keyframes slideInLeft { 
+    from { 
+        opacity: 0; 
+        transform: translateX(-100px); 
+        filter: blur(5px); 
+    } 
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+        filter: blur(0); 
+    } 
+}
+
+/* Animasi Masuk dari Kanan (Khusus HP) */
+@keyframes slideInRight { 
+    from { 
+        opacity: 0; 
+        transform: translateX(100px); 
+        filter: blur(5px); 
+    } 
+    to { 
+        opacity: 1; 
+        transform: translateX(0); 
+        filter: blur(0); 
+    } 
+}
+
+/* Animasi Menu Dropdown Turun (Mobile) */
+@keyframes slideDown { 
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    } 
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+}
+
+/* Animasi Buka Bagian About Us */
+@keyframes slideDownAbout { 
+    from { 
+        opacity: 0; 
+        transform: translateY(-30px); 
+    } 
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+}

@@ -162,7 +162,7 @@
                 <div class="project-img"><img src="assets/img/Project3.png" alt="Project 3" onerror="this.style.display='none'"></div>
                 <div class="project-info">
                     <h3>Web Absensi Karyawan</h3>
-                    <p data-i18n="desc_p3">Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time.</p>
+                    <p data-i18n="desc_p3">Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.</p>
                     <a href="https://presensi.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
                         <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
                     </a>
@@ -173,7 +173,7 @@
                 <div class="project-img"><img src="assets/img/Project4.png" alt="Project 4" onerror="this.style.display='none'"></div>
                 <div class="project-info">
                     <h3>Web Ecommerce</h3>
-                    <p data-i18n="desc_p4">Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis.</p>
+                    <p data-i18n="desc_p4">Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis. Menggunakan CSS modern untuk efek visual Glassmorphism dan tata letak responsif yang rapi di perangkat mobile.</p>
                     <a href="https://api3.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
                         <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
                     </a>
@@ -195,7 +195,7 @@
                 <div class="project-img"><img src="assets/img/Project6.png" alt="Project 6" onerror="this.style.display='none'"></div>
                 <div class="project-info">
                     <h3>Web Couple</h3>
-                    <p data-i18n="desc_p6">Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font) dan integrasi invoice WA.</p>
+                    <p data-i18n="desc_p6">Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.</p>
                     <a href="https://proyek.ecommercedamta.com/" target="_blank" class="btn-view" data-i18n="btn_view">
                         <i class="ri-arrow-right-line arrow-icon"></i> <span class="btn-text">Lihat Website</span>
                     </a>
@@ -320,6 +320,55 @@
         </div>
     </section>
 
+    <section id="comments" class="hidden">
+        <h2 data-i18n="comment_title">Komentar & Rating</h2>
+        
+        <div class="comment-container profil-card" style="max-width: 800px; margin: 0 auto;">
+            <div id="auth-section" style="text-align: center;">
+                <p style="margin-bottom: 20px;">Berikan feedback atau sapa saya di sini:</p>
+                
+                <button 
+                  id="btn-login-google" 
+                  class="btn-view" 
+                  style="background: #ffffff; color: #333333; font-weight: bold; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 25px; border-radius: 50px; cursor: pointer;"
+                >
+                    <img 
+                      src="assets/img/Google.png" 
+                      alt="Google" 
+                      style="width: 24px; height: 24px; filter: none !important; margin: 0; padding: 0;"
+                    >
+                    Login dengan Google
+                </button>
+
+            </div>
+
+            <div id="comment-form" style="display: none;">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                    <img id="user-photo" src="" alt="User" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--primary-neon);">
+                    <span id="user-name-display" style="font-weight: 600;"></span>
+                    <button id="btn-logout" class="control-btn" style="font-size: 0.7rem; height: 30px;">Logout</button>
+                </div>
+
+                <div class="star-rating">
+                    <input type="radio" name="stars" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="stars" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="stars" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="stars" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="stars" id="star1" value="1"><label for="star1">★</label>
+                </div>
+
+                <textarea id="comment-input" placeholder="Tulis komentar kamu..." style="width: 100%; height: 100px; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: white; border-radius: 10px; padding: 15px; margin: 15px 0; font-family: inherit; resize: none;"></textarea>
+                <button id="submit-comment" class="btn-view">Kirim Komentar</button>
+            </div>
+
+            <hr style="margin: 30px 0; border: 0; border-top: 1px solid var(--card-border); opacity: 0.3;">
+
+            <div id="comments-display-list" style="text-align: left;">
+                <p>Memuat komentar...</p>
+            </div>
+        </div>
+    </section>
+
     <footer id="contact">
         <div class="social-links">
             <a href="https://instagram.com/tadamta_" target="_blank" class="social-icon-btn" data-name="Instagram">
@@ -343,8 +392,90 @@
         </p>
     </footer>
 
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyC80W6y97OPM8m6VeiKs_0vt7oCd5HsTi8",
+            authDomain: "projectdamta.firebaseapp.com",
+            projectId: "projectdamta",
+            storageBucket: "projectdamta.firebasestorage.app",
+            messagingSenderId: "118530088464",
+            appId: "1:118530088464:web:f193173dcc75d7557b7495"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        const authSection = document.getElementById('auth-section');
+        const commentForm = document.getElementById('comment-form');
+        const listContainer = document.getElementById('comments-display-list');
+
+        document.getElementById('btn-login-google').onclick = () => signInWithPopup(auth, provider);
+        document.getElementById('btn-logout').onclick = () => signOut(auth);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                authSection.style.display = 'none';
+                commentForm.style.display = 'block';
+                document.getElementById('user-photo').src = user.photoURL;
+                document.getElementById('user-name-display').innerText = user.displayName;
+            } else {
+                authSection.style.display = 'block';
+                commentForm.style.display = 'none';
+            }
+        });
+
+        document.getElementById('submit-comment').onclick = async () => {
+            const text = document.getElementById('comment-input').value;
+            const rating = document.querySelector('input[name="stars"]:checked')?.value || 0;
+            const user = auth.currentUser;
+
+            if (!text || rating == 0) return alert("Isi komentar dan pilih bintang!");
+
+            try {
+                await addDoc(collection(db, "comments"), {
+                    name: user.displayName,
+                    photo: user.photoURL,
+                    email: user.email,
+                    comment: text,
+                    rating: parseInt(rating),
+                    timestamp: serverTimestamp()
+                });
+                document.getElementById('comment-input').value = "";
+                alert("Terima kasih ulasannya!");
+            } catch (e) { alert("Gagal mengirim: " + e.message); }
+        };
+
+        const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+        onSnapshot(q, (snapshot) => {
+            listContainer.innerHTML = "";
+            if (snapshot.empty) listContainer.innerHTML = "<p>Belum ada ulasan.</p>";
+            snapshot.forEach((doc) => {
+                const d = doc.data();
+                const stars = "⭐".repeat(d.rating);
+                const isOwner = d.email === "damtafaiz@gmail.com" ? "<span style='background:var(--primary-neon); color:#000; font-size:0.6rem; padding:2px 5px; border-radius:4px; margin-left:5px;'>Owner</span>" : "";
+                
+                listContainer.innerHTML += `
+                    <div style="display:flex; gap:15px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.05); padding-bottom:15px;">
+                        <img src="${d.photo}" style="width:40px; height:40px; border-radius:50%;">
+                        <div style="flex:1;">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <strong>${d.name}${isOwner}</strong>
+                                <span style="font-size:0.8rem;">${stars}</span>
+                            </div>
+                            <p style="font-size:0.9rem; color:var(--text-muted); margin-top:5px;">${d.comment}</p>
+                        </div>
+                    </div>`;
+            });
+        });
+    </script>
+
     <script>
-        // --- 1. OBSERVER ANIMASI SCROLL ---
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {
@@ -356,12 +487,11 @@
             }, { threshold: 0.1 }); 
 
             const hiddenElements = document.querySelectorAll(
-                '.hero, .profil-card, .skill-section, .project-card, .cert-card, .visi-misi-container, .vm-card, .history-item, section h2'
+                '.hero, .profil-card, .skill-section, .project-card, .cert-card, .visi-misi-container, .vm-card, .history-item, section h2, #comments'
             );
             hiddenElements.forEach((el) => observer.observe(el));
         });
 
-        // --- 2. FUNGSI UI (MENU & HISTORY) ---
         function toggleHistory() {
             document.getElementById('historyPopup').classList.toggle('active');
         }
@@ -376,7 +506,6 @@
             document.getElementById('hamburger').classList.remove('active');
         }
 
-        // --- 3. DATA TRANSLATION (BAHASA) ---
         const translations = {
             id: {
                 nav_home: "Beranda", 
@@ -416,6 +545,7 @@
                 cert_6: "REDHAT", 
                 desc_c6: "Mempelajari Tentang Dasar-dasar Red Hat System Administration.",
                 about_title: "Visi & Misi",
+                comment_title: "Komentar & Rating",
                 footer: "Hak Cipta Dilindungi."
             },
             en: {
@@ -456,11 +586,11 @@
                 cert_6: "REDHAT", 
                 desc_c6: "Learning the basics of Red Hat System Administration.",
                 about_title: "Vision & Mission",
+                comment_title: "Comments & Ratings",
                 footer: "All Rights Reserved."
             }
         };
 
-        // --- 4. GANTI BAHASA ---
         let currentLang = 'id';
         function toggleLanguage() {
             currentLang = currentLang === 'id' ? 'en' : 'id';
@@ -473,7 +603,6 @@
             });
         }
 
-        // --- 5. TEMA (DARK/LIGHT) ---
         let isLightMode = false;
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
