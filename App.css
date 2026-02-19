@@ -155,9 +155,9 @@ body {
     justify-content: center;
 }
 
-/* MENGEMBALIKAN LOGO D AGAR TERLIHAT DAN TANPA ANIMASI */
+/* BLOKIR ANIMASI MUTLAK UNTUK LOGO "D" */
 .logo-container img { 
-    height: 250%; /* Disesuaikan agar pas di dalam navbar */
+    height: 250%; 
     width: auto; 
     object-fit: contain; 
     border-radius: 0; 
@@ -184,7 +184,6 @@ body {
     padding: 0;
 }
 
-/* PERBAIKAN UKURAN FONT NAVBAR AGAR PAS */
 .nav-links a {
     display: flex; 
     align-items: center; 
@@ -200,26 +199,6 @@ body {
     position: relative; 
     padding: 5px 0;
     white-space: nowrap; 
-}
-
-/* LOGIKA WARNA IKON NAVBAR 
-  - Saat Mode Gelap: Gambar di-invert menjadi putih
-  - Saat Mode Terang: Gambar kembali ke aslinya (hitam/gelap)
-*/
-.nav-links a img {
-    display: block;
-    margin: 0 !important; 
-    padding: 0 !important;
-    width: 20px !important; 
-    height: 20px !important; 
-    /* Default Mode Gelap (Invert jadi Putih) */
-    filter: invert(1) brightness(200%); 
-    transition: filter 0.3s ease;
-}
-
-/* Mode Terang (Kembali ke warna asli ikon hitam/gelap) */
-body.light-mode .nav-links a img {
-    filter: none; 
 }
 
 .nav-links a::after {
@@ -245,7 +224,76 @@ body.light-mode .nav-links a img {
 }
 
 /* ==========================================================================
-   3C. TOMBOL KONTROL & HAMBURGER MENU (MOBILE)
+   3C. PENGATURAN KHUSUS FOTO / IKON DI DALAM NAVBAR (INDIVIDUAL)
+   Di sini Anda bisa mengatur ukuran gambar navbar secara terpisah.
+   ========================================================================== */
+/* Pengaturan Dasar untuk semua gambar di link navbar */
+.nav-links a img {
+    display: block;
+    margin: 0 !important; 
+    padding: 0 !important;
+    /* Mengubah ikon hitam menjadi putih di mode gelap */
+    filter: invert(1) brightness(200%); 
+    transition: filter 0.3s ease;
+}
+
+/* Mode Terang (Kembali ke warna asli ikon hitam/gelap) */
+body.light-mode .nav-links a img {
+    filter: none; 
+}
+
+/* --- PENGATURAN UKURAN IKON INDIVIDUAL (EDIT DI SINI) --- */
+
+/* 1. Ikon Beranda (home.png) */
+.nav-links a img[src*="home.png"] {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* 2. Ikon Profil (profil.png) */
+.nav-links a img[src*="profil.png"] {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* 3. Ikon Skill (skill.png) */
+.nav-links a img[src*="skill.png"] {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* 4. Ikon Proyek (proyek.png) */
+.nav-links a img[src*="proyek.png"] {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* 5. Ikon Pencapaian/Sertifikat (sertif.png) */
+.nav-links a img[src*="sertif.png"] {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* 6. Ikon Tentang Saya (tentang kami.png) */
+.nav-links a img[src*="tentang kami.png"] {
+    width: 18px !important;
+    height: 18px !important;
+}
+
+/* 7. Ikon Komentar (komen&rate.png) */
+.nav-links a img[src*="komen&rate.png"] {
+    width: 24px !important; /* Contoh: dibuat lebih lebar */
+    height: 18px !important;
+}
+
+/* 8. Ikon Kontak (kontak.png) */
+.nav-links a img[src*="kontak.png"] {
+    width: 24px !important;
+    height: 24px !important; /* Contoh: dibuat lebih besar */
+}
+
+/* ==========================================================================
+   3D. TOMBOL KONTROL & HAMBURGER MENU (MOBILE)
    ========================================================================== */
 .controls { 
     display: flex; 
@@ -372,11 +420,11 @@ body.light-mode .neon-title-blue {
 }
 
 /* ==========================================================================
-   4B. ANIMASI 10D HERO REVEAL SUPER MODERN
+   4B. ANIMASI 10D HERO REVEAL (KEMBALI KE YANG EKSTRIM)
    ========================================================================== */
 .hero { 
     margin-top: 80px; 
-    perspective: 3000px; /* Perspektif ekstrem untuk ruang 10D */
+    perspective: 3000px; /* Perspektif sangat dalam untuk efek 10D */
     transform-style: preserve-3d;
     overflow: visible; 
 }
@@ -391,7 +439,7 @@ body.light-mode .neon-title-blue {
     text-shadow: 0 0 20px rgba(0, 243, 255, 0.4); 
     opacity: 0; 
     transform-origin: center center;
-    /* Panggilan animasi 10D Hero */
+    /* Panggilan animasi 10D Ekstrim */
     animation: hero10DReveal 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.2s; 
 }
 
@@ -407,12 +455,12 @@ body.light-mode .hero h1 {
     font-weight: 300; 
     opacity: 0; 
     transform-origin: center center;
-    /* Panggilan animasi 10D Hero dengan Delay */
+    /* Panggilan animasi 10D Ekstrim dengan Delay */
     animation: hero10DReveal 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.6s; 
 }
 
 /* ==========================================================================
-   4C. PENGATURAN KARTU (CARD) & EFEK 3D HOVER (DIKEMBALIKAN PERSIS SPT ASLI)
+   4C. PENGATURAN KARTU (CARD) & EFEK 3D HOVER
    ========================================================================== */
 .profil-card, 
 .tech-item, 
@@ -425,9 +473,7 @@ body.light-mode .hero h1 {
     border-radius: 20px; 
     color: var(--text-color);
     box-shadow: 0 0 20px var(--shadow-color); 
-    /* Transisi Lebih Smooth & Kenyal */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    /* Menjaga elemen anak tetap 3D */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
 }
 
@@ -440,6 +486,11 @@ body.light-mode .hero h1 {
     z-index: 2; 
     margin-left: auto; 
     margin-right: auto;
+}
+
+.profil-card:hover { 
+    transform: translateY(-10px); 
+    box-shadow: 0 0 50px var(--secondary-neon); 
 }
 
 .profil-card h2 { 
@@ -472,22 +523,17 @@ body.light-mode .hero h1 {
     pointer-events: none; 
 }
 
-/* Efek Saat Hover (Khusus Desktop) */
 @media (min-width: 769px) {
     .project-card:hover, 
     .cert-card:hover,
     .profil-card:hover,
     .vm-card:hover { 
-        /* Naik ke atas (-15px), Membesar sedikit, Miring sedikit (3D) */
         transform: translateY(-15px) scale(1.02) rotateX(5deg); 
-        
-        /* Bayangan Neon Lebih Kuat & Jauh */
         box-shadow: 0 30px 60px rgba(0, 243, 255, 0.25); 
         border-color: var(--primary-neon);
         z-index: 10;
     }
     
-    /* Gambar di dalam kartu ikut zoom (Parallax effect) */
     .project-card:hover .project-img img,
     .cert-card:hover .cert-img-box img {
         transform: scale(1.15) translateY(-5px);
@@ -705,7 +751,7 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   7. BAGIAN ABOUT (VISI MISI & HISTORY ZIGZAG)
+   7. BAGIAN ABOUT (VISI MISI & HISTORY ZIGZAG TANPA KOTAK)
    ========================================================================== */
 #about { 
     position: relative; 
@@ -796,7 +842,7 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   7B. PENGATURAN TENTANG SAYA (HISTORY ZIGZAG MURNI TANPA GARIS HITAM)
+   7B. PENGATURAN TENTANG SAYA (HISTORY ZIGZAG TANPA KOTAK BACKGROUND)
    ========================================================================== */
 .about-us-container { 
     width: 100%; 
@@ -827,7 +873,6 @@ body.light-mode .hero h1 {
 }
 
 .line { 
-    /* Menghapus div line yang tadinya ada secara bawaan HTML jika menyebabkan garis */
     height: 3px; 
     flex-grow: 1; 
     background: var(--primary-neon); 
@@ -857,7 +902,6 @@ body.light-mode .hero h1 {
     min-height: 350px; 
     padding: 40px; 
     border-radius: 20px; 
-    /* MENGHILANGKAN BORDER BAWAAN KARTU AGAR TIDAK ADA GARIS HITAM */
     border: none;
     overflow: hidden; 
     background: transparent; 
@@ -865,10 +909,9 @@ body.light-mode .hero h1 {
     transition: 0.3s;
 }
 
-/* Hover Effect Pada Kartu Timbul Tetap Dipertahankan (tanpa border line) */
 .history-item:hover { 
     transform: translateY(-5px); 
-    box-shadow: 0 15px 40px rgba(0, 243, 255, 0.4);
+    border-color: var(--primary-neon); 
 }
 
 .hist-img { 
@@ -888,7 +931,7 @@ body.light-mode .hero h1 {
     height: 100%; 
     object-fit: cover; 
     opacity: 1; 
-    filter: brightness(60%); /* Gambar digelapkan sedikit agar teks putih menonjol */
+    filter: brightness(60%); 
     transition: transform 0.6s ease, filter 0.3s ease;
 }
 
@@ -897,21 +940,19 @@ body.light-mode .hero h1 {
     filter: brightness(80%); 
 }
 
-/* KOTAK TEKS HISTORY (Agar lebih jelas saat menjadi zigzag, tanpa box hitam/garis) */
+/* KOTAK TEKS HISTORY */
 .hist-text { 
     position: relative; 
     z-index: 2; 
     width: 50%; 
     padding: 30px; 
-    background: transparent; /* Box dihapus */
+    background: transparent; 
     border-radius: 0; 
     backdrop-filter: none; 
     -webkit-backdrop-filter: none;
-    /* Memberi bayangan hitam tebal di setiap huruf agar sangat jelas */
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 1), -2px -2px 8px rgba(0,0,0,1); 
 }
 
-/* Kotak ke-1, 3, 5 (Ganjil): Posisi di Kiri */
 .history-item:nth-child(odd) { 
     justify-content: flex-start; 
 }
@@ -921,7 +962,6 @@ body.light-mode .hero h1 {
     margin-right: auto; 
 }
 
-/* Kotak ke-2, 4 (Genap): Posisi di Kanan, Teks tetap rata kiri */
 .history-item:nth-child(even) { 
     justify-content: flex-end; 
 }
@@ -1345,35 +1385,29 @@ section h2 {
     100% { background-position: 0% 50%; }
 }
 
-/* ANIMASI 10D HERO REVEAL SUPER MODERN */
+/* ANIMASI 10D HERO REVEAL (KEMBALI KE YANG EKSTRIM) */
 @keyframes hero10DReveal {
     0% {
         opacity: 0;
-        /* Jatuh dari jauh, berputar ekstrem */
-        transform: rotateX(80deg) rotateY(45deg) rotateZ(15deg) translateZ(-1000px) translateY(500px) scale(0.2);
-        filter: blur(30px) brightness(0.5);
+        /* Posisi awal: Jauh, miring ekstrim, kecil, blur total */
+        transform: perspective(3000px) rotateX(80deg) rotateY(45deg) rotateZ(-30deg) translateZ(-2000px) translateY(800px) scale(0.1);
+        filter: blur(50px) brightness(0);
     }
-    30% {
-        opacity: 0.4;
-        /* Mulai mendekat, rotasi mulai terkontrol */
-        transform: rotateX(40deg) rotateY(20deg) rotateZ(5deg) translateZ(-200px) translateY(100px) scale(0.8);
-        filter: blur(15px) brightness(1.5) drop-shadow(0 0 60px var(--secondary-neon));
+    40% {
+        opacity: 0.6;
+        /* Mulai mendekat, berputar cepat */
+        transform: perspective(3000px) rotateX(40deg) rotateY(20deg) rotateZ(-10deg) translateZ(-500px) translateY(200px) scale(0.6);
+        filter: blur(20px) brightness(1.5);
     }
-    60% {
-        opacity: 0.8;
-        /* Overshoot (melampaui batas layar sedikit) untuk efek memantul */
-        transform: rotateX(-15deg) rotateY(-10deg) rotateZ(-2deg) translateZ(150px) translateY(-30px) scale(1.15);
-        filter: blur(5px) brightness(2) drop-shadow(0 0 40px var(--primary-neon));
-    }
-    85% {
-        /* Koreksi posisi (memantul kembali) */
-        transform: rotateX(5deg) rotateY(2deg) rotateZ(0deg) translateZ(-30px) translateY(10px) scale(0.95);
-        filter: blur(1px) brightness(1);
+    70% {
+         /* Overshoot (melewati batas) agar terlihat memantul */
+        transform: perspective(3000px) rotateX(-10deg) rotateY(-5deg) rotateZ(2deg) translateZ(100px) translateY(-50px) scale(1.1);
+        filter: blur(5px) brightness(1.2);
     }
     100% {
         opacity: 1;
-        /* Posisi final yang stabil dan tajam */
-        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0) translateY(0) scale(1);
-        filter: blur(0) drop-shadow(0 0 15px var(--primary-neon));
+        /* Posisi akhir: Normal, tajam, jelas */
+        transform: perspective(3000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0) translateY(0) scale(1);
+        filter: blur(0) brightness(1);
     }
 }
