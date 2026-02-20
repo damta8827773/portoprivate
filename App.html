@@ -74,6 +74,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="#dashboard" onclick="closeMenu()">
+                            <img src="assets/img/dasbor.png" alt="Dasbor" style="width: 24px; height: 18px;" onerror="this.style.display='none'">
+                            <span data-i18n="dashboard_title">Dasbor</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#comments" onclick="closeMenu()">
                             <img src="assets/img/komen&rate.png" alt="Komentar" style="width: 24px; height: 18px;" onerror="this.style.display='none'">
                             <span data-i18n="comment_title">Komentar</span>
@@ -161,7 +167,7 @@
                 <div class="tech-item"><img src="assets/img/vscode.png" alt="VScode"><span>VS Code</span></div>
                 <div class="tech-item"><img src="assets/img/gemini.png" alt="Gemini"><span>Gemini</span></div>
                 <div class="tech-item"><img src="assets/img/google cloud.png" alt="Google Cloud"><span>Google Cloud</span></div>
-                <div class="tech-item"><img src="assets/img/google search console.png" alt="Google Search Console"><span>Google Search Console</span></div> 
+                <div class="tech-item long-text-box"><img src="assets/img/google search console.png" alt="Google Search Console"><span>Google Search Console</span></div> 
                 <div class="tech-item"><img src="assets/img/firebase.png" alt="Firebase"><span>Firebase</span></div>        
                 <div class="tech-item"><img src="assets/img/c.png" alt="C"><span>C Lang</span></div>
                 <div class="tech-item"><img src="assets/img/php.png" alt="PHP"><span>PHP</span></div>
@@ -175,7 +181,7 @@
     </section>
 
     <section id="projects">
-        <h2 data-i18n="project_title" class="hidden">Proyek Unggulan</h2>
+        <h2 data-i18n="project_title" class="hidden neon-title-blue">Proyek Unggulan</h2>
         
         <div class="project-grid">
             <div class="project-card hidden">
@@ -247,7 +253,7 @@
     </section>
 
     <section id="certificates">
-        <h2 data-i18n="cert_title" style="margin-bottom: 40px;" class="hidden">Pencapaian</h2>
+        <h2 data-i18n="cert_title" style="margin-bottom: 40px;" class="hidden neon-title">Pencapaian</h2>
         
         <div class="cert-container">
             <div class="cert-card hidden">
@@ -302,7 +308,7 @@
     </section>
 
     <section id="about">
-        <h2 data-i18n="about_title" class="hidden">Visi & Misi</h2>
+        <h2 data-i18n="about_title" class="hidden neon-title">Visi & Misi</h2>
         
         <div class="visi-misi-container hidden">
             <div class="vm-card">
@@ -365,47 +371,47 @@
     <section id="dashboard" class="hidden">
         <h2 data-i18n="dashboard_title" class="neon-title">Dasbor Statistik</h2>
         
-        <div class="project-grid">
-            <div class="profil-card" style="margin: 0; width: 100%; text-align: center;">
-                <h3 style="color: var(--primary-neon); font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase;">
+        <div class="dashboard-grid">
+            <div class="stat-card" style="margin: 0; width: 100%; text-align: center;">
+                <h3 class="stat-title primary-neon-text">
                     <i class="ri-eye-line" style="margin-right: 10px;"></i>
                     <span data-i18n="visitor_title">Total Pengunjung</span>
                 </h3>
-                <h1 id="visitor-count" style="font-size: 4.5rem; color: #fff; text-shadow: 0 0 20px var(--primary-neon); margin: 10px 0;">
+                <h1 id="visitor-count" class="stat-number primary-neon-shadow">
                     <i class="ri-loader-4-line ri-spin"></i>
                 </h1>
-                <p data-i18n="visitor_desc" style="color: var(--text-muted); font-size: 1rem;">
+                <p data-i18n="visitor_desc" class="stat-desc">
                     Orang telah melihat portofolio ini
                 </p>
             </div>
 
-            <div class="profil-card" style="margin: 0; width: 100%; text-align: center;">
-                <h3 style="color: var(--secondary-neon); font-size: 1.5rem; margin-bottom: 15px; text-transform: uppercase;">
+            <div class="stat-card" style="margin: 0; width: 100%; text-align: center;">
+                <h3 class="stat-title secondary-neon-text">
                     <i class="ri-github-fill" style="margin-right: 10px;"></i>
-                    GitHub damta8827773
+                    GitHub 
                 </h3>
                 
-                <div style="display: flex; justify-content: space-around; margin-bottom: 25px;">
-                    <div>
-                        <h4 id="repo-count" style="font-size: 2.5rem; color: #fff; margin: 0; text-shadow: 0 0 15px var(--secondary-neon);">...</h4>
-                        <span data-i18n="repo_title" style="color: var(--text-muted); font-size: 0.9rem;">Total Repositori</span>
+                <div class="github-stats-row">
+                    <div class="github-stat-item">
+                        <h4 id="repo-count" class="github-stat-number secondary-neon-shadow">...</h4>
+                        <span data-i18n="repo_title" class="github-stat-label">Total Repositori</span>
                     </div>
-                    <div>
-                        <h4 id="follower-count" style="font-size: 2.5rem; color: #fff; margin: 0; text-shadow: 0 0 15px var(--secondary-neon);">...</h4>
-                        <span data-i18n="follower_title" style="color: var(--text-muted); font-size: 0.9rem;">Pengikut</span>
+                    <div class="github-stat-item">
+                        <h4 id="follower-count" class="github-stat-number secondary-neon-shadow">...</h4>
+                        <span data-i18n="follower_title" class="github-stat-label">Pengikut</span>
                     </div>
                 </div>
 
-                <p data-i18n="contrib_title" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">Aktivitas Kontribusi Terakhir</p>
-                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; overflow-x: auto;">
-                    <img src="https://ghchart.rshah.org/00f3ff/damta8827773" alt="GitHub Contributions" style="width: 100%; min-width: 500px;">
+                <p data-i18n="contrib_title" class="github-chart-title">Aktivitas Kontribusi Terakhir</p>
+                <div class="github-chart-container">
+                    <img src="https://ghchart.rshah.org/00f3ff/damta8827773" alt="GitHub Contributions" class="github-chart-img">
                 </div>
             </div>
         </div>
     </section>
 
     <section id="comments" class="hidden">
-        <h2 data-i18n="comment_title">Komentar & Rating</h2>
+        <h2 data-i18n="comment_title" class="neon-title">Komentar & Rating</h2>
         
         <div class="comment-container profil-card" style="max-width: 800px; margin: 0 auto;">
             <div id="auth-section" style="text-align: center;">
@@ -481,35 +487,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. API Penghitung Pengunjung (Counter API)
-            fetch('https://api.counterapi.dev/v1/projectdamta/visitors')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('visitor-count').innerText = data.count;
-                })
-                .catch(error => {
-                    console.error("Gagal memuat pengunjung:", error);
-                    document.getElementById('visitor-count').innerText = "???";
-                });
-
-            // 2. API GitHub (Mengambil data asli dari akun damta8827773)
-            fetch('https://api.github.com/users/damta8827773')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('repo-count').innerText = data.public_repos || 0;
-                    document.getElementById('follower-count').innerText = data.followers || 0;
-                })
-                .catch(error => {
-                    console.error("Gagal memuat GitHub:", error);
-                    document.getElementById('repo-count').innerText = "-";
-                    document.getElementById('follower-count').innerText = "-";
-                });
-        });
-    </script>
-
-    <script>
+        // INISIALISASI FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyC80W6y97OPM8m6VeiKs_0vt7oCd5HsTi8",
             authDomain: "projectdamta.firebaseapp.com",
@@ -524,6 +502,9 @@
         const db = firebase.firestore();
         const provider = new firebase.auth.GoogleAuthProvider();
 
+        // -------------------------------------------------------------
+        // LOGIKA KOMENTAR FIREBASE
+        // -------------------------------------------------------------
         const authSection = document.getElementById('auth-section');
         const commentForm = document.getElementById('comment-form');
         const listContainer = document.getElementById('comments-display-list');
@@ -591,9 +572,60 @@
                     </div>`;
             });
         });
-    </script>
 
-    <script>
+        // -------------------------------------------------------------
+        // LOGIKA DASBOR (PENGUNJUNG & GITHUB)
+        // -------------------------------------------------------------
+        document.addEventListener('DOMContentLoaded', async () => {
+            
+            // 1. API Penghitung Pengunjung (FIREBASE)
+            const visitorDisplay = document.getElementById('visitor-count');
+            
+            try {
+                const visitorRef = db.collection("statistics").doc("visitors");
+                const docSnap = await visitorRef.get();
+                let currentCount = 0;
+
+                if (!docSnap.exists) {
+                    await visitorRef.set({ count: 1 });
+                    currentCount = 1;
+                    sessionStorage.setItem("hasVisited", "true");
+                } else {
+                    const hasVisited = sessionStorage.getItem("hasVisited");
+                    if (!hasVisited) {
+                        await visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+                        sessionStorage.setItem("hasVisited", "true");
+                        currentCount = docSnap.data().count + 1;
+                    } else {
+                        currentCount = docSnap.data().count;
+                    }
+                }
+                // Ubah angka menjadi format 0000X (5 digit)
+                visitorDisplay.innerText = String(currentCount).padStart(5, '0');
+
+            } catch (error) {
+                console.error("Error Firebase Visitor:", error);
+                // Jika error/gagal, tampilkan 00000
+                visitorDisplay.innerText = "00000"; 
+            }
+
+            // 2. API GitHub
+            fetch('https://api.github.com/users/damta8827773')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('repo-count').innerText = data.public_repos || 0;
+                    document.getElementById('follower-count').innerText = data.followers || 0;
+                })
+                .catch(error => {
+                    console.error("Gagal memuat GitHub:", error);
+                    document.getElementById('repo-count').innerText = "-";
+                    document.getElementById('follower-count').innerText = "-";
+                });
+        });
+
+        // -------------------------------------------------------------
+        // LOGIKA ANIMASI & TRANSLATE
+        // -------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach((entry) => {

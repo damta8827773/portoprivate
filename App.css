@@ -1,5 +1,6 @@
 /* ==========================================================================
    1. SETUP FONT & VARIABEL GLOBAL
+   Penjelasan: Mengimpor font Poppins dan menyimpan semua warna dasar website.
    ========================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
@@ -21,6 +22,7 @@
     --mobile-menu-bg: #0f0c29; 
 }
 
+/* Pengaturan warna saat tombol mode terang (Light Mode) ditekan */
 body.light-mode {
     --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     --text-color: #333333;
@@ -40,6 +42,7 @@ body.light-mode {
 
 /* ==========================================================================
    2. RESET GLOBAL & SCROLLBAR
+   Penjelasan: Mengatur desain dasar seluruh website dan tampilan batang scroll.
    ========================================================================== */
 
 * {
@@ -51,6 +54,7 @@ body.light-mode {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
+/* Desain Batang Scroll di sebelah kanan layar */
 ::-webkit-scrollbar { 
     width: 10px; 
 }
@@ -68,6 +72,7 @@ body.light-mode {
     background: var(--primary-neon); 
 }
 
+/* Mencegah halaman meluber secara horizontal */
 html, 
 body { 
     width: 100%; 
@@ -75,6 +80,7 @@ body {
     overflow-x: hidden; 
 }
 
+/* Latar Belakang Website */
 body {
     background: var(--bg-gradient);
     background-size: 400% 400%;
@@ -211,6 +217,8 @@ body {
 
 /* ==========================================================================
    3C. PENGATURAN KHUSUS FOTO / IKON DI DALAM NAVBAR
+   Penjelasan: Di sini letak untuk mengatur Besar/Kecil Ikon di Navbar.
+   Ubah angka "width" dan "height" sesuai kebutuhan Anda.
    ========================================================================== */
 
 .nav-links a img {
@@ -225,6 +233,7 @@ body.light-mode .nav-links a img {
     filter: none; 
 }
 
+/* Pengaturan Ukuran Masing-masing Ikon Navbar */
 .nav-links a img[src*="home.png"] { 
     width: 18px !important; 
     height: 18px !important; 
@@ -263,6 +272,11 @@ body.light-mode .nav-links a img {
 .nav-links a img[src*="kontak.png"] { 
     width: 24px !important; 
     height: 24px !important; 
+}
+
+.nav-links a img[src*="dasbor.png"] { 
+    width: 30px !important; 
+    height: 30px !important; 
 }
 
 /* ==========================================================================
@@ -734,7 +748,7 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   7. BAGIAN ABOUT
+   7. BAGIAN ABOUT (VISI MISI & TENTANG SAYA)
    ========================================================================== */
 
 #about { 
@@ -826,7 +840,7 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   7B. PENGATURAN TENTANG SAYA
+   7B. PENGATURAN TENTANG SAYA (RIWAYAT / HISTORY)
    ========================================================================== */
 
 .about-us-container { 
@@ -972,7 +986,7 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   7C. DASBOR STATISTIK (PENGUNJUNG & GITHUB)
+   8. DASBOR STATISTIK (PENGUNJUNG & GITHUB)
    ========================================================================== */
 
 .dashboard-grid { 
@@ -1070,6 +1084,7 @@ body.light-mode .hero h1 {
     background: rgba(0,0,0,0.3); 
     padding: 15px; 
     border-radius: 10px; 
+    /* Mencegah gambar grafik meluber, memungkinkannya di-scroll */
     overflow-x: auto; 
     width: 100%; 
 }
@@ -1092,7 +1107,7 @@ body.light-mode .github-chart-container {
 }
 
 /* ==========================================================================
-   8. KOMENTAR & RATING BINTANG
+   9. KOMENTAR & RATING BINTANG
    ========================================================================== */
 
 .star-rating { 
@@ -1124,7 +1139,7 @@ body.light-mode .github-chart-container {
 }
 
 /* ==========================================================================
-   9. FOOTER (BAGIAN BAWAH WEBSITE)
+   10. FOOTER (BAGIAN BAWAH WEBSITE)
    ========================================================================== */
 
 footer { 
@@ -1236,7 +1251,8 @@ body.light-mode .social-icon-btn:hover {
 }
 
 /* ==========================================================================
-   10. MEDIA QUERIES (OPTIMASI UNTUK HANDPHONE)
+   11. MEDIA QUERIES (OPTIMASI KHUSUS TAMPILAN HANDPHONE)
+   Penjelasan: Kode di bawah ini berguna untuk MENCEGAH TAMPILAN MELUBER di HP.
    ========================================================================== */
 
 @media (max-width: 768px) {
@@ -1295,7 +1311,7 @@ body.light-mode .social-icon-btn:hover {
         font-size: 2.2rem !important; 
     }
 
-    /* --- MENGATUR KOTAK SKILL DI HP (UMUM) --- */
+    /* --- MENGATUR KOTAK SKILL DI HP --- */
     .tech-item { 
         width: 115px !important; 
         min-height: 120px !important; 
@@ -1319,7 +1335,6 @@ body.light-mode .social-icon-btn:hover {
         width: 100% !important;
     }
 
-    /* --- CLASS KHUSUS UNTUK KOTAK DENGAN TEKS PANJANG DI HP --- */
     .tech-item.long-text-box {
         padding: 10px 5px !important; 
     }
@@ -1335,14 +1350,50 @@ body.light-mode .social-icon-btn:hover {
         line-height: 1.1 !important; 
     }
 
-    /* --- MERAPIKAN DASBOR STATISTIK DI HP --- */
-    #dashboard h1 {
-        font-size: 3rem !important;
+    /* --- MENCEGAH DASBOR MELUBER DI HP --- */
+    #dashboard .profil-card h3,
+    #dashboard .stat-title {
+        font-size: 1.1rem !important;
+        display: flex !important;
+        /* Memaksa ikon di atas, teks di bawah */
+        flex-direction: column !important; 
+        justify-content: center !important;
+        align-items: center !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: center !important;
+        gap: 8px !important;
     }
-    
-    #dashboard .profil-card > div[style*="display: flex"] {
-        flex-direction: column !important;
-        gap: 20px !important;
+
+    #dashboard .stat-card {
+        padding: 25px 15px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        overflow: hidden !important; 
+    }
+
+    #visitor-count { 
+        font-size: 2.8rem !important; 
+    }
+
+    .dashboard-grid { 
+        grid-template-columns: 1fr; 
+    }
+
+    .stat-number { 
+        font-size: 3rem !important; 
+    }
+
+    .github-stat-number { 
+        font-size: 2rem !important; 
+    }
+
+    .stat-title { 
+        font-size: 1.2rem; 
+    }
+
+    .github-stats-row { 
+        gap: 10px; 
     }
 
     .marquee-content { 
@@ -1435,36 +1486,10 @@ body.light-mode .social-icon-btn:hover {
     .history-item.show { 
         animation: fadeInUp 1s ease-out forwards; 
     }
-
-    /* --- PERBAIKAN FINAL DASBOR STATISTIK DI HP --- */
-    
-    #dashboard .profil-card h3,
-    #dashboard .stat-title {
-        font-size: 1.1rem !important;
-        display: flex !important;
-        flex-direction: column !important; /* Memaksa ikon di atas, teks di bawah */
-        justify-content: center !important;
-        align-items: center !important;
-        white-space: normal !important;
-        word-wrap: break-word !important;
-        text-align: center !important;
-        gap: 8px !important;
-    }
-
-    #dashboard .profil-card {
-        padding: 25px 15px !important;
-        box-sizing: border-box !important;
-        width: 100% !important;
-        overflow: hidden !important; /* Memotong secara paksa apapun yang meluber */
-    }
-
-    #visitor-count {
-        font-size: 2.8rem !important; /* Diperkecil sedikit lagi agar aman */
-    }
 }
 
 /* ==========================================================================
-   11. SISTEM ANIMASI SCROLL & KEYFRAMES GLOBAL
+   12. SISTEM ANIMASI SCROLL & KEYFRAMES GLOBAL
    ========================================================================== */
 
 .project-card, 
