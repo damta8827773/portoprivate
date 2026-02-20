@@ -2,41 +2,25 @@
    1. SETUP FONT & VARIABEL GLOBAL
    ========================================================================== */
 
-/* Mengimpor Font Poppins dari Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
 
-/* --- VARIABEL TEMA GELAP (DEFAULT) --- */
 :root {
-    /* Background utama berbentuk gradient radial */
     --bg-gradient: radial-gradient(circle at top left, #0f0c29, #302b63, #24243e);
-    
-    /* Warna teks utama dan teks sekunder */
     --text-color: #ffffff;
     --text-muted: #b0b0d0;
-    
-    /* Efek Glassmorphism (Kaca) untuk kartu */
     --card-bg: rgba(255, 255, 255, 0.05);
     --card-border: 1px solid rgba(255, 255, 255, 0.1);
     --glass-highlight: rgba(255, 255, 255, 0.15); 
-    
-    /* Warna Navbar transparan */
     --navbar-bg: rgba(15, 12, 41, 0.6); 
-    
-    /* Warna Neon untuk aksen desain */
     --primary-neon: #00f3ff; 
     --secondary-neon: #bc13fe; 
     --accent-neon: #ff0055; 
-    
-    /* Warna bayangan dan filter untuk ikon */
     --shadow-color: rgba(0, 0, 0, 0.37);
     --filter-icon: drop-shadow(0 0 5px rgba(255,255,255,0.5));
-    
-    /* Background khusus sertifikat dan menu mobile */
     --cert-bg: #000;
     --mobile-menu-bg: #0f0c29; 
 }
 
-/* --- VARIABEL TEMA TERANG --- */
 body.light-mode {
     --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     --text-color: #333333;
@@ -57,6 +41,7 @@ body.light-mode {
 /* ==========================================================================
    2. RESET GLOBAL & SCROLLBAR
    ========================================================================== */
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -113,6 +98,7 @@ body {
 /* ==========================================================================
    3. DESAIN NAVBAR (MENU NAVIGASI) & LOGO
    ========================================================================== */
+
 .navbar-container { 
     position: fixed; 
     top: 20px; 
@@ -155,7 +141,6 @@ body {
     justify-content: center;
 }
 
-/* BLOKIR ANIMASI MUTLAK UNTUK LOGO "D" */
 .logo-container img { 
     height: 250%; 
     width: auto; 
@@ -175,6 +160,7 @@ body {
 /* ==========================================================================
    3B. NAV-LINKS (MENU TEKS) & EFEK NEON NAVBAR
    ========================================================================== */
+
 .nav-links ul { 
     display: flex; 
     list-style: none; 
@@ -224,77 +210,65 @@ body {
 }
 
 /* ==========================================================================
-   3C. PENGATURAN KHUSUS FOTO / IKON DI DALAM NAVBAR (INDIVIDUAL)
-   Di sini Anda bisa mengatur ukuran gambar navbar secara terpisah.
+   3C. PENGATURAN KHUSUS FOTO / IKON DI DALAM NAVBAR
    ========================================================================== */
-/* Pengaturan Dasar untuk semua gambar di link navbar */
+
 .nav-links a img {
     display: block;
     margin: 0 !important; 
     padding: 0 !important;
-    /* Mengubah ikon hitam menjadi putih di mode gelap */
     filter: invert(1) brightness(200%); 
     transition: filter 0.3s ease;
 }
 
-/* Mode Terang (Kembali ke warna asli ikon hitam/gelap) */
 body.light-mode .nav-links a img {
     filter: none; 
 }
 
-/* --- PENGATURAN UKURAN IKON INDIVIDUAL (EDIT DI SINI) --- */
-
-/* 1. Ikon Beranda (home.png) */
-.nav-links a img[src*="home.png"] {
-    width: 18px !important;
-    height: 18px !important;
+.nav-links a img[src*="home.png"] { 
+    width: 18px !important; 
+    height: 18px !important; 
 }
 
-/* 2. Ikon Profil (profil.png) */
-.nav-links a img[src*="profil.png"] {
-    width: 18px !important;
-    height: 18px !important;
+.nav-links a img[src*="profil.png"] { 
+    width: 18px !important; 
+    height: 18px !important; 
 }
 
-/* 3. Ikon Skill (skill.png) */
-.nav-links a img[src*="skill.png"] {
-    width: 18px !important;
-    height: 18px !important;
+.nav-links a img[src*="skill.png"] { 
+    width: 18px !important; 
+    height: 18px !important; 
 }
 
-/* 4. Ikon Proyek (proyek.png) */
-.nav-links a img[src*="proyek.png"] {
-    width: 18px !important;
-    height: 18px !important;
+.nav-links a img[src*="proyek.png"] { 
+    width: 18px !important; 
+    height: 18px !important; 
 }
 
-/* 5. Ikon Pencapaian/Sertifikat (sertif.png) */
-.nav-links a img[src*="sertif.png"] {
-    width: 24px !important;
-    height: 24px !important;
+.nav-links a img[src*="sertif.png"] { 
+    width: 24px !important; 
+    height: 24px !important; 
 }
 
-/* 6. Ikon Tentang Saya (tentang kami.png) */
-.nav-links a img[src*="tentang kami.png"] {
-    width: 18px !important;
-    height: 18px !important;
+.nav-links a img[src*="tentang kami.png"] { 
+    width: 18px !important; 
+    height: 18px !important; 
 }
 
-/* 7. Ikon Komentar (komen&rate.png) */
-.nav-links a img[src*="komen&rate.png"] {
-    width: 24px !important; /* Contoh: dibuat lebih lebar */
-    height: 18px !important;
+.nav-links a img[src*="komen&rate.png"] { 
+    width: 24px !important; 
+    height: 18px !important; 
 }
 
-/* 8. Ikon Kontak (kontak.png) */
-.nav-links a img[src*="kontak.png"] {
-    width: 24px !important;
-    height: 24px !important; /* Contoh: dibuat lebih besar */
+.nav-links a img[src*="kontak.png"] { 
+    width: 24px !important; 
+    height: 24px !important; 
 }
 
 /* ==========================================================================
    3D. TOMBOL KONTROL & HAMBURGER MENU (MOBILE)
    ========================================================================== */
+
 .controls { 
     display: flex; 
     gap: 5px; 
@@ -366,9 +340,11 @@ body.light-mode .control-btn:hover {
 .hamburger.active span:nth-child(1) { 
     transform: translateY(8px) rotate(45deg); 
 }
+
 .hamburger.active span:nth-child(2) { 
     opacity: 0; 
 }
+
 .hamburger.active span:nth-child(3) { 
     transform: translateY(-9px) rotate(-45deg); 
 }
@@ -376,6 +352,7 @@ body.light-mode .control-btn:hover {
 /* ==========================================================================
    4. SECTION UTAMA & EFEK KARTU KACA
    ========================================================================== */
+
 section { 
     padding: 100px 20px; 
     min-height: 85vh; 
@@ -406,25 +383,29 @@ h2,
     text-shadow: 0 0 10px var(--secondary-neon); 
     color: var(--text-color);
 }
+
 .neon-title-blue { 
     text-shadow: 0 0 10px var(--primary-neon); 
 }
+
 body.light-mode h2, 
 body.light-mode .neon-title { 
     text-shadow: none; 
     color: var(--secondary-neon); 
 }
+
 body.light-mode .neon-title-blue { 
     text-shadow: none; 
     color: var(--primary-neon); 
 }
 
 /* ==========================================================================
-   4B. ANIMASI 10D HERO REVEAL (KEMBALI KE YANG EKSTRIM)
+   4B. ANIMASI 10D HERO REVEAL 
    ========================================================================== */
+
 .hero { 
     margin-top: 80px; 
-    perspective: 3000px; /* Perspektif sangat dalam untuk efek 10D */
+    perspective: 3000px; 
     transform-style: preserve-3d;
     overflow: visible; 
 }
@@ -439,7 +420,6 @@ body.light-mode .neon-title-blue {
     text-shadow: 0 0 20px rgba(0, 243, 255, 0.4); 
     opacity: 0; 
     transform-origin: center center;
-    /* Panggilan animasi 10D Ekstrim */
     animation: hero10DReveal 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.2s; 
 }
 
@@ -455,13 +435,13 @@ body.light-mode .hero h1 {
     font-weight: 300; 
     opacity: 0; 
     transform-origin: center center;
-    /* Panggilan animasi 10D Ekstrim dengan Delay */
     animation: hero10DReveal 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.6s; 
 }
 
 /* ==========================================================================
    4C. PENGATURAN KARTU (CARD) & EFEK 3D HOVER
    ========================================================================== */
+
 .profil-card, 
 .tech-item, 
 .project-card, 
@@ -525,24 +505,25 @@ body.light-mode .hero h1 {
 
 @media (min-width: 769px) {
     .project-card:hover, 
-    .cert-card:hover,
-    .profil-card:hover,
+    .cert-card:hover, 
+    .profil-card:hover, 
     .vm-card:hover { 
         transform: translateY(-15px) scale(1.02) rotateX(5deg); 
         box-shadow: 0 30px 60px rgba(0, 243, 255, 0.25); 
         border-color: var(--primary-neon);
         z-index: 10;
     }
-    
-    .project-card:hover .project-img img,
+
+    .project-card:hover .project-img img, 
     .cert-card:hover .cert-img-box img {
         transform: scale(1.15) translateY(-5px);
     }
 }                  
 
 /* ==========================================================================
-   5. BAGIAN KEMAMPUAN / SKILLS (ANIMASI MARQUEE BERJALAN)
+   5. BAGIAN KEMAMPUAN / SKILLS 
    ========================================================================== */
+
 .skill-section { 
     padding: 60px 0; 
     width: 100%; 
@@ -559,7 +540,7 @@ body.light-mode .hero h1 {
     overflow: hidden; 
     margin-bottom: 40px; 
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); 
 }
 
 .marquee-content { 
@@ -606,7 +587,7 @@ body.light-mode .hero h1 {
     background: rgba(188, 19, 254, 0.2); 
     transform: scale(1.1) !important; 
     border-color: var(--secondary-neon); 
-    box-shadow: 0 0 15px var(--secondary-neon);
+    box-shadow: 0 0 15px var(--secondary-neon); 
 }
 
 .scroll-left { 
@@ -617,14 +598,15 @@ body.light-mode .hero h1 {
     animation: scrollRight 25s linear infinite !important; 
 }
 
-.marquee-wrapper:hover .scroll-left,
-.marquee-wrapper:hover .scroll-right {
-    animation-play-state: running !important;
+.marquee-wrapper:hover .scroll-left, 
+.marquee-wrapper:hover .scroll-right { 
+    animation-play-state: running !important; 
 }
 
 /* ==========================================================================
    6. BAGIAN PROYEK & SERTIFIKAT
    ========================================================================== */
+
 .project-grid, 
 .cert-container { 
     display: grid; 
@@ -633,7 +615,7 @@ body.light-mode .hero h1 {
     width: 100%; 
     max-width: 1200px; 
     margin-left: auto; 
-    margin-right: auto;
+    margin-right: auto; 
 }
 
 .project-card, 
@@ -699,8 +681,9 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   6B. DESAIN TOMBOL LINK (KUNJUNGI WEBSITE)
+   6B. DESAIN TOMBOL LINK
    ========================================================================== */
+
 .btn-view { 
     display: inline-flex; 
     align-items: center; 
@@ -717,19 +700,19 @@ body.light-mode .hero h1 {
     position: relative; 
     overflow: hidden; 
     transition: color 0.4s ease; 
-    z-index: 1;
+    z-index: 1; 
 }
 
-.btn-view::before {
+.btn-view::before { 
     content: ''; 
     position: absolute; 
     top: 0; 
-    left: 0;
+    left: 0; 
     width: 0%; 
     height: 100%; 
-    background: var(--secondary-neon);
+    background: var(--secondary-neon); 
     z-index: -1; 
-    transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out; 
 }
 
 .btn-view:hover::before { 
@@ -751,14 +734,15 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   7. BAGIAN ABOUT (VISI MISI & HISTORY ZIGZAG TANPA KOTAK)
+   7. BAGIAN ABOUT
    ========================================================================== */
+
 #about { 
     position: relative; 
     padding: 80px 20px; 
     min-height: auto; 
     overflow: hidden; 
-    width: 100%;
+    width: 100%; 
 }
 
 .about-profile-img { 
@@ -766,7 +750,7 @@ body.light-mode .hero h1 {
     top: 0; 
     left: 0; 
     width: 100%; 
-    height: 100%;
+    height: 100%; 
     z-index: 0; 
     margin: 0; 
     padding: 0; 
@@ -778,13 +762,13 @@ body.light-mode .hero h1 {
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-    object-position: center;
+    object-position: center; 
     opacity: 0.01; 
     border-radius: 0; 
     border: none; 
     box-shadow: none; 
     filter: grayscale(100%); 
-    transition: all 0.5s ease;
+    transition: all 0.5s ease; 
     max-width: none; 
 }
 
@@ -808,7 +792,7 @@ body.light-mode .hero h1 {
     width: 100%; 
     justify-content: center; 
     margin-left: auto; 
-    margin-right: auto;
+    margin-right: auto; 
 }
 
 .vm-card { 
@@ -820,7 +804,7 @@ body.light-mode .hero h1 {
     border-radius: 15px; 
     box-shadow: 0 5px 15px rgba(0,0,0,0.3); 
     transition: 0.3s; 
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px); 
 }
 
 .vm-card:hover { 
@@ -842,8 +826,9 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
-   7B. PENGATURAN TENTANG SAYA (HISTORY ZIGZAG TANPA KOTAK BACKGROUND)
+   7B. PENGATURAN TENTANG SAYA
    ========================================================================== */
+
 .about-us-container { 
     width: 100%; 
     max-width: 900px; 
@@ -851,7 +836,7 @@ body.light-mode .hero h1 {
     flex-direction: column; 
     align-items: center; 
     margin-left: auto; 
-    margin-right: auto;
+    margin-right: auto; 
 }
 
 .about-us-header { 
@@ -891,7 +876,7 @@ body.light-mode .hero h1 {
 .history-content.active { 
     max-height: 5000px; 
     padding-top: 10px; 
-    animation: slideDownAbout 0.6s ease-out;
+    animation: slideDownAbout 0.6s ease-out; 
 }
 
 .history-item { 
@@ -902,11 +887,11 @@ body.light-mode .hero h1 {
     min-height: 350px; 
     padding: 40px; 
     border-radius: 20px; 
-    border: none;
+    border: none; 
     overflow: hidden; 
     background: transparent; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
-    transition: 0.3s;
+    transition: 0.3s; 
 }
 
 .history-item:hover { 
@@ -919,11 +904,11 @@ body.light-mode .hero h1 {
     top: 0; 
     left: 0; 
     width: 100%; 
-    height: 100%;
+    height: 100%; 
     z-index: 0; 
     margin: 0; 
     padding: 0; 
-    border-radius: 0;
+    border-radius: 0; 
 }
 
 .hist-img img { 
@@ -932,7 +917,7 @@ body.light-mode .hero h1 {
     object-fit: cover; 
     opacity: 1; 
     filter: brightness(60%); 
-    transition: transform 0.6s ease, filter 0.3s ease;
+    transition: transform 0.6s ease, filter 0.3s ease; 
 }
 
 .history-item:hover .hist-img img { 
@@ -940,7 +925,6 @@ body.light-mode .hero h1 {
     filter: brightness(80%); 
 }
 
-/* KOTAK TEKS HISTORY */
 .hist-text { 
     position: relative; 
     z-index: 2; 
@@ -949,13 +933,14 @@ body.light-mode .hero h1 {
     background: transparent; 
     border-radius: 0; 
     backdrop-filter: none; 
-    -webkit-backdrop-filter: none;
+    -webkit-backdrop-filter: none; 
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 1), -2px -2px 8px rgba(0,0,0,1); 
 }
 
 .history-item:nth-child(odd) { 
     justify-content: flex-start; 
 }
+
 .history-item:nth-child(odd) .hist-text { 
     text-align: left; 
     border-left: 5px solid var(--primary-neon); 
@@ -965,6 +950,7 @@ body.light-mode .hero h1 {
 .history-item:nth-child(even) { 
     justify-content: flex-end; 
 }
+
 .history-item:nth-child(even) .hist-text { 
     text-align: left; 
     border-right: 5px solid var(--secondary-neon); 
@@ -986,15 +972,136 @@ body.light-mode .hero h1 {
 }
 
 /* ==========================================================================
+   7C. DASBOR STATISTIK (PENGUNJUNG & GITHUB)
+   ========================================================================== */
+
+.dashboard-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 30px; 
+    width: 100%; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.stat-card { 
+    background: var(--card-bg); 
+    border: 1px solid var(--card-border); 
+    backdrop-filter: blur(15px); 
+    border-radius: 20px; 
+    padding: 40px 30px; 
+    text-align: center; 
+    box-shadow: 0 0 20px var(--shadow-color); 
+    transition: all 0.3s ease; 
+}
+
+.stat-card:hover { 
+    transform: translateY(-5px); 
+    border-color: var(--primary-neon); 
+}
+
+.stat-title { 
+    font-size: 1.5rem; 
+    margin-bottom: 15px; 
+    text-transform: uppercase; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 10px; 
+}
+
+.primary-neon-text { 
+    color: var(--primary-neon); 
+}
+
+.secondary-neon-text { 
+    color: var(--secondary-neon); 
+}
+
+.stat-number { 
+    font-size: 4.5rem; 
+    color: #fff; 
+    margin: 10px 0; 
+}
+
+.primary-neon-shadow { 
+    text-shadow: 0 0 20px var(--primary-neon); 
+}
+
+.secondary-neon-shadow { 
+    text-shadow: 0 0 15px var(--secondary-neon); 
+}
+
+.stat-desc { 
+    color: var(--text-muted); 
+    font-size: 1rem; 
+}
+
+.github-stats-row { 
+    display: flex; 
+    justify-content: space-around; 
+    margin-bottom: 25px; 
+}
+
+.github-stat-item { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.github-stat-number { 
+    font-size: 2.5rem; 
+    color: #fff; 
+    margin: 0; 
+}
+
+.github-stat-label { 
+    color: var(--text-muted); 
+    font-size: 0.9rem; 
+}
+
+.github-chart-title { 
+    color: var(--text-muted); 
+    font-size: 0.85rem; 
+    margin-bottom: 10px; 
+}
+
+.github-chart-container { 
+    background: rgba(0,0,0,0.3); 
+    padding: 15px; 
+    border-radius: 10px; 
+    overflow-x: auto; 
+    width: 100%; 
+}
+
+.github-chart-img { 
+    width: 100%; 
+    min-width: 500px; 
+    filter: none !important; 
+    display: block; 
+}
+
+body.light-mode .stat-number, 
+body.light-mode .github-stat-number { 
+    color: #333; 
+    text-shadow: none; 
+}
+
+body.light-mode .github-chart-container { 
+    background: rgba(255,255,255,0.5); 
+}
+
+/* ==========================================================================
    8. KOMENTAR & RATING BINTANG
    ========================================================================== */
-.star-rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    gap: 5px;
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+
+.star-rating { 
+    display: flex; 
+    flex-direction: row-reverse; 
+    justify-content: flex-end; 
+    gap: 5px; 
+    font-size: 1.8rem; 
+    margin-bottom: 10px; 
 }
 
 .star-rating input { 
@@ -1011,7 +1118,7 @@ body.light-mode .hero h1 {
     color: #ffcc00; 
 }
 
-.star-rating label:hover,
+.star-rating label:hover, 
 .star-rating label:hover ~ label { 
     color: #ffeb3b; 
 }
@@ -1019,6 +1126,7 @@ body.light-mode .hero h1 {
 /* ==========================================================================
    9. FOOTER (BAGIAN BAWAH WEBSITE)
    ========================================================================== */
+
 footer { 
     background-color: rgba(0,0,0,0.8); 
     padding: 50px 20px; 
@@ -1105,28 +1213,32 @@ footer p {
     opacity: 1; 
     top: -50px; 
 }
+
 .social-icon-btn:hover::before { 
     opacity: 1; 
     top: -14px; 
 }
 
-body.light-mode footer {
-    background-color: #ffffff;
-    border-top: 1px solid #ddd;
-    color: #333;
+body.light-mode footer { 
+    background-color: #ffffff; 
+    border-top: 1px solid #ddd; 
+    color: #333; 
 }
-body.light-mode .social-icon-btn {
-    border-color: var(--primary-neon);
-    color: var(--primary-neon);
+
+body.light-mode .social-icon-btn { 
+    border-color: var(--primary-neon); 
+    color: var(--primary-neon); 
 }
-body.light-mode .social-icon-btn:hover {
-    background-color: var(--primary-neon);
-    color: #fff;
+
+body.light-mode .social-icon-btn:hover { 
+    background-color: var(--primary-neon); 
+    color: #fff; 
 }
 
 /* ==========================================================================
    10. MEDIA QUERIES (OPTIMASI UNTUK HANDPHONE)
    ========================================================================== */
+
 @media (max-width: 768px) {
     .navbar { 
         height: auto; 
@@ -1141,7 +1253,7 @@ body.light-mode .social-icon-btn:hover {
         border-bottom: none; 
     }
     
-    .hamburger {  
+    .hamburger { 
         display: flex !important; 
         margin-left: auto; 
     }
@@ -1166,33 +1278,73 @@ body.light-mode .social-icon-btn:hover {
         display: flex; 
         animation: slideDown 0.3s ease forwards; 
     }
-    
+
     .nav-links ul { 
         flex-direction: column; 
         width: 100%; 
         gap: 15px; 
     }
-    
+
     .controls { 
         margin-top: 20px; 
         justify-content: center; 
         width: 100%; 
     }
-    
+
     .hero h1 { 
         font-size: 2.2rem !important; 
     }
-    
+
+    /* --- MENGATUR KOTAK SKILL DI HP (UMUM) --- */
     .tech-item { 
-        width: 120px; 
-        height: 120px; 
-        padding: 10px; 
+        width: 115px !important; 
+        min-height: 120px !important; 
+        height: auto !important; 
+        padding: 15px 10px !important; 
+        justify-content: flex-start !important; 
     }
+    
     .tech-item img { 
-        width: 60px; 
-        height: 60px; 
-        margin-bottom: 5px; 
+        width: 55px !important; 
+        height: 55px !important; 
+        margin-bottom: 8px !important; 
     }
+
+    .tech-item span {
+        font-size: 0.75rem !important; 
+        line-height: 1.2 !important;
+        white-space: normal !important; 
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* --- CLASS KHUSUS UNTUK KOTAK DENGAN TEKS PANJANG DI HP --- */
+    .tech-item.long-text-box {
+        padding: 10px 5px !important; 
+    }
+
+    .tech-item.long-text-box img {
+        width: 45px !important; 
+        height: 45px !important; 
+        margin-bottom: 5px !important; 
+    }
+
+    .tech-item.long-text-box span {
+        font-size: 0.6rem !important; 
+        line-height: 1.1 !important; 
+    }
+
+    /* --- MERAPIKAN DASBOR STATISTIK DI HP --- */
+    #dashboard h1 {
+        font-size: 3rem !important;
+    }
+    
+    #dashboard .profil-card > div[style*="display: flex"] {
+        flex-direction: column !important;
+        gap: 20px !important;
+    }
+
     .marquee-content { 
         gap: 1.5rem; 
     }
@@ -1202,28 +1354,28 @@ body.light-mode .social-icon-btn:hover {
         min-height: auto; 
         overflow-x: hidden; 
     }
-    
+
     .profil-card { 
         padding: 30px; 
         width: 100%; 
     }
-    
+
     .detail-row { 
         flex-direction: column; 
         gap: 5px; 
         text-align: center; 
     }
-    
+
     .project-grid, 
     .cert-container { 
         grid-template-columns: 1fr; 
     }
-    
+
     .visi-misi-container { 
         flex-direction: column; 
     }
-    
-    .about-profile-img img {  
+
+    .about-profile-img img { 
         width: 90%; 
         opacity: 0.4; 
     }
@@ -1237,12 +1389,12 @@ body.light-mode .social-icon-btn:hover {
         text-align: left;
     }
     
-    .history-item:nth-child(odd) .hist-text,
+    .history-item:nth-child(odd) .hist-text, 
     .history-item:nth-child(even) .hist-text {
         width: 100%; 
-        text-align: left;
-        border-left: 5px solid var(--primary-neon);
-        border-right: none;
+        text-align: left; 
+        border-left: 5px solid var(--primary-neon); 
+        border-right: none; 
         margin: 0;
     }
                       
@@ -1250,7 +1402,7 @@ body.light-mode .social-icon-btn:hover {
         font-size: 1.8rem; 
         margin-bottom: 10px; 
     }
-    
+
     .hist-text p { 
         font-size: 0.95rem; 
     }
@@ -1258,14 +1410,15 @@ body.light-mode .social-icon-btn:hover {
     .project-card, 
     .cert-card, 
     .vm-card, 
-    .history-item {
-        animation-delay: 0s !important;
+    .history-item { 
+        animation-delay: 0s !important; 
     }
 
     .project-card:nth-child(odd).show, 
     .cert-card:nth-child(odd).show { 
         animation: slideInLeft 0.8s ease-out forwards; 
     }
+
     .project-card:nth-child(even).show, 
     .cert-card:nth-child(even).show { 
         animation: slideInRight 0.8s ease-out forwards; 
@@ -1274,6 +1427,7 @@ body.light-mode .social-icon-btn:hover {
     .vm-card:first-child.show { 
         animation: slideInLeft 0.8s ease-out forwards; 
     }
+
     .vm-card:last-child.show { 
         animation: slideInRight 0.8s ease-out forwards; 
     }
@@ -1281,17 +1435,44 @@ body.light-mode .social-icon-btn:hover {
     .history-item.show { 
         animation: fadeInUp 1s ease-out forwards; 
     }
+
+    /* --- PERBAIKAN FINAL DASBOR STATISTIK DI HP --- */
+    
+    #dashboard .profil-card h3,
+    #dashboard .stat-title {
+        font-size: 1.1rem !important;
+        display: flex !important;
+        flex-direction: column !important; /* Memaksa ikon di atas, teks di bawah */
+        justify-content: center !important;
+        align-items: center !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: center !important;
+        gap: 8px !important;
+    }
+
+    #dashboard .profil-card {
+        padding: 25px 15px !important;
+        box-sizing: border-box !important;
+        width: 100% !important;
+        overflow: hidden !important; /* Memotong secara paksa apapun yang meluber */
+    }
+
+    #visitor-count {
+        font-size: 2.8rem !important; /* Diperkecil sedikit lagi agar aman */
+    }
 }
 
 /* ==========================================================================
    11. SISTEM ANIMASI SCROLL & KEYFRAMES GLOBAL
    ========================================================================== */
+
 .project-card, 
 .cert-card, 
 .vm-card, 
 .history-item, 
 .profil-card, 
-section h2 {
+section h2 { 
     opacity: 0; 
 }
 
@@ -1300,13 +1481,21 @@ section h2 {
 }
 
 @keyframes scrollLeft { 
-    0% { transform: translateX(0); } 
-    100% { transform: translateX(-50%); } 
+    0% { 
+        transform: translateX(0); 
+    } 
+    100% { 
+        transform: translateX(-50%); 
+    } 
 }
 
 @keyframes scrollRight { 
-    0% { transform: translateX(-50%); } 
-    100% { transform: translateX(0); } 
+    0% { 
+        transform: translateX(-50%); 
+    } 
+    100% { 
+        transform: translateX(0); 
+    } 
 }
 
 @keyframes fadeInUp { 
@@ -1371,43 +1560,56 @@ section h2 {
 }
 
 @media (min-width: 769px) {
-    .project-card:nth-child(1) { animation-delay: 0.3s; }
-    .project-card:nth-child(2) { animation-delay: 0.4s; }
-    .project-card:nth-child(3) { animation-delay: 0.5s; }
-    .project-card:nth-child(4) { animation-delay: 0.6s; }
-    .project-card:nth-child(5) { animation-delay: 0.7s; }
-    .project-card:nth-child(6) { animation-delay: 0.8s; }
+    .project-card:nth-child(1) { 
+        animation-delay: 0.3s; 
+    }
+    .project-card:nth-child(2) { 
+        animation-delay: 0.4s; 
+    }
+    .project-card:nth-child(3) { 
+        animation-delay: 0.5s; 
+    }
+    .project-card:nth-child(4) { 
+        animation-delay: 0.6s; 
+    }
+    .project-card:nth-child(5) { 
+        animation-delay: 0.7s; 
+    }
+    .project-card:nth-child(6) { 
+        animation-delay: 0.8s; 
+    }
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes gradientBG { 
+    0% { 
+        background-position: 0% 50%; 
+    } 
+    50% { 
+        background-position: 100% 50%; 
+    } 
+    100% { 
+        background-position: 0% 50%; 
+    } 
 }
 
-/* ANIMASI 10D HERO REVEAL (KEMBALI KE YANG EKSTRIM) */
 @keyframes hero10DReveal {
-    0% {
-        opacity: 0;
-        /* Posisi awal: Jauh, miring ekstrim, kecil, blur total */
-        transform: perspective(3000px) rotateX(80deg) rotateY(45deg) rotateZ(-30deg) translateZ(-2000px) translateY(800px) scale(0.1);
-        filter: blur(50px) brightness(0);
+    0% { 
+        opacity: 0; 
+        transform: perspective(3000px) rotateX(80deg) rotateY(45deg) rotateZ(-30deg) translateZ(-2000px) translateY(800px) scale(0.1); 
+        filter: blur(50px) brightness(0); 
     }
-    40% {
-        opacity: 0.6;
-        /* Mulai mendekat, berputar cepat */
-        transform: perspective(3000px) rotateX(40deg) rotateY(20deg) rotateZ(-10deg) translateZ(-500px) translateY(200px) scale(0.6);
-        filter: blur(20px) brightness(1.5);
+    40% { 
+        opacity: 0.6; 
+        transform: perspective(3000px) rotateX(40deg) rotateY(20deg) rotateZ(-10deg) translateZ(-500px) translateY(200px) scale(0.6); 
+        filter: blur(20px) brightness(1.5); 
     }
-    70% {
-         /* Overshoot (melewati batas) agar terlihat memantul */
-        transform: perspective(3000px) rotateX(-10deg) rotateY(-5deg) rotateZ(2deg) translateZ(100px) translateY(-50px) scale(1.1);
-        filter: blur(5px) brightness(1.2);
+    70% { 
+        transform: perspective(3000px) rotateX(-10deg) rotateY(-5deg) rotateZ(2deg) translateZ(100px) translateY(-50px) scale(1.1); 
+        filter: blur(5px) brightness(1.2); 
     }
-    100% {
-        opacity: 1;
-        /* Posisi akhir: Normal, tajam, jelas */
-        transform: perspective(3000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0) translateY(0) scale(1);
-        filter: blur(0) brightness(1);
+    100% { 
+        opacity: 1; 
+        transform: perspective(3000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0) translateY(0) scale(1); 
+        filter: blur(0) brightness(1); 
     }
 }
