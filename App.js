@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { 
+  useState, 
+  useEffect 
+} from 'react';
 import './App.css';
 
 // --- 1. FIREBASE IMPORTS ---
-import { initializeApp } from "firebase/app";
+import { 
+  initializeApp 
+} from "firebase/app";
 import { 
   getAuth, 
   GoogleAuthProvider, 
@@ -17,7 +22,12 @@ import {
   query, 
   orderBy, 
   onSnapshot, 
-  serverTimestamp 
+  serverTimestamp,
+  doc, 
+  getDoc, 
+  setDoc, 
+  updateDoc, 
+  increment 
 } from "firebase/firestore";
 
 // --- 2. CONFIG FIREBASE ---
@@ -226,17 +236,48 @@ function App() {
       setIsMenuOpen(false);
   };
 
-  // --- EFFECT: DATA API (PENGUNJUNG & GITHUB) ---
+  // --- EFFECT: DATA API PENGUNJUNG (FIREBASE) & GITHUB ---
   useEffect(() => {
-    fetch('https://api.counterapi.dev/v1/projectdamta/visitors')
-      .then(res => res.json())
-      .then(data => {
-          setVisitorCount(data.count);
-      })
-      .catch(() => {
-          setVisitorCount("???");
-      });
+    
+    // 1. Penghitung Pengunjung via Firebase
+    const trackVisitor = async () => {
+      try {
+        const visitorRef = doc(db, "statistics", "visitors");
+        const docSnap = await getDoc(visitorRef);
+        
+        let currentCount = 0;
 
+        if (!docSnap.exists()) {
+          // Jika dokumen belum ada di Firebase, buat baru
+          await setDoc(visitorRef, { count: 1 });
+          currentCount = 1;
+          sessionStorage.setItem("hasVisited", "true");
+        } else {
+          // Cek apakah perangkat ini baru pertama buka tab
+          const hasVisited = sessionStorage.getItem("hasVisited");
+          
+          if (!hasVisited) {
+            // Jika baru buka web, tambahkan 1 ke database
+            await updateDoc(visitorRef, { count: increment(1) });
+            sessionStorage.setItem("hasVisited", "true");
+            currentCount = docSnap.data().count + 1; 
+          } else {
+            // Jika dia hanya refresh halaman, ambil angka terakhir tanpa ditambah
+            currentCount = docSnap.data().count;
+          }
+        }
+        
+        setVisitorCount(currentCount);
+
+      } catch (error) {
+        console.error("Error Firebase Visitor:", error);
+        setVisitorCount("Error");
+      }
+    };
+
+    trackVisitor();
+
+    // 2. Fetch Data GitHub
     fetch('https://api.github.com/users/damta8827773')
       .then(res => res.json())
       .then(data => {
@@ -570,7 +611,7 @@ function App() {
                     <span>{t.visitor_title}</span>
                 </h3>
                 <h1 id="visitor-count" className="stat-number primary-neon-shadow">
-                    {visitorCount === "..." ? <i className="ri-loader-4-line ri-spin"></i> : visitorCount}
+                    {visitorCount}
                 </h1>
                 <p className="stat-desc">
                     {t.visitor_desc}
