@@ -2,13 +2,13 @@
 <html lang="id">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="assets/img/icon2.png" />
+    <link rel="icon" href="assets/img/Icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
     <title>Damta Noviyan Muhamad Faiz | Future Tech Leader</title>
     <meta name="description" content="Portofolio resmi Damta Noviyan Muhamad Faiz, Mahasiswa Sistem Informasi dan Full Stack Developer. Website interaktif yang didesain khusus secara personal dengan antarmuka yang manis dan memanjakan mata. Dibangun murni menggunakan HTML, CSS, dan Vanilla JavaScript tanpa framework untuk memastikan performa yang ringan dan animasi yang mulus.">
     
-    <meta name="google-site-verification" content="3gLVbCRLKUK7gk6SqXuZ3f4FUdGFV16MSZDSAyjK0d0" />
+    <meta name="google-site-verification" content="L_q9khuhWmWTYKtC3ohR7-HzC0Mv903jpbeod4NP2nk" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -574,9 +574,34 @@
         });
 
         // -------------------------------------------------------------
-        // LOGIKA DASBOR (PENGUNJUNG & GITHUB)
+        // LOGIKA DASBOR (PENGUNJUNG & GITHUB) DENGAN ANIMASI
         // -------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', async () => {
+
+            // Fungsi Untuk Animasi Angka
+            function animateValue(element, start, end, duration, isPadded) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    
+                    // Kalkulasi angka berdasar waktu berjalan
+                    let currentVal = Math.floor(progress * (end - start) + start);
+
+                    if (isPadded) {
+                        // Tambahkan '0' di depan khusus untuk pengunjung (Format: 00075)
+                        element.innerText = String(currentVal).padStart(5, '0');
+                    } else {
+                        // Tanpa angka nol tambahan untuk GitHub
+                        element.innerText = currentVal;
+                    }
+
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
             
             // 1. API Penghitung Pengunjung (FIREBASE)
             const visitorDisplay = document.getElementById('visitor-count');
@@ -584,28 +609,28 @@
             try {
                 const visitorRef = db.collection("statistics").doc("visitors");
                 const docSnap = await visitorRef.get();
-                let currentCount = 0;
+                let targetCount = 0;
 
                 if (!docSnap.exists) {
                     await visitorRef.set({ count: 1 });
-                    currentCount = 1;
+                    targetCount = 1;
                     sessionStorage.setItem("hasVisited", "true");
                 } else {
                     const hasVisited = sessionStorage.getItem("hasVisited");
                     if (!hasVisited) {
                         await visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
                         sessionStorage.setItem("hasVisited", "true");
-                        currentCount = docSnap.data().count + 1;
+                        targetCount = docSnap.data().count + 1;
                     } else {
-                        currentCount = docSnap.data().count;
+                        targetCount = docSnap.data().count;
                     }
                 }
-                // Ubah angka menjadi format 0000X (5 digit)
-                visitorDisplay.innerText = String(currentCount).padStart(5, '0');
+                
+                // Memicu animasi pengunjung selama 2 detik
+                animateValue(visitorDisplay, 0, targetCount, 2000, true);
 
             } catch (error) {
                 console.error("Error Firebase Visitor:", error);
-                // Jika error/gagal, tampilkan 00000
                 visitorDisplay.innerText = "00000"; 
             }
 
@@ -613,8 +638,15 @@
             fetch('https://api.github.com/users/damta8827773')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('repo-count').innerText = data.public_repos || 0;
-                    document.getElementById('follower-count').innerText = data.followers || 0;
+                    const repoDisplay = document.getElementById('repo-count');
+                    const followerDisplay = document.getElementById('follower-count');
+                    
+                    const repos = data.public_repos || 0;
+                    const followers = data.followers || 0;
+
+                    // Memicu animasi GitHub
+                    animateValue(repoDisplay, 0, repos, 2000, false);
+                    animateValue(followerDisplay, 0, followers, 2000, false);
                 })
                 .catch(error => {
                     console.error("Gagal memuat GitHub:", error);
@@ -624,7 +656,7 @@
         });
 
         // -------------------------------------------------------------
-        // LOGIKA ANIMASI & TRANSLATE
+        // LOGIKA ANIMASI SCROLL & TRANSLATE
         // -------------------------------------------------------------
         document.addEventListener('DOMContentLoaded', () => {
             const observer = new IntersectionObserver((entries) => {
