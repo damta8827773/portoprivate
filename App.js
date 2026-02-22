@@ -1,63 +1,6 @@
-/* ==========================================================================
-   1. SETUP AWAL & IMPORT LIBRARY
-   ========================================================================== */
-import React, { 
-    useState, 
-    useEffect 
-} from 'react';
-
-import './App.css';
-
-// --- IMPORT FIREBASE ---
-import { 
-    initializeApp 
-} from "firebase/app";
-
-import { 
-    getAuth, 
-    GoogleAuthProvider, 
-    signInWithPopup, 
-    onAuthStateChanged, 
-    signOut 
-} from "firebase/auth";
-
-import { 
-    getFirestore, 
-    collection, 
-    addDoc, 
-    query, 
-    orderBy, 
-    onSnapshot, 
-    serverTimestamp,
-    doc, 
-    getDoc, 
-    setDoc, 
-    updateDoc, 
-    increment 
-} from "firebase/firestore";
-
-
-/* ==========================================================================
-   2. KONFIGURASI FIREBASE
-   ========================================================================== */
-const firebaseConfig = {
-    apiKey: "AIzaSyC80W6y97OPM8m6VeiKs_0vt7oCd5HsTi8",
-    authDomain: "projectdamta.firebaseapp.com",
-    projectId: "projectdamta",
-    storageBucket: "projectdamta.firebasestorage.app",
-    messagingSenderId: "118530088464",
-    appId: "1:118530088464:web:f193173dcc75d7557b7495"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-
-
-/* ==========================================================================
-   3. DATA TRANSLATE (BAHASA ID & EN) & KONTEN WEBSITE
-   ========================================================================== */
+// ==========================================================================
+// 1. DATA TRANSLATE & KONFIGURASI BAHASA
+// ==========================================================================
 const translations = {
     id: {
         nav_home: "Beranda", 
@@ -65,22 +8,77 @@ const translations = {
         nav_skill: "Kemampuan", 
         nav_project: "Proyek",
         nav_cert: "Pencapaian", 
+        about_us: "Tentang Saya", 
         nav_contact: "Kontak",
-        hero_title: <>HAI, SAYA <br/> DAMTA NOVIYAN MUHAMAD FAIZ</>,
+        hero_title: "HAI, SAYA <br> DAMTA NOVIYAN MUHAMAD FAIZ.",
         hero_subtitle: "Pengembang Frontend & Backend | Mahasiswa Sistem Informasi | Ketertarikan Tinggi di Bidang Teknologi",
         profil_title: "Profil", 
         label_user: "Nama:", 
         label_loc: "Lokasi:", 
         label_guild: "Kampus:", 
         label_role: "Posisi:",
+        profil_singkat: "Profil Singkat Saya Selengkapnya di Tentang.", 
         skill_title: "Alat & Kemampuan", 
-        project_title: "Proyek Unggulan", 
-        cert_title: "Pencapaian",
-        about_title: "Visi & Misi", 
-        about_us: "Tentang Saya", 
-        btn_view: "Lihat Website", 
+        project_title: "Proyek Unggulan",
+        desc_p1: "Website interaktif yang dibangun menggunakan HTML, CSS, dan JavaScript murni (Vanilla JS) tanpa framework, menonjolkan desain UI/UX yang romantis dan personal.",
+        desc_p2: "Website portofolio profesional bergaya modern dengan efek Glassmorphism dan animasi Neon 6D. Dikembangkan secara dinamis dan responsif menggunakan framework React.js, HTML5, dan CSS3.",
+        desc_p3: "Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.",
+        desc_p4: "Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis. Menggunakan CSS modern untuk efek visual Glassmorphism dan tata letak responsif yang rapi di perangkat mobile.",
+        desc_p5: "Web App Roadmap menggunakan PHP, HTML5, dan CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).",
+        desc_p6: "Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.",
+        btn_view: "Lihat Website",
+        cert_title: "Pencapaian", 
+        cert_1: "Belajar Public Speaking", 
+        desc_c1: "Menyelesaikan Program yang Berfokus gimana caranya Public Speaking.",
+        cert_2: "Belajar Dasar AI", 
+        desc_c2: "Menyelesaikan gimana cara menggunakan AI yang Efektif.",
+        cert_3: "CISCO Packet Tracer", 
+        desc_c3: "Pemahaman mendalam tentang pembuatan Proyek Mandiri (Karya Tulis Ilmiah).",
+        cert_4: "Microsoft APPS", 
+        desc_c4: "Mempelajari Aplikasi Perkantoran (Spereadsheet, Document, Presentation).",
+        cert_5: "Ekstra Skill", 
+        desc_c5: "Mempelajari tentang gimana cara menyelesaikan Sistem Pendingin Udara (Air Conditioner/AC).",
+        cert_6: "REDHAT", 
+        desc_c6: "Mempelajari Tentang Dasar-dasar Red Hat System Administration.",
+        
+        // Translate Tentang
+        about_title_main: "Tentang",
+        about_bio_1: "Pengenalan singkat mengenai siapa saya.",
+        about_bio_2: "Saya Satria Bahari, seorang Software Engineer yang berbasis di Jambi, berdedikasi untuk membangun solusi digital yang berdampak. Saya spesialis dalam pengembangan platform web dan aplikasi mobile menggunakan tech stack modern, termasuk Next.js, TypeScript, dan pengembangan Android native dengan Kotlin.",
+        about_bio_3: "Fokus utama saya adalah merancang arsitektur perangkat lunak yang tidak hanya berfungsi tetapi juga terstruktur dengan baik, mudah dipelihara, dan skalabel untuk memenuhi kebutuhan bisnis. Saya percaya bahwa kode berkualitas tinggi harus berjalan beriringan dengan efisiensi sistem dan kejelasan logis.",
+        about_bio_4: "Saya memadukan keahlian teknis dengan komunikasi proaktif, berpikir kritis, dan manajemen waktu yang efektif. Saya berkembang dalam lingkungan kolaboratif dan memanfaatkan keterampilan kepemimpinan untuk memastikan setiap proyek memberikan hasil optimal dan dampak nyata.",
+        about_bio_5: "Salam hangat,",
+
+        visi_title: "Visi",
+        visi_desc: "Menjadi seseorang yang haus akan pengetahun teknologi, terus membuat inovasi baru dan mengimplementasikan di dunia nyata apa yang ada di dalam ide dan pikiran.",
+        misi_title: "Misi",
+        misi_desc: "Membangun keterampilan komunikasi terhadap tim yang efektif dan kolaboratif.",
+        
+        career_title: "Karier & Pendidikan",
+        tl_title_1: "Full Stack Developer",
+        tl_comp_1: "PT. Biro Klasifikasi Indonesia (Persero)",
+        tl_date_1: "2026 - Sekarang • Jakarta, Indonesia",
+        tl_desc_1: "Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional. Bertanggung jawab dalam merancang arsitektur perangkat lunak yang fungsional dan efisien.",
+        tl_title_2: "Mahasiswa Sistem Informasi",
+        tl_comp_2: "UIN Syarif Hidayatullah Jakarta",
+        tl_date_2: "2025 - Sekarang • Ciputat, Indonesia",
+        tl_desc_2: "Lulus dari SMK Yappenda dan melanjutkan pendidikan tinggi di UIN Jakarta. Titik awal saya mendalami dunia Web Developer secara komprehensif.",
+        tl_title_3: "Teknik Komputer Jaringan (TKJ)",
+        tl_comp_3: "SMK Yappenda Jakarta",
+        tl_date_3: "2022 - 2025 • Jakarta, Indonesia",
+        tl_desc_3: "Fokus mendalami ilmu Teknik Komputer Jaringan. Aktif di ekstrakurikuler dan Ekskill untuk penajaman skill. Menguasai CISCO dan mempraktekannya dalam PKL.",
+        show_detail: "Tampilkan detail",
+        hide_detail: "Sembunyikan detail",
+        
+        history_title: "Perjalanan Berdasarkan Tahun",
+        hist_2022: "Awal mula perjalanan di dunia teknologi dan dasar pemrograman Kelas X. Awalnya coba VSCode, sempat berhenti karena susah, tapi tetap penasaran.",
+        hist_2023: "Mulai bisa menggunakan CISCO dibanding awal masuk kelas XI dan mulai PKL (Praktek Kerja Lapangan).",
+        hist_2024: "Kelas XII, fokus mendalami TKJ, aktif di Ekskul dan Ekskill untuk penajaman skill.",
+        hist_2025: "Lulus SMK Yappenda, masuk UIN Jakarta. Titik awal mendalami Web Developer.",
+        hist_2026: "Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional.",
+        
+        comment_title: "Ruang Obrolan",
         footer: "Hak Cipta Dilindungi.",
-        comment_title: "Komentar & Rating",
         dashboard_title: "Dasbor Statistik",
         visitor_title: "Total Pengunjung",
         visitor_desc: "Orang telah melihat portofolio ini",
@@ -94,22 +92,74 @@ const translations = {
         nav_skill: "Skills", 
         nav_project: "Projects",
         nav_cert: "Achievements", 
+        about_us: "About Me", 
         nav_contact: "Contact",
-        hero_title: <>HI, I AM <br/> DAMTA NOVIYAN MUHAMAD FAIZ</>,
+        hero_title: "HI, I AM <br> DAMTA NOVIYAN MUHAMAD FAIZ.",
         hero_subtitle: "Full Stack Developer | Information Systems Student | Tech Enthusiast",
         profil_title: "Profile", 
         label_user: "Name:", 
         label_loc: "Location:", 
         label_guild: "Campus:", 
         label_role: "Role:",
+        profil_singkat: "My Full Profile is Available in About.", 
         skill_title: "Weapons & Skills", 
-        project_title: "Featured Projects", 
-        cert_title: "Achievements",
-        about_title: "Vision & Mission", 
-        about_us: "About Us", 
-        btn_view: "View Website", 
+        project_title: "Featured Projects",
+        desc_p1: "An interactive website built using pure HTML, CSS, and JavaScript (Vanilla JS) without a framework, featuring a romantic and personal UI/UX design.",
+        desc_p2: "A modern professional portfolio website with Glassmorphism effects and Neon 6D animations. Developed dynamically and responsively using the React.js framework, HTML5, and CSS3.",
+        desc_p3: "An integrated web-based attendance system that utilizes PHP and MySQL for real-time employee attendance verification. Equipped with a feature to upload physical proof photos and automatic reports in Excel format.",
+        desc_p4: "A database-based online store system that integrates PHP Native logic to display products dynamically. Uses modern CSS for Glassmorphism visual effects and a neat responsive layout on mobile devices.",
+        desc_p5: "Web App Roadmap using PHP, HTML5, and CSS3 Neon Style. The backend uses MySQL with Google Login security features (OAuth 2.0).",
+        desc_p6: "An interactive web ordering system using PHP Native and MySQL. Equipped with design customization features (Themes/Fonts), order database management, and automatic invoice integration to WhatsApp.",
+        btn_view: "View Website",
+        cert_title: "Achievements", 
+        cert_1: "Learning Public Speaking", 
+        desc_c1: "Completed a program focused on Public Speaking skills.",
+        cert_2: "Learning Basic AI", 
+        desc_c2: "Completed effective ways to use Artificial Intelligence.",
+        cert_3: "CISCO Packet Tracer", 
+        desc_c3: "In-depth understanding of Independent Project creation.",
+        cert_4: "Microsoft APPS", 
+        desc_c4: "Learning Office Applications.",
+        cert_5: "Extra Skill", 
+        desc_c5: "Learning how to solve Air Conditioning (AC) system problems.",
+        cert_6: "REDHAT", 
+        desc_c6: "Learning the basics of Red Hat System Administration.",
+        
+        about_title_main: "About",
+        about_bio_1: "A brief introduction about who I am.",
+        about_bio_2: "I am Satria Bahari, a Software Engineer based in Jambi, dedicated to building impactful digital solutions. I specialize in web platform and mobile app development using modern tech stacks, including Next.js, TypeScript, and native Android development with Kotlin.",
+        about_bio_3: "My main focus is designing software architecture that not only functions but is also well-structured, maintainable, and scalable to meet business needs. I believe that high-quality code should go hand in hand with system efficiency and logical clarity.",
+        about_bio_4: "I combine technical expertise with proactive communication, critical thinking, and effective time management. I thrive in collaborative environments and utilize leadership skills to ensure every project delivers optimal results and tangible impact.",
+        about_bio_5: "Warm regards,",
+
+        visi_title: "Vision",
+        visi_desc: "To become someone thirsty for technological knowledge, constantly innovating and implementing ideas in the real world.",
+        misi_title: "Mission",
+        misi_desc: "Building effective and collaborative communication skills with the team.",
+        
+        career_title: "Career & Education",
+        tl_title_1: "Full Stack Developer",
+        tl_comp_1: "PT. Biro Klasifikasi Indonesia (Persero)",
+        tl_date_1: "2026 - Present • Jakarta, Indonesia",
+        tl_desc_1: "Becoming a professional developer at BKI and contributing to national projects.",
+        tl_title_2: "Information Systems Student",
+        tl_comp_2: "UIN Syarif Hidayatullah Jakarta",
+        tl_date_2: "2025 - Present • Ciputat, Indonesia",
+        tl_desc_2: "Graduated from SMK Yappenda and continued higher education at UIN Jakarta.",
+        tl_title_3: "Computer Network Engineering (TKJ)",
+        tl_comp_3: "SMK Yappenda Jakarta",
+        tl_date_3: "2022 - 2025 • Jakarta, Indonesia",
+        tl_desc_3: "Focused on Computer Network Engineering. Active in extracurriculars.",
+        history_title: "Journey By Year",
+        hist_2022: "Started the journey in the technology world and basic programming.",
+        hist_2023: "Started using CISCO compared to early 11th grade and began Internship (PKL).",
+        hist_2024: "12th grade, focused on deepening networking skills.",
+        hist_2025: "Graduated SMK Yappenda, entered UIN Jakarta. The starting point for Web Development.",
+        hist_2026: "Became a professional developer at BKI and contributed to national projects.",
+        show_detail: "Show detail",
+        hide_detail: "Hide detail",
+        comment_title: "Chat Room",
         footer: "All Rights Reserved.",
-        comment_title: "Comments & Ratings",
         dashboard_title: "Statistics Dashboard",
         visitor_title: "Total Visitors",
         visitor_desc: "People have viewed this portfolio",
@@ -119,1099 +169,343 @@ const translations = {
     }
 };
 
-const projects = [
-    { 
-        title: "Web Relationship", 
-        desc: "Website interaktif yang didesain khusus secara personal dengan antarmuka yang manis dan memanjakan mata. Dibangun murni menggunakan HTML, CSS, dan Vanilla JavaScript tanpa framework untuk memastikan performa yang ringan dan animasi yang mulus.", 
-        img: "assets/img/Project1.png", 
-        link: "https://dnajwawa02.netlify.app/new.html" 
-    },
-    { 
-        title: "Web Portofolio", 
-        desc: "Website portofolio profesional bergaya modern dengan efek visual Glassmorphism dan animasi Neon 6D. Dikembangkan secara dinamis dan responsif menggunakan framework React.js, HTML5, dan CSS3.", 
-        img: "assets/img/Project2.png", 
-        link: "https://projectdam.netlify.app/app#" 
-    },
-    { 
-        title: "Web Absensi Karyawan", 
-        desc: "Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.", 
-        img: "assets/img/Project3.png", 
-        link: "https://presensi.ecommercedamta.com/" 
-    },
-    { 
-        title: "Web Ecommerce", 
-        desc: "Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis. Menggunakan CSS modern untuk efek visual Glassmorphism dan tata letak responsif yang rapi di perangkat mobile.", 
-        img: "assets/img/Project4.png", 
-        link: "https://api3.ecommercedamta.com/" 
-    },
-    { 
-        title: "Web Vidio Viral", 
-        desc: "Web App Roadmap menggunakan PHP, HTML5, dan CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).", 
-        img: "assets/img/Project5.png", 
-        link: "https://damtaproyek.ecommercedamta.com/login.php" 
-    },
-    { 
-        title: "Web Couple", 
-        desc: "Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.", 
-        img: "assets/img/Project6.png", 
-        link: "https://proyek.ecommercedamta.com/" 
+let currentLang = 'id';
+let isLightMode = false;
+
+// ==========================================================================
+// 2. FUNGSI EFEK WELCOME SCREEN MASUK WEB
+// ==========================================================================
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const mainContent = document.getElementById('main-content');
+        
+        if(welcomeScreen) {
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                if(mainContent) {
+                    mainContent.style.display = 'block';
+                    void mainContent.offsetWidth; 
+                    mainContent.style.opacity = '1';
+                }
+            }, 1000); 
+        }
+    }, 2000); 
+});
+
+// ==========================================================================
+// 3. FUNGSI UI (MENU, TEMA, BAHASA, TIMELINE ACCORDION)
+// ==========================================================================
+window.toggleLanguage = function() {
+    currentLang = currentLang === 'id' ? 'en' : 'id';
+    document.getElementById('lang-text').innerText = currentLang.toUpperCase();
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+            if(key === 'hero_title') {
+                element.innerHTML = translations[currentLang][key];
+            } else {
+                element.innerText = translations[currentLang][key];
+            }
+        }
+    });
+};
+
+window.toggleTheme = function() {
+    document.body.classList.toggle('light-mode');
+    const icon = document.getElementById('theme-icon');
+    isLightMode = !isLightMode;
+    if(isLightMode) {
+        icon.classList.replace('ri-sun-line', 'ri-moon-line');
+    } else {
+        icon.classList.replace('ri-moon-line', 'ri-sun-line');
     }
-];
+};
 
-const certificates = [
-    { 
-        title: "Belajar Public Speaking", 
-        issuer: "SMK Yappenda - 2024", 
-        img: "assets/img/ser1.png" 
-    },
-    { 
-        title: "Belajar Dasar AI", 
-        issuer: "Dicoding Indonesia - 2025", 
-        img: "assets/img/ser2.png" 
-    },
-    { 
-        title: "CISCO Packet Tracer", 
-        issuer: "SMK Yappenda - 2024", 
-        img: "assets/img/ser3.png" 
-    },
-    { 
-        title: "Microsoft APPS", 
-        issuer: "SMK Yappenda - 2024", 
-        img: "assets/img/ser4.png" 
-    },
-    { 
-        title: "Ekstra Skill (AC)", 
-        issuer: "SMK Yappenda - 2024", 
-        img: "assets/img/ser5.png" 
-    },
-    { 
-        title: "Red Hat Admin", 
-        issuer: "SMK Yappenda - 2024", 
-        img: "assets/img/ser6.png" 
+window.toggleMenu = function() {
+    document.getElementById('navMenu').classList.toggle('active');
+    document.getElementById('hamburger').classList.toggle('active');
+};
+
+window.closeMenu = function() {
+    document.getElementById('navMenu').classList.remove('active');
+    document.getElementById('hamburger').classList.remove('active');
+};
+
+window.toggleHistory = function() {
+    document.getElementById('historyPopup').classList.toggle('active');
+};
+
+window.toggleTimelineCard = function(cardElement) {
+    const details = cardElement.querySelector('.timeline-details');
+    const openText = cardElement.querySelector('.open-text');
+    const closeText = cardElement.querySelector('.close-text');
+    const icon = cardElement.querySelector('.timeline-toggle-text i');
+
+    // Tutup kartu lain jika ada yang terbuka
+    document.querySelectorAll('.timeline-card').forEach(c => {
+        if (c !== cardElement) {
+            c.classList.remove('active');
+            c.querySelector('.timeline-details').style.maxHeight = '0px';
+            c.querySelector('.open-text').style.display = 'inline';
+            c.querySelector('.close-text').style.display = 'none';
+            c.querySelector('.timeline-toggle-text i').classList.remove('rotate');
+        }
+    });
+
+    // Buka / Tutup kartu yang diklik
+    cardElement.classList.toggle('active');
+    if (cardElement.classList.contains('active')) {
+        details.style.maxHeight = '1000px'; 
+        openText.style.display = 'none';
+        closeText.style.display = 'inline';
+        icon.classList.add('rotate');
+    } else {
+        details.style.maxHeight = '0px';
+        openText.style.display = 'inline';
+        closeText.style.display = 'none';
+        icon.classList.remove('rotate');
     }
-];
+};
 
-const historyData = [
-    { 
-        year: "2022", 
-        text: "Awal mula perjalanan di dunia teknologi dan dasar pemrograman Kelas X. Awalnya coba VSCode, sempat berhenti karena susah, tapi tetap penasaran.", 
-        img: "assets/img/coming soon.png" 
-    },
-    { 
-        year: "2023", 
-        text: "Mulai bisa menggunakan CISCO dibanding awal masuk kelas XI dan mulai PKL (Praktek Kerja Lapangan).", 
-        img: "assets/img/coming soon.png" 
-    },
-    { 
-        year: "2024", 
-        text: "Kelas XII, fokus mendalami TKJ, aktif di Ekskul dan Ekskill untuk penajaman skill.", 
-        img: "assets/img/coming soon.png" 
-    },
-    { 
-        year: "2025", 
-        text: "Lulus SMK Yappenda, masuk UIN Jakarta. Titik awal mendalami Web Developer.", 
-        img: "assets/img/coming soon.png" 
-    },
-    { 
-        year: "2026", 
-        text: "Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional.", 
-        img: "assets/img/coming soon.png" 
-    }
-];
+// ==========================================================================
+// 4. ANIMASI MUNCUL SAAT SCROLL
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    }, { threshold: 0.1 }); 
 
+    const hiddenElements = document.querySelectorAll(
+        '.profil-card, .skill-section, .project-card, .cert-card, .vm-card, .about-biography, .timeline-wrapper, .history-item, section h2, #comments, #dashboard'
+    );
+    hiddenElements.forEach((el) => observer.observe(el));
+});
 
-/* ==========================================================================
-   4. KOMPONEN UTAMA APLIKASI (APP)
-   ========================================================================== */
-function App() {
+// ==========================================================================
+// 5. DASBOR STATISTIK GITHUB API & FIREBASE
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
     
-    // --- STATE MANAGEMENT ---
-    const [
-        lang, 
-        setLang
-    ] = useState('id');
-
-    const [
-        isDarkMode, 
-        setIsDarkMode
-    ] = useState(true);
-
-    const [
-        isMenuOpen, 
-        setIsMenuOpen
-    ] = useState(false);
-
-    const [
-        showHistory, 
-        setShowHistory
-    ] = useState(false);
-    
-    const [
-        user, 
-        setUser
-    ] = useState(null);
-
-    const [
-        comments, 
-        setComments
-    ] = useState([]);
-
-    const [
-        newComment, 
-        setNewComment
-    ] = useState("");
-
-    const [
-        rating, 
-        setRating
-    ] = useState(0);
-  
-    // State Dasbor (Dimulai dari "0" agar animasi jalan)
-    const [
-        visitorCount, 
-        setVisitorCount
-    ] = useState("0");
-
-    const [
-        repoCount, 
-        setRepoCount
-    ] = useState("0");
-
-    const [
-        followerCount, 
-        setFollowerCount
-    ] = useState("0");
-  
-    const t = translations[lang];
-  
-
-    // --- FUNGSI TEMA DAN MENU ---
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode);
-        document.body.classList.toggle('light-mode');
-    };
-  
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
-  
-
-    /* ==========================================================================
-       5. FUNGSI ANIMASI ANGKA BERGULIR DENGAN FORMAT RIBUAN
-       ========================================================================== */
-    const animateValue = (setFunction, start, end, duration) => {
+    function animateValue(element, start, end, duration, isPadded) {
+        if (!element) return;
+        if(start === end) {
+            element.innerText = isPadded ? String(end).padStart(5, '0') : end.toLocaleString('id-ID');
+            return;
+        }
         let startTimestamp = null;
         const step = (timestamp) => {
-            if (!startTimestamp) {
-                startTimestamp = timestamp;
-            }
+            if (!startTimestamp) startTimestamp = timestamp;
             const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const currentVal = Math.floor(progress * (end - start) + start);
-            
-            // Format angka dengan pemisah titik (contoh: 6.655)
-            setFunction(currentVal.toLocaleString('id-ID'));
-            
+            let currentVal = Math.floor(progress * (end - start) + start);
+
+            if (isPadded) {
+                element.innerText = String(currentVal).padStart(5, '0');
+            } else {
+                element.innerText = currentVal.toLocaleString('id-ID'); 
+            }
+
             if (progress < 1) {
                 window.requestAnimationFrame(step);
+            } else {
+                element.innerText = isPadded ? String(end).padStart(5, '0') : end.toLocaleString('id-ID');
             }
         };
         window.requestAnimationFrame(step);
-    };
-  
+    }
 
-    /* ==========================================================================
-       6. EFFECT: AMBIL DATA DASBOR (FIREBASE & GITHUB)
-       ========================================================================== */
-    useEffect(() => {
-      
-        // --- Menghitung Pengunjung (Firebase) ---
-        const trackVisitor = async () => {
-            try {
-                const visitorRef = doc(db, "statistics", "visitors");
-                const docSnap = await getDoc(visitorRef);
-                
-                let targetCount = 0;
-        
-                if (!docSnap.exists()) {
-                    await setDoc(visitorRef, { 
-                        count: 1 
-                    });
-                    targetCount = 1;
-                    sessionStorage.setItem("hasVisited", "true");
-                } else {
-                    const hasVisited = sessionStorage.getItem("hasVisited");
-                    if (!hasVisited) {
-                        await updateDoc(visitorRef, { 
-                            count: increment(1) 
-                        });
-                        sessionStorage.setItem("hasVisited", "true");
-                        targetCount = docSnap.data().count + 1; 
-                    } else {
-                        targetCount = docSnap.data().count;
-                    }
-                }
-                
-                // Menjalankan animasi selama 2 detik
-                animateValue(setVisitorCount, 0, targetCount, 2000);
-        
-            } catch (error) {
-                console.error("Error Firebase Visitor:", error);
-                setVisitorCount("0"); 
-            }
-        };
-  
-        trackVisitor();
-  
-        // --- Mengambil Data GitHub ---
+    // ================= A. FETCH GITHUB API =================
+    try {
+        const ghChartImg = document.getElementById('gh-chart-img');
+        if(ghChartImg) {
+            ghChartImg.src = "https://ghchart.rshah.org/00f3ff/damta8827773?v=" + new Date().getTime();
+        }
+
+        const fallbackRepos = 24; 
+        const fallbackFollowers = 8; 
+
         fetch('https://api.github.com/users/damta8827773')
-            .then(res => res.json())
-            .then(data => {
-                const totalRepo = data.public_repos || 0;
-                const totalFollower = data.followers || 0;
-        
-                // Menjalankan animasi untuk GitHub
-                animateValue(setRepoCount, 0, totalRepo, 2000);
-                animateValue(setFollowerCount, 0, totalFollower, 2000);
+            .then(response => {
+                if(!response.ok) throw new Error("API Limit");
+                return response.json();
             })
-            .catch(() => {
-                setRepoCount("0");
-                setFollowerCount("0");
+            .then(data => {
+                const repoDisplay = document.getElementById('repo-count');
+                const followerDisplay = document.getElementById('follower-count');
+                const repos = data.public_repos || fallbackRepos;
+                const followers = data.followers || fallbackFollowers;
+                if(repoDisplay) animateValue(repoDisplay, 0, repos, 2000, false);
+                if(followerDisplay) animateValue(followerDisplay, 0, followers, 2000, false);
+            })
+            .catch(error => {
+                console.warn("Menggunakan data cadangan Github:", error);
+                const repoDisplay = document.getElementById('repo-count');
+                const followerDisplay = document.getElementById('follower-count');
+                if(repoDisplay) animateValue(repoDisplay, 0, fallbackRepos, 2000, false);
+                if(followerDisplay) animateValue(followerDisplay, 0, fallbackFollowers, 2000, false);
             });
-    }, []); 
-  
+    } catch(e) { console.error("Github Error:", e) }
 
-    /* ==========================================================================
-       7. EFFECT: AUTH LOGIN & LOAD KOMENTAR REAL-TIME
-       ========================================================================== */
-    useEffect(() => {
-        const unsubscribeAuth = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-  
-        const q = query(
-            collection(db, "comments"), 
-            orderBy("timestamp", "desc")
-        );
+    // ================= B. INISIALISASI FIREBASE =================
+    try {
+        if (typeof firebase !== "undefined") {
+            const firebaseConfig = {
+                apiKey: "AIzaSyC80W6y97OPM8m6VeiKs_0vt7oCd5HsTi8",
+                authDomain: "projectdamta.firebaseapp.com",
+                projectId: "projectdamta",
+                storageBucket: "projectdamta.firebasestorage.app",
+                messagingSenderId: "118530088464",
+                appId: "1:118530088464:web:f193173dcc75d7557b7495"
+            };
 
-        const unsubscribeComments = onSnapshot(q, (snapshot) => {
-            const docs = [];
-            snapshot.forEach((doc) => {
-                docs.push({ 
-                    id: doc.id, 
-                    ...doc.data() 
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+            const provider = new firebase.auth.GoogleAuthProvider();
+
+            // PENGHITUNG PENGUNJUNG
+            const visitorDisplay = document.getElementById('visitor-count');
+            if (visitorDisplay) {
+                const visitorRef = db.collection("statistics").doc("visitors");
+                visitorRef.get().then((docSnap) => {
+                    let targetCount = 0;
+                    if (!docSnap.exists) {
+                        visitorRef.set({ count: 1 });
+                        targetCount = 1;
+                        sessionStorage.setItem("hasVisited", "true");
+                    } else {
+                        const hasVisited = sessionStorage.getItem("hasVisited");
+                        if (!hasVisited) {
+                            visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+                            sessionStorage.setItem("hasVisited", "true");
+                            targetCount = docSnap.data().count + 1;
+                        } else {
+                            targetCount = docSnap.data().count;
+                        }
+                    }
+                    animateValue(visitorDisplay, 0, targetCount, 2000, true);
+                }).catch((error) => {
+                    console.error("Firebase Visitor Error:", error);
+                    visitorDisplay.innerText = "00000"; 
                 });
-            });
-            setComments(docs);
-        });
-  
-        return () => {
-            unsubscribeAuth();
-            unsubscribeComments();
-        };
-    }, []);
-  
+            }
 
-    /* ==========================================================================
-       8. EFFECT: ANIMASI MUNCUL SAAT SCROLL
-       ========================================================================== */
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('show');
+            // SISTEM KOMENTAR (Desain Chat Room dengan Reply Bintang)
+            const authSection = document.getElementById('auth-section');
+            const commentForm = document.getElementById('comment-form');
+            const listContainer = document.getElementById('comments-display-list');
+            const btnLoginGoogle = document.getElementById('btn-login-google');
+            const btnLogout = document.getElementById('btn-logout');
+            const submitCommentBtn = document.getElementById('submit-comment');
+
+            if(btnLoginGoogle) {
+                btnLoginGoogle.onclick = () => {
+                    auth.signInWithPopup(provider).catch((error) => alert("Gagal login: " + error.message));
+                };
+            }
+
+            if(btnLogout) {
+                btnLogout.onclick = () => auth.signOut();
+            }
+
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    if(authSection) authSection.style.display = 'none';
+                    if(commentForm) commentForm.style.display = 'flex';
+                    document.getElementById('user-photo').src = user.photoURL;
+                    document.getElementById('user-name-display').innerText = user.displayName;
+                } else {
+                    if(authSection) authSection.style.display = 'block';
+                    if(commentForm) commentForm.style.display = 'none';
+                }
+            });
+
+            if(submitCommentBtn) {
+                submitCommentBtn.onclick = async (e) => {
+                    e.preventDefault();
+                    const text = document.getElementById('comment-input').value;
+                    const ratingElement = document.querySelector('input[name="stars"]:checked');
+                    const rating = ratingElement ? parseInt(ratingElement.value) : 0;
+
+                    if (!text) return alert("Pesan tidak boleh kosong!");
+
+                    try {
+                        await db.collection("comments").add({
+                            name: auth.currentUser.displayName,
+                            photo: auth.currentUser.photoURL,
+                            email: auth.currentUser.email,
+                            comment: text,
+                            rating: rating,
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                        });
+                        document.getElementById('comment-input').value = "";
+                        if(ratingElement) ratingElement.checked = false;
+                    } catch (err) {
+                        alert("Gagal mengirim: " + err.message);
+                    }
+                };
+            }
+
+            // Fitur Auto Reply Mention
+            window.replyTo = function(name) {
+                const inputArea = document.getElementById('comment-input');
+                if(inputArea) {
+                    inputArea.value = `@${name} ` + inputArea.value;
+                    inputArea.focus();
+                }
+            };
+
+            if(listContainer) {
+                db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+                    listContainer.innerHTML = "";
+                    if (snapshot.empty) {
+                        listContainer.innerHTML = "<p style='text-align: center; color: var(--text-muted);'>Belum ada percakapan.</p>";
+                    } else {
+                        snapshot.forEach((doc) => {
+                            const d = doc.data();
+                            const stars = "⭐".repeat(d.rating || 0);
+                            const isOwner = d.email === "damtafaiz@gmail.com" ? "<span class='owner-badge'>Owner</span>" : "";
+                            
+                            // Formatting Waktu agar muncul (ex: 14/02/2026, 15:21)
+                            let timeString = "";
+                            if (d.timestamp) {
+                                const date = d.timestamp.toDate();
+                                timeString = date.toLocaleDateString('id-ID') + ', ' + date.toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
+                            }
+                            
+                            listContainer.innerHTML += `
+                                <div class="chat-item">
+                                    <img src="${d.photo}" alt="${d.name}" class="chat-avatar" />
+                                    <div class="chat-content">
+                                        <div class="chat-header">
+                                            <strong class="chat-name">${d.name} ${isOwner}</strong>
+                                            <span class="chat-time">${timeString}</span>
+                                            <button class="btn-reply" onclick="replyTo('${d.name}')" title="Balas"><i class="ri-reply-line"></i></button>
+                                        </div>
+                                        <div class="chat-text">
+                                            ${d.comment}
+                                            <div style="font-size:0.75rem; margin-top:3px; letter-spacing:1px;">${stars}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
                     }
                 });
-            }, { 
-                threshold: 0.15 
-            });
-  
-            const hiddenElements = document.querySelectorAll(
-                '.profil-card, .skill-section, .project-card, .cert-card, .vm-card, .history-item, #dashboard, #comments'
-            );
-            
-            hiddenElements.forEach((el) => {
-                observer.observe(el);
-            });
-        }, 100);
-  
-        return () => {
-            clearTimeout(timer);
-        };
-    }, [showHistory, comments]); 
-  
+            }
 
-    /* ==========================================================================
-       9. FUNGSI KLIK: LOGIN, LOGOUT & SUBMIT KOMENTAR
-       ========================================================================== */
-    const handleLogin = () => {
-        signInWithPopup(auth, provider);
-    };
-    
-    const handleLogout = () => {
-        signOut(auth);
-    };
-  
-    const handleSubmitComment = async (e) => {
-        e.preventDefault();
-        
-        if (!newComment || rating === 0) {
-            return alert("Pilih rating bintang dan tulis pesan!");
         }
-    
-        try {
-            await addDoc(collection(db, "comments"), {
-                name: user.displayName,
-                photo: user.photoURL,
-                email: user.email,
-                comment: newComment,
-                rating: rating,
-                timestamp: serverTimestamp()
-            });
-            setNewComment("");
-            setRating(0);
-        } catch (err) {
-            alert("Error: " + err.message);
-        }
-    };
-  
-
-    /* ==========================================================================
-       10. RENDER HTML (UI TAMPILAN)
-       ========================================================================== */
-    return (
-        <div className="App">
-            
-            {/* --- NAVBAR --- */}
-            <div className="navbar-container">
-                <nav className="navbar">
-                    <div className="nav-left">
-                        <div className="logo-container">
-                            <img 
-                                src="assets/img/logo.png" 
-                                alt="Logo" 
-                            />
-                        </div>
-                    </div>
-                    
-                    <div 
-                        className={`hamburger ${isMenuOpen ? 'active' : ''}`} 
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    
-                    <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-                        <ul>
-                            <li>
-                                <a href="#home" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/home.png" 
-                                        alt="Home" 
-                                    />
-                                    <span>{t.nav_home}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#profil" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/profil.png" 
-                                        alt="Profil" 
-                                    />
-                                    <span>{t.nav_profil}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#skill" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/skill.png" 
-                                        alt="Skill" 
-                                    />
-                                    <span>{t.nav_skill}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#projects" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/proyek.png" 
-                                        alt="Proyek" 
-                                    />
-                                    <span>{t.nav_project}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#certificates" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/sertif.png" 
-                                        alt="Sertifikat" 
-                                    />
-                                    <span>{t.nav_cert}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#about" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/tentang kami.png" 
-                                        alt="Tentang Saya" 
-                                    />
-                                    <span>{t.about_us}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#dashboard" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/komen&rate.png" 
-                                        alt="Dashboard" 
-                                    />
-                                    <span>{t.dashboard_title}</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#comments" onClick={closeMenu}>
-                                    <img 
-                                        src="assets/img/komen&rate.png" 
-                                        alt="Komentar" 
-                                    />
-                                    <span>{t.comment_title}</span>
-                                </a>
-                            </li>
-                            
-                            <div className="controls">
-                                <button 
-                                    className="control-btn" 
-                                    onClick={() => setLang(lang === 'id' ? 'en' : 'id')}
-                                >
-                                    <i className="ri-global-line"></i> 
-                                    <span>{lang.toUpperCase()}</span>
-                                </button>
-                                <button 
-                                    className="control-btn" 
-                                    onClick={toggleTheme}
-                                >
-                                    <i className={isDarkMode ? "ri-sun-line" : "ri-moon-line"}></i>
-                                    <span>MODE</span>
-                                </button>
-                            </div>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-    
-            {/* --- HERO SECTION --- */}
-            <section id="home" className="hero">
-                <h1>{t.hero_title}</h1>
-                <p>{t.hero_subtitle}</p> 
-            </section>
-    
-            {/* --- PROFIL SECTION --- */}
-            <section id="profil">
-                <div className="profil-card">
-                    <div className="profil-bg-decoration"></div>
-                    <h2>{t.profil_title}</h2>
-                    <div className="detail-row">
-                        <span className="detail-label">{t.label_user}</span>
-                        <span>Damta Noviyan Muhamad Faiz</span>
-                    </div>
-                    <div className="detail-row">
-                        <span className="detail-label">{t.label_loc}</span>
-                        <span>Jakarta, Indonesia</span>
-                    </div>
-                    <div className="detail-row">
-                        <span className="detail-label">{t.label_guild}</span>
-                        <span>UIN Syarif Hidayatullah Jakarta</span>
-                    </div>
-                    <div className="detail-row">
-                        <span className="detail-label">{t.label_role}</span>
-                        <span>Full Stack Developer</span>
-                    </div>
-                </div>
-            </section>
-    
-            {/* --- SKILL SECTION --- */}
-            <section id="skill" className="skill-section">
-                <h2 className="neon-title">{t.skill_title}</h2>
-                <div className="marquee-wrapper">
-                    <div className="marquee-content scroll-left">
-                        <SkillItem 
-                            img="assets/img/html.png" 
-                            name="HTML" 
-                        />
-                        <SkillItem 
-                            img="assets/img/css.png" 
-                            name="CSS" 
-                        />
-                        <SkillItem 
-                            img="assets/img/js.png" 
-                            name="JS" 
-                        />
-                        <SkillItem 
-                            img="assets/img/react.png" 
-                            name="React" 
-                        />
-                        <SkillItem 
-                            img="assets/img/node.png" 
-                            name="NodeJS" 
-                        />
-                        <SkillItem 
-                            img="assets/img/cpanel.png" 
-                            name="Cpanel" 
-                        />
-                        <SkillItem 
-                            img="assets/img/github.png" 
-                            name="Github" 
-                        />
-                        <SkillItem 
-                            img="assets/img/html.png" 
-                            name="HTML" 
-                        />
-                        <SkillItem 
-                            img="assets/img/css.png" 
-                            name="CSS" 
-                        />
-                        <SkillItem 
-                            img="assets/img/js.png" 
-                            name="JS" 
-                        />
-                        <SkillItem 
-                            img="assets/img/react.png" 
-                            name="React" 
-                        />
-                        <SkillItem 
-                            img="assets/img/node.png" 
-                            name="NodeJS" 
-                        />
-                        <SkillItem 
-                            img="assets/img/cpanel.png" 
-                            name="Cpanel" 
-                        />
-                        <SkillItem 
-                            img="assets/img/github.png" 
-                            name="Github" 
-                        />
-                    </div>
-                </div>
-                <br/>
-                <div className="marquee-wrapper">
-                    <div className="marquee-content scroll-right">
-                        <SkillItem 
-                            img="assets/img/c.png" 
-                            name="C Lang" 
-                        />
-                        <SkillItem 
-                            img="assets/img/php.png" 
-                            name="PHP" 
-                        />
-                        <SkillItem 
-                            img="assets/img/mysql.png" 
-                            name="MySQL" 
-                        />
-                        <SkillItem 
-                            img="assets/img/bootstrap.png" 
-                            name="Bootstrap" 
-                        />
-                        <SkillItem 
-                            img="assets/img/tailwind.png" 
-                            name="Tailwind" 
-                        />
-                        <SkillItem 
-                            img="assets/img/vscode.png" 
-                            name="VS Code" 
-                        />
-                        <SkillItem 
-                            img="assets/img/gemini.png" 
-                            name="Gemini" 
-                        />
-                        <SkillItem 
-                            img="assets/img/google cloud.png" 
-                            name="Google Cloud" 
-                        />
-                        <SkillItem 
-                            img="assets/img/google search console.png" 
-                            name="Google Search Console" 
-                            isLongText={true} 
-                        />
-                        <SkillItem 
-                            img="assets/img/firebase.png" 
-                            name="Firebase" 
-                        />
-                        <SkillItem 
-                            img="assets/img/c.png" 
-                            name="C Lang" 
-                        />
-                        <SkillItem 
-                            img="assets/img/php.png" 
-                            name="PHP" 
-                        />
-                        <SkillItem 
-                            img="assets/img/mysql.png" 
-                            name="MySQL" 
-                        />
-                        <SkillItem 
-                            img="assets/img/bootstrap.png" 
-                            name="Bootstrap" 
-                        />
-                        <SkillItem 
-                            img="assets/img/tailwind.png" 
-                            name="Tailwind" 
-                        />
-                        <SkillItem 
-                            img="assets/img/vscode.png" 
-                            name="VS Code" 
-                        />
-                        <SkillItem 
-                            img="assets/img/gemini.png" 
-                            name="Gemini" 
-                        />
-                    </div>
-                </div>
-            </section>
-    
-            {/* --- PROJECTS SECTION --- */}
-            <section id="projects">
-                <h2 className="neon-title-blue">{t.project_title}</h2>
-                <div className="project-grid">
-                    {projects.map((item, index) => (
-                        <div 
-                            className="project-card" 
-                            key={index}
-                        >
-                            <div className="project-img">
-                                <img 
-                                    src={item.img} 
-                                    alt={item.title} 
-                                    onError={(e) => {
-                                        e.target.style.display='none'
-                                    }} 
-                                />
-                            </div>
-                            <div className="project-info">
-                                <h3>{item.title}</h3>
-                                <p>{t[`desc_p${index + 1}`] || item.desc}</p>
-                                <a 
-                                    href={item.link} 
-                                    target="_blank" 
-                                    rel="noreferrer" 
-                                    className="btn-view"
-                                >
-                                    <i className="ri-arrow-right-line arrow-icon"></i> 
-                                    {t.btn_view}
-                                </a>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-    
-            {/* --- CERTIFICATES SECTION --- */}
-            <section id="certificates">
-                <h2 className="neon-title">{t.cert_title}</h2>
-                <div className="cert-container">
-                    {certificates.map((cert, index) => (
-                        <div 
-                            className="cert-card" 
-                            key={index}
-                        >
-                            <div className="cert-img-box">
-                                <img 
-                                    src={cert.img} 
-                                    alt={cert.title} 
-                                />
-                            </div>
-                            <div className="cert-content">
-                                <h4>{cert.title}</h4>
-                                <span>{cert.issuer}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-    
-            {/* --- ABOUT SECTION --- */}
-            <section id="about">
-                <div className="about-profile-img">
-                    <img 
-                        src="assets/img/profile-bg.jpg" 
-                        alt="About Background" 
-                        onError={(e)=>{
-                            e.target.style.display='none'
-                        }}
-                    />
-                </div>
-                <h2 className="neon-title">{t.about_title}</h2>
-                <div className="visi-misi-container">
-                    <div className="vm-card">
-                        <h3>Visi</h3>
-                        <p>Menjadi seseorang yang haus akan pengetahun teknologi, terus membuat inovasi baru dan mengimplementasikan di dunia nyata apa yang ada di dalam ide dan pikiran.</p>
-                    </div>
-                    <div className="vm-card">
-                        <h3>Misi</h3>
-                        <p>Membangun keterampilan komunikasi terhadap tim yang efektif dan kolaboratif.</p>
-                    </div>
-                </div>
-                
-                <div className="about-us-container">
-                    <div 
-                        className="about-us-header" 
-                        onClick={() => setShowHistory(!showHistory)}
-                    >
-                        <div className="line"></div>
-                        <h3>{t.about_us}</h3>
-                        <div className="line"></div>
-                    </div>
-                    
-                    <div className={`history-content ${showHistory ? 'active' : ''}`}>
-                        {historyData.map((item, index) => (
-                            <div 
-                                className="history-item" 
-                                key={index}
-                            >
-                                <div className="hist-img">
-                                    <img 
-                                        src={item.img} 
-                                        alt={item.year} 
-                                    />
-                                </div>
-                                <div className="hist-text">
-                                    <h4>{item.year}</h4>
-                                    <p>{item.text}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-    
-            {/* --- DASHBOARD SECTION --- */}
-            <section id="dashboard" className="hidden">
-                <h2 className="neon-title">
-                    {t.dashboard_title}
-                </h2>
-                
-                <div className="dashboard-grid">
-                    
-                    {/* Kartu Pengunjung */}
-                    <div 
-                        className="stat-card" 
-                        style={{ 
-                            margin: 0, 
-                            width: '100%', 
-                            textAlign: 'center' 
-                        }}
-                    >
-                        <h3 className="stat-title primary-neon-text">
-                            <i 
-                                className="ri-eye-line" 
-                                style={{ 
-                                    marginRight: '10px' 
-                                }}
-                            ></i>
-                            <span>{t.visitor_title}</span>
-                        </h3>
-                        
-                        <h1 
-                            id="visitor-count" 
-                            className="stat-number primary-neon-shadow"
-                        >
-                            {visitorCount}
-                        </h1>
-                        
-                        <p className="stat-desc">
-                            {t.visitor_desc}
-                        </p>
-                    </div>
-        
-                    {/* Kartu GitHub */}
-                    <div 
-                        className="stat-card" 
-                        style={{ 
-                            margin: 0, 
-                            width: '100%', 
-                            textAlign: 'center' 
-                        }}
-                    >
-                        <h3 className="stat-title secondary-neon-text">
-                            <i 
-                                className="ri-github-fill" 
-                                style={{ 
-                                    marginRight: '10px' 
-                                }}
-                            ></i>
-                            GitHub damta8827773
-                        </h3>
-                        
-                        <div className="github-stats-row">
-                            <div className="github-stat-item">
-                                <h4 
-                                    id="repo-count" 
-                                    className="github-stat-number secondary-neon-shadow"
-                                >
-                                    {repoCount}
-                                </h4>
-                                <span className="github-stat-label">
-                                    {t.repo_title}
-                                </span>
-                            </div>
-                            
-                            <div className="github-stat-item">
-                                <h4 
-                                    id="follower-count" 
-                                    className="github-stat-number secondary-neon-shadow"
-                                >
-                                    {followerCount}
-                                </h4>
-                                <span className="github-stat-label">
-                                    {t.follower_title}
-                                </span>
-                            </div>
-                        </div>
-        
-                        <p className="github-chart-title">
-                            {t.contrib_title}
-                        </p>
-                        
-                        <div className="github-chart-container">
-                            <img 
-                                src="https://ghchart.rshah.org/00f3ff/damta8827773" 
-                                alt="GitHub Contributions" 
-                                className="github-chart-img"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </section>
-    
-            {/* --- COMMENTS SECTION --- */}
-            <section id="comments" className="hidden">
-                <h2 className="neon-title">{t.comment_title}</h2>
-                <div 
-                    className="comment-container profil-card" 
-                    style={{ 
-                        maxWidth: '800px', 
-                        margin: '0 auto', 
-                        textAlign: 'left' 
-                    }}
-                >
-                    {!user ? (
-                        <div 
-                            style={{ 
-                                textAlign: 'center', 
-                                padding: '20px' 
-                            }}
-                        >
-                            <p 
-                                style={{ 
-                                    marginBottom: '20px' 
-                                }}
-                            >
-                                Login untuk memberi ulasan:
-                            </p>
-                            
-                            <button 
-                                onClick={handleLogin} 
-                                className="btn-view" 
-                                style={{ 
-                                    background: '#ffffff', 
-                                    color: '#333333', 
-                                    fontWeight: 'bold', 
-                                    display: 'inline-flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center', 
-                                    gap: '10px',
-                                    padding: '12px 25px',
-                                    border: '1px solid #ddd',
-                                    borderRadius: '30px',
-                                    cursor: 'pointer'
-                                }}
-                            >
-                                <img 
-                                    src="assets/img/Google.png" 
-                                    alt="Google" 
-                                    style={{ 
-                                        width: '20px', 
-                                        height: '20px', 
-                                        filter: 'none !important', 
-                                        display: 'block' 
-                                    }} 
-                                    onError={(e) => {
-                                        e.target.style.display='none';
-                                    }}
-                                />
-                                Login dengan Google
-                            </button>
-                        </div>
-                    ) : (
-                        <form onSubmit={handleSubmitComment}>
-                            <div 
-                                style={{ 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    gap: '15px', 
-                                    marginBottom: '15px' 
-                                }}
-                            >
-                                <img 
-                                    src={user.photoURL} 
-                                    alt="User" 
-                                    style={{ 
-                                        width: '40px', 
-                                        height: '40px', 
-                                        borderRadius: '50%', 
-                                        border: '2px solid var(--primary-neon)' 
-                                    }} 
-                                />
-                                <strong>{user.displayName}</strong>
-                                
-                                <button 
-                                    type="button" 
-                                    onClick={handleLogout} 
-                                    className="control-btn" 
-                                    style={{ 
-                                        fontSize: '0.7rem', 
-                                        height: '30px', 
-                                        marginLeft: 'auto' 
-                                    }}
-                                >
-                                    Logout
-                                </button>
-                            </div>
-                            
-                            <div className="star-rating">
-                                {[5, 4, 3, 2, 1].map((num) => (
-                                    <React.Fragment key={num}>
-                                        <input 
-                                            type="radio" 
-                                            id={`star${num}`} 
-                                            name="rating" 
-                                            value={num} 
-                                            onChange={() => setRating(num)} 
-                                            checked={rating === num} 
-                                        />
-                                        <label htmlFor={`star${num}`}>★</label>
-                                    </React.Fragment>
-                                ))}
-                            </div>
-                            
-                            <textarea 
-                                value={newComment}
-                                onChange={(e) => setNewComment(e.target.value)}
-                                placeholder="Tulis komentar kamu disini..." 
-                                className="comment-input-area"
-                                required
-                            />
-                            
-                            <button 
-                                type="submit" 
-                                className="btn-view" 
-                                style={{
-                                    marginTop: '10px'
-                                }}
-                            >
-                                Kirim Komentar
-                            </button>
-                        </form>
-                    )}
-                    
-                    <hr 
-                        style={{ 
-                            margin: '30px 0', 
-                            border: '0', 
-                            borderTop: '1px solid var(--card-border)', 
-                            opacity: '0.2' 
-                        }} 
-                    />
-                    
-                    <div className="comments-list">
-                        {comments.map((c) => (
-                            <div 
-                                key={c.id} 
-                                className="comment-item"
-                            >
-                                <img 
-                                    src={c.photo} 
-                                    alt={c.name} 
-                                    className="comment-avatar" 
-                                />
-                                <div className="comment-body">
-                                    <div className="comment-header">
-                                        <strong>
-                                            {c.name} 
-                                            {c.email === "damtafaiz@gmail.com" && <span className="owner-badge">Owner</span>}
-                                        </strong>
-                                        <span className="comment-stars">{"⭐".repeat(c.rating)}</span>
-                                    </div>
-                                    <p className="comment-text">{c.comment}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-    
-            {/* --- FOOTER --- */}
-            <footer id="contact">
-                <div className="social-links">
-                    <SocialBtn 
-                        href="https://instagram.com/tadamta_" 
-                        icon="ri-instagram-fill" 
-                    />
-                    <SocialBtn 
-                        href="https://www.linkedin.com/in/damta-faiz" 
-                        icon="ri-linkedin-fill" 
-                    />
-                    <SocialBtn 
-                        href="https://github.com/damta8827773" 
-                        icon="ri-github-fill" 
-                    />
-                    <SocialBtn 
-                        href="mailto:damtafaiz@gmail.com" 
-                        icon="ri-mail-fill" 
-                    />
-                </div>
-                <p>&copy; {new Date().getFullYear()} Damta Noviyan Muhamad Faiz. {t.footer}</p>
-            </footer>
-        </div>
-    );
-}
-  
-  
-/* ==========================================================================
-   11. KOMPONEN KECIL (REUSABLE COMPONENTS)
-   ========================================================================== */
-function SkillItem({ 
-    img, 
-    name, 
-    isLongText 
-}) {
-    return (
-        <div className={`tech-item ${isLongText ? 'long-text-box' : ''}`}>
-            <img 
-                src={img} 
-                alt={name} 
-                onError={(e) => {
-                    e.target.style.display='none'
-                }} 
-            />
-            <span>{name}</span>
-        </div>
-    );
-}
-  
-function SocialBtn({ 
-    href, 
-    icon 
-}) {
-    return (
-        <a 
-            href={href} 
-            target="_blank" 
-            rel="noreferrer" 
-            className="social-icon-btn"
-        >
-            <i className={icon}></i>
-        </a>
-    );
-}
-  
-export default App;
+    } catch(e) {
+        console.error("Firebase Error Full:", e);
+        const visitorDisplay = document.getElementById('visitor-count');
+        if (visitorDisplay) visitorDisplay.innerText = "00000";
+    }
+});
