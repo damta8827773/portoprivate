@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. SETUP FONT & VARIABEL GLOBAL
-   ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
 
 :root {
@@ -21,6 +18,7 @@
     --chat-bg: #1a1a1a;
     --chat-border: #333333;
     --chat-bubble: #2d2d2d;
+    --chat-owner-bg: #ffcc00;
 }
 
 body.light-mode {
@@ -41,11 +39,9 @@ body.light-mode {
     --chat-bg: #ffffff;
     --chat-border: #e0e0e0;
     --chat-bubble: #f0f0f0;
+    --chat-owner-bg: #ffc107;
 }
 
-/* ==========================================================================
-   2. RESET GLOBAL & SCROLLBAR
-   ========================================================================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -72,13 +68,16 @@ body.light-mode {
     background: var(--primary-neon);
 }
 
-html, body {
+html {
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;
 }
 
 body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     background: var(--bg-gradient);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
@@ -98,9 +97,6 @@ body {
     padding: 0 20px;
 }
 
-/* ==========================================================================
-   EFEK WELCOME SCREEN AWAL
-   ========================================================================== */
 .welcome-screen {
     position: fixed;
     top: 0;
@@ -113,7 +109,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 99999;
-    animation: fadeOutWelcome 3s ease-in-out forwards;
+    transition: opacity 1s ease-in-out;
     pointer-events: none;
 }
 
@@ -128,7 +124,7 @@ body {
     font-weight: 800;
     text-shadow: 0 0 20px var(--primary-neon);
     opacity: 0;
-    animation: fadeInText 1.5s ease-in-out forwards;
+    animation: fadeInText 1s ease-in-out forwards;
 }
 
 .welcome-subtitle {
@@ -136,7 +132,7 @@ body {
     color: #fff;
     margin-top: 10px;
     opacity: 0;
-    animation: fadeInText 1.5s ease-in-out 0.5s forwards;
+    animation: fadeInText 1s ease-in-out 0.5s forwards;
 }
 
 @keyframes fadeInText {
@@ -150,40 +146,13 @@ body {
     }
 }
 
-@keyframes fadeOutWelcome {
-    0% {
-        opacity: 1;
-        visibility: visible;
-    }
-    80% {
-        opacity: 1;
-        visibility: visible;
-    }
-    100% {
-        opacity: 0;
-        visibility: hidden;
-        display: none;
-    }
-}
-
 #main-content {
-    opacity: 0;
-    animation: fadeInMain 1.5s ease-in-out 2.5s forwards;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-@keyframes fadeInMain {
-    to {
-        opacity: 1;
-    }
-}
-
-/* ==========================================================================
-   3. DESAIN NAVBAR
-   ========================================================================== */
 .navbar-container {
     position: fixed;
     top: 20px;
@@ -369,9 +338,18 @@ body.light-mode .control-btn:hover {
     transition: 0.3s ease-in-out;
 }
 
-/* ==========================================================================
-   4. SECTION UTAMA & EFEK KARTU KACA
-   ========================================================================== */
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
 section {
     padding: 100px 20px;
     min-height: 85vh;
@@ -392,9 +370,16 @@ section#home.hidden {
     filter: none !important;
 }
 
-h2,
-.neon-title,
-.neon-title-blue {
+h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px var(--secondary-neon);
+    color: var(--text-color);
+}
+
+.neon-title {
     text-align: center;
     margin-bottom: 50px;
     font-size: 2.5rem;
@@ -404,10 +389,19 @@ h2,
 }
 
 .neon-title-blue {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    color: var(--text-color);
     text-shadow: 0 0 10px var(--primary-neon);
 }
 
-body.light-mode h2,
+body.light-mode h2 {
+    text-shadow: none;
+    color: var(--secondary-neon);
+}
+
 body.light-mode .neon-title {
     text-shadow: none;
     color: var(--secondary-neon);
@@ -418,12 +412,9 @@ body.light-mode .neon-title-blue {
     color: var(--primary-neon);
 }
 
-/* ==========================================================================
-   4B. ANIMASI 100D HERO REVEAL 
-   ========================================================================== */
 .hero {
     margin-top: 80px;
-    perspective: 5000px; 
+    perspective: 5000px;
     transform-style: preserve-3d;
     overflow: visible;
 }
@@ -438,7 +429,7 @@ body.light-mode .neon-title-blue {
     text-shadow: 0 0 30px rgba(0, 243, 255, 0.8), 0 0 60px rgba(188, 19, 254, 0.5);
     opacity: 0;
     transform-origin: center center;
-    animation: hero100DReveal 4s cubic-bezier(0.25, 1, 0.3, 1) forwards 0.5s; 
+    animation: hero100DReveal 2.5s cubic-bezier(0.25, 1, 0.3, 1) forwards 0.2s;
 }
 
 body.light-mode .hero h1 {
@@ -453,44 +444,10 @@ body.light-mode .hero h1 {
     font-weight: 400;
     opacity: 0;
     transform-origin: center center;
-    animation: hero100DReveal 4s cubic-bezier(0.25, 1, 0.3, 1) forwards 1s; 
+    animation: hero100DReveal 2.5s cubic-bezier(0.25, 1, 0.3, 1) forwards 0.6s;
 }
 
-@keyframes hero100DReveal {
-    0% {
-        opacity: 0;
-        transform: perspective(5000px) translateZ(-4000px) rotateX(90deg) rotateY(90deg) rotateZ(-90deg) scale(0.01);
-        filter: blur(100px) brightness(0);
-        letter-spacing: -20px;
-    }
-    30% {
-        opacity: 0.5;
-        transform: perspective(5000px) translateZ(-1000px) rotateX(45deg) rotateY(45deg) rotateZ(-20deg) scale(0.5);
-        filter: blur(30px) brightness(2);
-        letter-spacing: 5px;
-    }
-    60% {
-        opacity: 0.9;
-        transform: perspective(5000px) translateZ(300px) rotateX(-15deg) rotateY(-10deg) rotateZ(5deg) scale(1.1);
-        filter: blur(5px) brightness(1.5);
-        letter-spacing: 2px;
-    }
-    100% {
-        opacity: 1;
-        transform: perspective(5000px) translateZ(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-        filter: blur(0) brightness(1);
-        letter-spacing: normal;
-    }
-}
-
-/* ==========================================================================
-   4C. PROFIL KARTU & PROFIL SINGKAT
-   ========================================================================== */
-.profil-card,
-.tech-item,
-.project-card,
-.cert-card,
-.vm-card {
+.profil-card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     backdrop-filter: blur(15px);
@@ -499,9 +456,6 @@ body.light-mode .hero h1 {
     box-shadow: 0 0 20px var(--shadow-color);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     transform-style: preserve-3d;
-}
-
-.profil-card {
     padding: 50px;
     width: 100%;
     max-width: 700px;
@@ -566,40 +520,6 @@ body.light-mode .profil-singkat p {
     pointer-events: none;
 }
 
-/* ==========================================================================
-   EFEK HOVER AKTIF DI HP UNTUK PROJECT DAN PENCAPAIAN
-   ========================================================================== */
-@media (max-width: 768px) {
-    .project-card:active,
-    .cert-card:active,
-    .project-card:hover,
-    .cert-card:hover {
-        transform: scale(0.95) translateY(-5px) !important;
-        box-shadow: 0 0 30px var(--primary-neon) !important;
-        border-color: var(--primary-neon) !important;
-    }
-}
-
-@media (min-width: 769px) {
-    .project-card:hover,
-    .cert-card:hover,
-    .profil-card:hover,
-    .vm-card:hover {
-        transform: translateY(-15px) scale(1.02) rotateX(5deg);
-        box-shadow: 0 30px 60px rgba(0, 243, 255, 0.25);
-        border-color: var(--primary-neon);
-        z-index: 10;
-    }
-    
-    .project-card:hover .project-img img,
-    .cert-card:hover .cert-img-box img {
-        transform: scale(1.15) translateY(-5px);
-    }
-}
-
-/* ==========================================================================
-   5. BAGIAN KEMAMPUAN / SKILLS (MARQUEE)
-   ========================================================================== */
 .skill-section {
     padding: 60px 0;
     width: 100vw;
@@ -647,6 +567,8 @@ body.light-mode .profil-singkat p {
     border-radius: 20px;
     transition: all 0.3s ease;
     text-align: center;
+    box-shadow: 0 0 20px var(--shadow-color);
+    transform-style: preserve-3d;
 }
 
 .tech-item img {
@@ -682,15 +604,24 @@ body.light-mode .profil-singkat p {
     animation: scrollRight 25s linear infinite !important;
 }
 
-.marquee-wrapper:hover .scroll-left,
+.marquee-wrapper:hover .scroll-left {
+    animation-play-state: running !important;
+}
+
 .marquee-wrapper:hover .scroll-right {
     animation-play-state: running !important;
 }
 
-/* ==========================================================================
-   6. BAGIAN PROYEK & SERTIFIKAT
-   ========================================================================== */
-.project-grid,
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .cert-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -701,7 +632,23 @@ body.light-mode .profil-singkat p {
     margin-right: auto;
 }
 
-.project-card,
+.project-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: left;
+    height: 100%;
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    color: var(--text-color);
+    box-shadow: 0 0 20px var(--shadow-color);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
 .cert-card {
     display: flex;
     flex-direction: column;
@@ -709,10 +656,17 @@ body.light-mode .profil-singkat p {
     text-align: left;
     height: 100%;
     position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    color: var(--text-color);
+    box-shadow: 0 0 20px var(--shadow-color);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
 }
 
-.project-img,
-.cert-img-box {
+.project-img {
     width: 100%;
     height: 200px;
     background-color: #333;
@@ -722,15 +676,18 @@ body.light-mode .profil-singkat p {
 }
 
 .cert-img-box {
-    background: var(--cert-bg);
+    width: 100%;
     height: 250px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px 20px 0 0;
+    background: var(--cert-bg);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.project-img img,
-.cert-img-box img {
+.project-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -738,10 +695,19 @@ body.light-mode .profil-singkat p {
 }
 
 .cert-img-box img {
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
     object-fit: contain;
 }
 
-.project-info,
+.project-info {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .cert-content {
     padding: 25px;
     flex-grow: 1;
@@ -749,14 +715,24 @@ body.light-mode .profil-singkat p {
     flex-direction: column;
 }
 
-.project-info h3,
+.project-info h3 {
+    color: var(--primary-neon);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
 .cert-content h4 {
     color: var(--primary-neon);
     margin-bottom: 10px;
     font-size: 1.4rem;
 }
 
-.project-info p,
+.project-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
 .cert-content p {
     font-size: 0.9rem;
     color: var(--text-muted);
@@ -812,9 +788,6 @@ body.light-mode .profil-singkat p {
     transform: translateX(5px);
 }
 
-/* ==========================================================================
-   7. BAGIAN ABOUT (BIOGRAFI, VISI MISI, KARIER, ZIGZAG)
-   ========================================================================== */
 #about {
     position: relative;
     padding: 80px 20px;
@@ -850,13 +823,6 @@ body.light-mode .profil-singkat p {
     max-width: none;
 }
 
-#about h2,
-.visi-misi-container,
-.about-us-container {
-    position: relative;
-    z-index: 2;
-}
-
 .visi-misi-container {
     display: flex;
     gap: 30px;
@@ -866,6 +832,8 @@ body.light-mode .profil-singkat p {
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .vm-card {
@@ -878,6 +846,9 @@ body.light-mode .profil-singkat p {
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     transition: 0.3s;
     backdrop-filter: blur(5px);
+    background: var(--card-bg);
+    color: var(--text-color);
+    transform-style: preserve-3d;
 }
 
 .vm-card:hover {
@@ -906,6 +877,8 @@ body.light-mode .profil-singkat p {
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .about-us-header {
@@ -946,10 +919,8 @@ body.light-mode .profil-singkat p {
 .history-content.active {
     max-height: 8000px;
     padding-top: 10px;
-    animation: slideDownAbout 0.6s ease-out;
 }
 
-/* BIOGRAFI DI DALAM MENU TENTANG SAYA */
 .about-biography {
     width: 100%;
     text-align: left;
@@ -959,6 +930,10 @@ body.light-mode .profil-singkat p {
     border-radius: 15px;
     padding: 30px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 2;
+    margin: 0 auto 40px auto;
+    max-width: 900px;
 }
 
 .about-biography p {
@@ -973,7 +948,6 @@ body.light-mode .about-biography p {
     color: #333;
 }
 
-/* TIMELINE KARIER ACCORDION */
 .timeline-container {
     width: 100%;
     display: flex;
@@ -1018,7 +992,7 @@ body.light-mode .timeline-card:hover {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--card-border);
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1026,6 +1000,24 @@ body.light-mode .timeline-card:hover {
     border: 2px solid var(--primary-neon);
     font-size: 1.5rem;
     color: var(--primary-neon);
+    overflow: hidden;
+    position: relative;
+}
+
+.timeline-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #ffffff;
+    display: block;
+    padding: 2px;
+}
+
+.timeline-icon i {
+    position: absolute;
+    font-size: 1.5rem;
+    color: var(--primary-neon);
+    z-index: 1;
 }
 
 .timeline-info {
@@ -1034,6 +1026,8 @@ body.light-mode .timeline-card:hover {
     flex-direction: column;
     justify-content: center;
     text-align: left;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .timeline-info h4 {
@@ -1082,16 +1076,6 @@ body.light-mode .timeline-info h4 {
     width: 100%;
 }
 
-.timeline-img {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-top: 15px;
-    display: block;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
 .timeline-details p {
     font-size: 0.95rem;
     color: var(--text-color);
@@ -1105,7 +1089,6 @@ body.light-mode .timeline-details p {
     color: #555;
 }
 
-/* RIWAYAT TAHUNAN ZIGZAG */
 .history-item {
     position: relative;
     display: flex;
@@ -1164,7 +1147,6 @@ body.light-mode .timeline-details p {
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 1), -2px -2px 8px rgba(0,0,0,1);
 }
 
-/* ZIGZAG DI LAPTOP */
 .history-item:nth-child(odd) {
     justify-content: flex-start;
 }
@@ -1199,9 +1181,6 @@ body.light-mode .timeline-details p {
     font-weight: 600;
 }
 
-/* ==========================================================================
-   8. DASBOR STATISTIK (PENGUNJUNG & GITHUB)
-   ========================================================================== */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1314,7 +1293,11 @@ body.light-mode .timeline-details p {
     display: block;
 }
 
-body.light-mode .stat-number, 
+body.light-mode .stat-number {
+    color: #333;
+    text-shadow: none;
+}
+
 body.light-mode .github-stat-number {
     color: #333;
     text-shadow: none;
@@ -1323,10 +1306,6 @@ body.light-mode .github-stat-number {
 body.light-mode .github-chart-container {
     background: rgba(255,255,255,0.5);
 }
-
-/* ==========================================================================
-   9. KOMENTAR (DESAIN GELAP MODERN DENGAN RATA KIRI, BINTANG & REPLY)
-   ========================================================================== */
 
 .chat-wrapper {
     width: 100%;
@@ -1345,7 +1324,6 @@ body.light-mode .chat-wrapper {
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* Area Chat Box Rata Kiri */
 .chat-messages {
     padding: 30px 20px;
     display: flex;
@@ -1353,7 +1331,7 @@ body.light-mode .chat-wrapper {
     gap: 20px;
     max-height: 500px;
     overflow-y: auto;
-    text-align: left; /* Paksa teks rata kiri */
+    text-align: left;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -1365,11 +1343,27 @@ body.light-mode .chat-wrapper {
     border-radius: 5px;
 }
 
+.chat-item-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.chat-item-wrapper.align-left {
+    justify-content: flex-start;
+}
+
+.chat-item-wrapper.align-right {
+    justify-content: flex-end;
+}
+
 .chat-item {
     display: flex;
     gap: 15px;
-    align-items: flex-start;
-    text-align: left;
+    max-width: 85%;
+}
+
+.chat-item.align-right {
+    flex-direction: row-reverse;
 }
 
 .chat-avatar {
@@ -1383,7 +1377,6 @@ body.light-mode .chat-wrapper {
 .chat-content {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
 }
 
 .chat-header {
@@ -1393,9 +1386,13 @@ body.light-mode .chat-wrapper {
     margin-bottom: 5px;
 }
 
+.chat-item.align-right .chat-header {
+    flex-direction: row-reverse;
+}
+
 .chat-name {
     color: var(--text-color);
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
@@ -1405,37 +1402,69 @@ body.light-mode .chat-name {
 
 .chat-time {
     color: var(--text-muted);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
 }
 
-.chat-text {
-    color: var(--text-color);
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-body.light-mode .chat-text {
-    color: #444;
-}
-
-/* Tombol Reply di dalam Chat */
 .btn-reply {
     background: transparent;
     color: var(--text-muted);
     border: none;
     font-size: 1.1rem;
     cursor: pointer;
-    margin-left: auto;
     transition: color 0.2s;
+    margin-left: 5px;
+}
+
+.chat-item.align-right .btn-reply {
+    margin-left: 0;
+    margin-right: 5px;
 }
 
 .btn-reply:hover {
     color: var(--primary-neon);
 }
 
-/* Area Input Bawah */
-.chat-input-container {
+.chat-bubble {
     background: var(--chat-bubble);
+    padding: 12px 18px;
+    border-radius: 0 15px 15px 15px;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    border: 1px solid var(--chat-border);
+}
+
+body.light-mode .chat-bubble {
+    color: #333;
+}
+
+.chat-bubble.owner {
+    background: var(--chat-owner-bg);
+    color: #000;
+    border-radius: 15px 0 15px 15px;
+    border: none;
+    font-weight: 500;
+}
+
+.owner-badge {
+    border: 1px solid #000;
+    color: #000;
+    background: var(--primary-neon);
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.chat-stars {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+
+.chat-input-container {
+    background: var(--chat-bg);
     padding: 20px;
     border-top: 1px solid var(--chat-border);
 }
@@ -1498,7 +1527,6 @@ body.light-mode .user-active-info span {
     color: #333;
 }
 
-/* Rating Bintang Menyamping di Sebelah Nama */
 .star-rating {
     display: flex;
     flex-direction: row-reverse;
@@ -1521,7 +1549,10 @@ body.light-mode .user-active-info span {
     color: #ffcc00;
 }
 
-.star-rating label:hover,
+.star-rating label:hover {
+    color: #ffeb3b;
+}
+
 .star-rating label:hover ~ label {
     color: #ffeb3b;
 }
@@ -1539,7 +1570,7 @@ body.light-mode .user-active-info span {
 .chat-input-row {
     display: flex;
     align-items: center;
-    background: var(--chat-bg);
+    background: var(--chat-bubble);
     border: 1px solid var(--chat-border);
     border-radius: 30px;
     padding: 5px 15px;
@@ -1578,9 +1609,6 @@ body.light-mode .chat-input-row textarea {
     transform: scale(1.1) translateX(3px);
 }
 
-/* ==========================================================================
-   10. FOOTER
-   ========================================================================== */
 footer {
     background-color: rgba(0,0,0,0.8);
     padding: 50px 20px;
@@ -1685,13 +1713,10 @@ body.light-mode .social-icon-btn {
 }
 
 body.light-mode .social-icon-btn:hover {
-    background-color: var(--primary-neon);
+    background: var(--primary-neon);
     color: #fff;
 }
 
-/* ==========================================================================
-   11. MEDIA QUERIES (OPTIMASI KHUSUS TAMPILAN HANDPHONE)
-   ========================================================================== */
 @media (max-width: 768px) {
     .navbar {
         height: auto;
@@ -1743,12 +1768,20 @@ body.light-mode .social-icon-btn:hover {
         justify-content: center;
         width: 100%;
     }
+    
+    .hero {
+        perspective: none; 
+        transform-style: flat;
+    }
 
     .hero h1 {
         font-size: 2.2rem !important;
     }
 
-    /* KOTAK SKILL DI HP */
+    .hero p {
+        font-size: 1rem !important;
+    }
+
     .tech-item {
         width: 140px !important;
         height: 140px !important;
@@ -1775,19 +1808,30 @@ body.light-mode .social-icon-btn:hover {
         display: block !important;
     }
 
-   .tech-item.long-text-box span {
-    font-size: 0.75rem !important;
-    line-height: 1.4 !important;
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 3 !important;
-    line-clamp: 3 !important; /* <--- Tambahkan baris ini */
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-}
+    .tech-item.long-text-box span {
+        font-size: 0.75rem !important;
+        line-height: 1.4 !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3 !important;
+        line-clamp: 3 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
 
-    #dashboard .profil-card h3,
+    #dashboard .profil-card h3 {
+        font-size: 1.1rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+        text-align: center !important;
+        gap: 8px !important;
+    }
+    
     #dashboard .stat-title {
         font-size: 1.1rem !important;
         display: flex !important;
@@ -1847,7 +1891,11 @@ body.light-mode .social-icon-btn:hover {
         box-sizing: border-box;
     }
 
-    /* POSISI PROFIL SINGKAT DI TENGAH (HP) */
+    .about-biography {
+        padding: 20px;
+        text-align: left;
+    }
+
     .profil-singkat {
         margin-top: 20px !important;
         padding-top: 15px !important;
@@ -1865,7 +1913,11 @@ body.light-mode .social-icon-btn:hover {
         text-align: center;
     }
 
-    .project-grid, .cert-container {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cert-container {
         grid-template-columns: 1fr;
     }
 
@@ -1878,7 +1930,6 @@ body.light-mode .social-icon-btn:hover {
         opacity: 0.4;
     }
 
-    /* TIMELINE KARIER MOBILE */
     .timeline-card {
         flex-direction: column;
         align-items: flex-start;
@@ -1896,9 +1947,10 @@ body.light-mode .social-icon-btn:hover {
     .timeline-info {
         text-align: left;
         width: 100%;
+        min-width: 0;
+        overflow: hidden;
     }
 
-    /* ZIGZAG HISTORY DI HP (DIPAKSA TETAP KIRI & KANAN) */
     .history-item {
         min-height: 250px !important;
         padding: 20px 10px !important;
@@ -1951,28 +2003,82 @@ body.light-mode .social-icon-btn:hover {
         padding-bottom: 10px !important;
     }
 
-    .project-card, .cert-card, .vm-card, .timeline-card, .history-item {
+    .project-card:active {
+        transform: scale(0.95) translateY(-5px) !important;
+        box-shadow: 0 0 30px var(--primary-neon) !important;
+        border-color: var(--primary-neon) !important;
+    }
+
+    .cert-card:active {
+        transform: scale(0.95) translateY(-5px) !important;
+        box-shadow: 0 0 30px var(--primary-neon) !important;
+        border-color: var(--primary-neon) !important;
+    }
+
+    .project-card:hover {
+        transform: scale(0.95) translateY(-5px) !important;
+        box-shadow: 0 0 30px var(--primary-neon) !important;
+        border-color: var(--primary-neon) !important;
+    }
+
+    .cert-card:hover {
+        transform: scale(0.95) translateY(-5px) !important;
+        box-shadow: 0 0 30px var(--primary-neon) !important;
+        border-color: var(--primary-neon) !important;
+    }
+
+    /* MENGEMBALIKAN ANIMASI KANAN KIRI DI HP SECARA AMAN */
+    .project-card {
+        opacity: 0 !important;
+        animation-delay: 0s !important;
+    }
+    
+    .cert-card {
+        opacity: 0 !important;
+        animation-delay: 0s !important;
+    }
+    
+    .vm-card {
+        opacity: 0 !important;
+        animation-delay: 0s !important;
+    }
+    
+    .timeline-card {
+        opacity: 0 !important;
+        animation-delay: 0s !important;
+    }
+    
+    .history-item {
+        opacity: 0 !important;
         animation-delay: 0s !important;
     }
 
     .project-card:nth-child(odd).show, .cert-card:nth-child(odd).show {
-        animation: slideInLeft 0.8s ease-out forwards;
+        animation: slideInLeft 0.8s ease-out forwards !important;
     }
 
     .project-card:nth-child(even).show, .cert-card:nth-child(even).show {
-        animation: slideInRight 0.8s ease-out forwards;
+        animation: slideInRight 0.8s ease-out forwards !important;
     }
 
     .vm-card:first-child.show {
-        animation: slideInLeft 0.8s ease-out forwards;
+        animation: slideInLeft 0.8s ease-out forwards !important;
     }
 
     .vm-card:last-child.show {
-        animation: slideInRight 0.8s ease-out forwards;
+        animation: slideInRight 0.8s ease-out forwards !important;
     }
 
-    .history-item.show {
-        animation: fadeInUp 1s ease-out forwards;
+    .history-item:nth-child(odd).show {
+        animation: slideInLeft 0.8s ease-out forwards !important;
+    }
+    
+    .history-item:nth-child(even).show {
+        animation: slideInRight 0.8s ease-out forwards !important;
+    }
+
+    .timeline-card.show {
+        animation: slideInRight 0.8s ease-out forwards !important;
     }
 }
 
@@ -1980,12 +2086,54 @@ body.light-mode .social-icon-btn:hover {
    12. SISTEM ANIMASI SCROLL & KEYFRAMES GLOBAL
    ========================================================================== */
 
-.project-card, .cert-card, .vm-card, .timeline-wrapper, .history-item, .profil-card, .about-biography, section h2 {
+.project-card {
+    opacity: 0;
+}
+
+.cert-card {
+    opacity: 0;
+}
+
+.vm-card {
+    opacity: 0;
+}
+
+.timeline-wrapper {
+    opacity: 0;
+}
+
+.history-item {
+    opacity: 0;
+}
+
+.profil-card {
+    opacity: 0;
+}
+
+.about-biography {
+    opacity: 1; 
+}
+
+section h2 {
     opacity: 0;
 }
 
 .show {
     animation: fadeInUp 1s ease-out forwards;
+}
+
+/* INILAH MESIN PENGGERAK ANIMASI HERO YANG BIKIN MUNCUL KEREN */
+@keyframes hero100DReveal {
+    0% {
+        opacity: 0;
+        transform: perspective(5000px) translateZ(-1000px) scale(0.5);
+        filter: blur(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(5000px) translateZ(0) scale(1);
+        filter: blur(0);
+    }
 }
 
 @keyframes scrollLeft {

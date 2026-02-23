@@ -1,6 +1,3 @@
-// ==========================================================================
-// 1. DATA TRANSLATE & KONFIGURASI BAHASA
-// ==========================================================================
 const translations = {
     id: {
         nav_home: "Beranda", 
@@ -40,20 +37,17 @@ const translations = {
         desc_c5: "Mempelajari tentang gimana cara menyelesaikan Sistem Pendingin Udara (Air Conditioner/AC).",
         cert_6: "REDHAT", 
         desc_c6: "Mempelajari Tentang Dasar-dasar Red Hat System Administration.",
-        
-        // Translate Tentang
         about_title_main: "Tentang",
+        bio_heading: "Tentang",
         about_bio_1: "Pengenalan singkat mengenai siapa saya.",
         about_bio_2: "Saya Satria Bahari, seorang Software Engineer yang berbasis di Jambi, berdedikasi untuk membangun solusi digital yang berdampak. Saya spesialis dalam pengembangan platform web dan aplikasi mobile menggunakan tech stack modern, termasuk Next.js, TypeScript, dan pengembangan Android native dengan Kotlin.",
         about_bio_3: "Fokus utama saya adalah merancang arsitektur perangkat lunak yang tidak hanya berfungsi tetapi juga terstruktur dengan baik, mudah dipelihara, dan skalabel untuk memenuhi kebutuhan bisnis. Saya percaya bahwa kode berkualitas tinggi harus berjalan beriringan dengan efisiensi sistem dan kejelasan logis.",
         about_bio_4: "Saya memadukan keahlian teknis dengan komunikasi proaktif, berpikir kritis, dan manajemen waktu yang efektif. Saya berkembang dalam lingkungan kolaboratif dan memanfaatkan keterampilan kepemimpinan untuk memastikan setiap proyek memberikan hasil optimal dan dampak nyata.",
         about_bio_5: "Salam hangat,",
-
         visi_title: "Visi",
         visi_desc: "Menjadi seseorang yang haus akan pengetahun teknologi, terus membuat inovasi baru dan mengimplementasikan di dunia nyata apa yang ada di dalam ide dan pikiran.",
         misi_title: "Misi",
         misi_desc: "Membangun keterampilan komunikasi terhadap tim yang efektif dan kolaboratif.",
-        
         career_title: "Karier & Pendidikan",
         tl_title_1: "Full Stack Developer",
         tl_comp_1: "PT. Biro Klasifikasi Indonesia (Persero)",
@@ -69,20 +63,18 @@ const translations = {
         tl_desc_3: "Fokus mendalami ilmu Teknik Komputer Jaringan. Aktif di ekstrakurikuler dan Ekskill untuk penajaman skill. Menguasai CISCO dan mempraktekannya dalam PKL.",
         show_detail: "Tampilkan detail",
         hide_detail: "Sembunyikan detail",
-        
         history_title: "Perjalanan Berdasarkan Tahun",
         hist_2022: "Awal mula perjalanan di dunia teknologi dan dasar pemrograman Kelas X. Awalnya coba VSCode, sempat berhenti karena susah, tapi tetap penasaran.",
         hist_2023: "Mulai bisa menggunakan CISCO dibanding awal masuk kelas XI dan mulai PKL (Praktek Kerja Lapangan).",
         hist_2024: "Kelas XII, fokus mendalami TKJ, aktif di Ekskul dan Ekskill untuk penajaman skill.",
         hist_2025: "Lulus SMK Yappenda, masuk UIN Jakarta. Titik awal mendalami Web Developer.",
         hist_2026: "Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional.",
-        
         comment_title: "Ruang Obrolan",
         footer: "Hak Cipta Dilindungi.",
         dashboard_title: "Dasbor Statistik",
         visitor_title: "Total Pengunjung",
         visitor_desc: "Orang telah melihat portofolio ini",
-        repo_title: "Total Repositori",
+        repo_title: "Total Repositories",
         follower_title: "Pengikut",
         contrib_title: "Aktivitas Kontribusi Terakhir"
     },
@@ -124,19 +116,17 @@ const translations = {
         desc_c5: "Learning how to solve Air Conditioning (AC) system problems.",
         cert_6: "REDHAT", 
         desc_c6: "Learning the basics of Red Hat System Administration.",
-        
         about_title_main: "About",
+        bio_heading: "About",
         about_bio_1: "A brief introduction about who I am.",
         about_bio_2: "I am Satria Bahari, a Software Engineer based in Jambi, dedicated to building impactful digital solutions. I specialize in web platform and mobile app development using modern tech stacks, including Next.js, TypeScript, and native Android development with Kotlin.",
         about_bio_3: "My main focus is designing software architecture that not only functions but is also well-structured, maintainable, and scalable to meet business needs. I believe that high-quality code should go hand in hand with system efficiency and logical clarity.",
         about_bio_4: "I combine technical expertise with proactive communication, critical thinking, and effective time management. I thrive in collaborative environments and utilize leadership skills to ensure every project delivers optimal results and tangible impact.",
         about_bio_5: "Warm regards,",
-
         visi_title: "Vision",
         visi_desc: "To become someone thirsty for technological knowledge, constantly innovating and implementing ideas in the real world.",
         misi_title: "Mission",
         misi_desc: "Building effective and collaborative communication skills with the team.",
-        
         career_title: "Career & Education",
         tl_title_1: "Full Stack Developer",
         tl_comp_1: "PT. Biro Klasifikasi Indonesia (Persero)",
@@ -150,14 +140,14 @@ const translations = {
         tl_comp_3: "SMK Yappenda Jakarta",
         tl_date_3: "2022 - 2025 • Jakarta, Indonesia",
         tl_desc_3: "Focused on Computer Network Engineering. Active in extracurriculars.",
+        show_detail: "Show detail",
+        hide_detail: "Hide detail",
         history_title: "Journey By Year",
-        hist_2022: "Started the journey in the technology world and basic programming.",
+        hist_2022: "Started the journey in the technology world and basic programming. Tried VSCode, stopped briefly because it was hard, but remained curious.",
         hist_2023: "Started using CISCO compared to early 11th grade and began Internship (PKL).",
         hist_2024: "12th grade, focused on deepening networking skills.",
         hist_2025: "Graduated SMK Yappenda, entered UIN Jakarta. The starting point for Web Development.",
         hist_2026: "Became a professional developer at BKI and contributed to national projects.",
-        show_detail: "Show detail",
-        hide_detail: "Hide detail",
         comment_title: "Chat Room",
         footer: "All Rights Reserved.",
         dashboard_title: "Statistics Dashboard",
@@ -172,9 +162,6 @@ const translations = {
 let currentLang = 'id';
 let isLightMode = false;
 
-// ==========================================================================
-// 2. FUNGSI EFEK WELCOME SCREEN MASUK WEB
-// ==========================================================================
 window.addEventListener('load', function() {
     setTimeout(() => {
         const welcomeScreen = document.getElementById('welcome-screen');
@@ -194,9 +181,6 @@ window.addEventListener('load', function() {
     }, 2000); 
 });
 
-// ==========================================================================
-// 3. FUNGSI UI (MENU, TEMA, BAHASA, TIMELINE ACCORDION)
-// ==========================================================================
 window.toggleLanguage = function() {
     currentLang = currentLang === 'id' ? 'en' : 'id';
     document.getElementById('lang-text').innerText = currentLang.toUpperCase();
@@ -243,7 +227,6 @@ window.toggleTimelineCard = function(cardElement) {
     const closeText = cardElement.querySelector('.close-text');
     const icon = cardElement.querySelector('.timeline-toggle-text i');
 
-    // Tutup kartu lain jika ada yang terbuka
     document.querySelectorAll('.timeline-card').forEach(c => {
         if (c !== cardElement) {
             c.classList.remove('active');
@@ -254,7 +237,6 @@ window.toggleTimelineCard = function(cardElement) {
         }
     });
 
-    // Buka / Tutup kartu yang diklik
     cardElement.classList.toggle('active');
     if (cardElement.classList.contains('active')) {
         details.style.maxHeight = '1000px'; 
@@ -269,9 +251,6 @@ window.toggleTimelineCard = function(cardElement) {
     }
 };
 
-// ==========================================================================
-// 4. ANIMASI MUNCUL SAAT SCROLL
-// ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -282,14 +261,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 }); 
 
     const hiddenElements = document.querySelectorAll(
-        '.profil-card, .skill-section, .project-card, .cert-card, .vm-card, .about-biography, .timeline-wrapper, .history-item, section h2, #comments, #dashboard'
+        '.profil-card, .skill-section, .project-card, .cert-card, .vm-card, .timeline-card, .history-item, section h2, #comments, #dashboard'
     );
     hiddenElements.forEach((el) => observer.observe(el));
 });
 
-// ==========================================================================
-// 5. DASBOR STATISTIK GITHUB API & FIREBASE
-// ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
     
     function animateValue(element, start, end, duration, isPadded) {
@@ -319,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.requestAnimationFrame(step);
     }
 
-    // ================= A. FETCH GITHUB API =================
     try {
         const ghChartImg = document.getElementById('gh-chart-img');
         if(ghChartImg) {
@@ -351,7 +326,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     } catch(e) { console.error("Github Error:", e) }
 
-    // ================= B. INISIALISASI FIREBASE =================
     try {
         if (typeof firebase !== "undefined") {
             const firebaseConfig = {
@@ -371,7 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const db = firebase.firestore();
             const provider = new firebase.auth.GoogleAuthProvider();
 
-            // PENGHITUNG PENGUNJUNG
             const visitorDisplay = document.getElementById('visitor-count');
             if (visitorDisplay) {
                 const visitorRef = db.collection("statistics").doc("visitors");
@@ -398,7 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // SISTEM KOMENTAR (Desain Chat Room dengan Reply Bintang)
             const authSection = document.getElementById('auth-section');
             const commentForm = document.getElementById('comment-form');
             const listContainer = document.getElementById('comments-display-list');
@@ -454,7 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
             }
 
-            // Fitur Auto Reply Mention
             window.replyTo = function(name) {
                 const inputArea = document.getElementById('comment-input');
                 if(inputArea) {
@@ -463,6 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
+            // LOGIKA RENDER CHAT (MENYESUAIKAN PERSIS REFERENSI SATRIA BAHARI)
             if(listContainer) {
                 db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
                     listContainer.innerHTML = "";
@@ -472,31 +444,62 @@ document.addEventListener('DOMContentLoaded', () => {
                         snapshot.forEach((doc) => {
                             const d = doc.data();
                             const stars = "⭐".repeat(d.rating || 0);
-                            const isOwner = d.email === "damtafaiz@gmail.com" ? "<span class='owner-badge'>Owner</span>" : "";
                             
-                            // Formatting Waktu agar muncul (ex: 14/02/2026, 15:21)
+                            // PASTIKAN EMAIL INI SAMA DENGAN AKUN GOOGLE ANDA!
+                            const isOwner = d.email === "damtafaiz@gmail.com"; 
+                            
                             let timeString = "";
                             if (d.timestamp) {
                                 const date = d.timestamp.toDate();
-                                timeString = date.toLocaleDateString('id-ID') + ', ' + date.toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
+                                timeString = date.toLocaleDateString('id-ID', {day:'2-digit', month:'2-digit', year:'numeric'}) + ', ' + date.toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
                             }
-                            
-                            listContainer.innerHTML += `
-                                <div class="chat-item">
-                                    <img src="${d.photo}" alt="${d.name}" class="chat-avatar" />
-                                    <div class="chat-content">
-                                        <div class="chat-header">
-                                            <strong class="chat-name">${d.name} ${isOwner}</strong>
-                                            <span class="chat-time">${timeString}</span>
-                                            <button class="btn-reply" onclick="replyTo('${d.name}')" title="Balas"><i class="ri-reply-line"></i></button>
-                                        </div>
-                                        <div class="chat-text">
-                                            ${d.comment}
-                                            <div style="font-size:0.75rem; margin-top:3px; letter-spacing:1px;">${stars}</div>
+
+                            // RENDER KHUSUS JIKA OWNER (RATA KANAN, KUNING)
+                            if(isOwner) {
+                                listContainer.innerHTML += `
+                                    <div class="chat-item-wrapper align-right" style="justify-content: flex-end; width: 100%; margin-bottom: 15px;">
+                                        <div class="chat-item" style="display: flex; gap: 15px; max-width: 85%; align-items: flex-start; justify-content: flex-end;">
+                                            <div class="chat-content" style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                <div class="chat-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                                                    <span class="chat-time" style="color: #888; font-size: 0.75rem;">${timeString}</span>
+                                                    <span class="owner-badge" style="border: 1px solid #ffcc00; color: #ffcc00; font-size: 0.65rem; padding: 2px 6px; border-radius: 12px; display: flex; align-items: center; gap: 3px;">
+                                                        <i class="ri-user-star-fill"></i> Author
+                                                    </span>
+                                                    <strong class="chat-name" style="color: var(--text-color); font-size: 0.9rem;">${d.name}</strong>
+                                                </div>
+                                                <div class="chat-bubble owner" style="background: #ffcc00; color: #000; padding: 12px 18px; border-radius: 15px 0 15px 15px; font-size: 0.95rem; line-height: 1.5; font-weight: 500; text-align: left;">
+                                                    ${d.comment}
+                                                    ${d.rating > 0 ? `<div style="font-size: 0.75rem; margin-top: 5px; letter-spacing: 2px;">${stars}</div>` : ''}
+                                                </div>
+                                            </div>
+                                            <img src="${d.photo}" alt="${d.name}" class="chat-avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;" />
                                         </div>
                                     </div>
-                                </div>
-                            `;
+                                `;
+                            } 
+                            // RENDER JIKA USER BIASA (RATA KIRI, GELAP)
+                            else {
+                                listContainer.innerHTML += `
+                                    <div class="chat-item-wrapper align-left" style="justify-content: flex-start; width: 100%; margin-bottom: 15px;">
+                                        <div class="chat-item" style="display: flex; gap: 15px; max-width: 85%; align-items: flex-start;">
+                                            <img src="${d.photo}" alt="${d.name}" class="chat-avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;" />
+                                            <div class="chat-content" style="display: flex; flex-direction: column; align-items: flex-start;">
+                                                <div class="chat-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                                                    <strong class="chat-name" style="color: var(--text-color); font-size: 0.9rem;">${d.name}</strong>
+                                                    <span class="chat-time" style="color: #888; font-size: 0.75rem;">${timeString}</span>
+                                                </div>
+                                                <div class="chat-bubble" style="background: var(--chat-bubble); color: var(--text-color); border: 1px solid var(--chat-border); padding: 12px 18px; border-radius: 0 15px 15px 15px; font-size: 0.95rem; line-height: 1.5; text-align: left;">
+                                                    ${d.comment}
+                                                    ${d.rating > 0 ? `<div style="font-size: 0.75rem; margin-top: 5px; letter-spacing: 2px;">${stars}</div>` : ''}
+                                                </div>
+                                                <button type="button" class="btn-reply" onclick="replyTo('${d.name}')" title="Balas" style="background: transparent; border: none; color: #888; font-size: 0.85rem; cursor: pointer; margin-top: 5px; display: flex; align-items: center; gap: 5px;">
+                                                    <i class="ri-reply-line"></i> Balas
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }
                         });
                     }
                 });
