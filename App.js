@@ -1,3 +1,8 @@
+/* ==========================================================================
+   APP.JS - CORE LOGIC
+   AUTHOR: Damta Noviyan Muhamad Faiz
+   ========================================================================== */
+
 const translations = {
     id: {
         nav_home: "Beranda", 
@@ -7,9 +12,9 @@ const translations = {
         nav_cert: "Pencapaian", 
         about_us: "Tentang Saya", 
         nav_contact: "Kontak",
-        hero_title: "HAI, SAYA <br> DAMTA NOVIYAN MUHAMAD FAIZ.",
+        hero_title: "HAI, SAYA <br> <span class='hero-name-text'>DAMTA NOVIYAN MUHAMAD FAIZ.</span>",
         hero_subtitle: "Pengembang Frontend & Backend | Mahasiswa Sistem Informasi | Ketertarikan Tinggi di Bidang Teknologi",
-        profil_title: "Profil", 
+        profil_title: "PROFIL", 
         label_user: "Nama:", 
         label_loc: "Lokasi:", 
         label_guild: "Kampus:", 
@@ -18,10 +23,10 @@ const translations = {
         skill_title: "Alat & Kemampuan", 
         project_title: "Proyek Unggulan",
         desc_p1: "Website interaktif yang dibangun menggunakan HTML, CSS, dan JavaScript murni (Vanilla JS) tanpa framework, menonjolkan desain UI/UX yang romantis dan personal.",
-        desc_p2: "Website portofolio profesional bergaya modern dengan efek Glassmorphism dan animasi Neon 6D. Dikembangkan secara dinamis dan responsif menggunakan framework React.js, HTML5, dan CSS3.",
+        desc_p2: "Website portofolio profesional bergaya modern dengan efek Glassmorphism dan animasi Neon 6D. Dikembangkan secara dinamis dan responsif menggunakan framework React.js, HTML5, and CSS3.",
         desc_p3: "Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.",
         desc_p4: "Sistem toko online berbasis database yang mengintegrasikan logika PHP Native untuk menampilkan produk secara dinamis. Menggunakan CSS modern untuk efek visual Glassmorphism dan tata letak responsif yang rapi di perangkat mobile.",
-        desc_p5: "Web App Roadmap menggunakan PHP, HTML5, dan CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).",
+        desc_p5: "Web App Roadmap menggunakan PHP, HTML5, and CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).",
         desc_p6: "Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.",
         btn_view: "Lihat Website",
         cert_title: "Pencapaian", 
@@ -37,12 +42,12 @@ const translations = {
         desc_c5: "Mempelajari tentang gimana cara menyelesaikan Sistem Pendingin Udara (Air Conditioner/AC).",
         cert_6: "REDHAT", 
         desc_c6: "Mempelajari Tentang Dasar-dasar Red Hat System Administration.",
-        about_title_main: "Tentang",
+        about_title_main: "Visi & Misi",
         bio_heading: "Tentang",
         about_bio_1: "Pengenalan singkat mengenai siapa saya.",
-        about_bio_2: "Saya Satria Bahari, seorang Software Engineer yang berbasis di Jambi, berdedikasi untuk membangun solusi digital yang berdampak. Saya spesialis dalam pengembangan platform web dan aplikasi mobile menggunakan tech stack modern, termasuk Next.js, TypeScript, dan pengembangan Android native dengan Kotlin.",
-        about_bio_3: "Fokus utama saya adalah merancang arsitektur perangkat lunak yang tidak hanya berfungsi tetapi juga terstruktur dengan baik, mudah dipelihara, dan skalabel untuk memenuhi kebutuhan bisnis. Saya percaya bahwa kode berkualitas tinggi harus berjalan beriringan dengan efisiensi sistem dan kejelasan logis.",
-        about_bio_4: "Saya memadukan keahlian teknis dengan komunikasi proaktif, berpikir kritis, dan manajemen waktu yang efektif. Saya berkembang dalam lingkungan kolaboratif dan memanfaatkan keterampilan kepemimpinan untuk memastikan setiap proyek memberikan hasil optimal dan dampak nyata.",
+        about_bio_2: "Saya Damta Noviyan Muhamad Faiz, seorang Full Stack Developer yang berbasis di Jakarta, berdedikasi untuk membangun solusi digital yang berdampak dan memanjakan mata. Saya spesialis dalam pengembangan platform web dinamis menggunakan tech stack modern, termasuk React.js, JavaScript, PHP, serta manajemen basis data relasional.",
+        about_bio_3: "Fokus utama saya adalah merancang arsitektur sistem yang tidak hanya memiliki antarmuka (UI/UX) yang interaktif, tetapi juga terstruktur dengan baik di sisi backend, mudah dipelihara, dan skalabel untuk memenuhi kebutuhan bisnis. Saya percaya bahwa kode berkualitas tinggi harus berjalan beriringan dengan efisiensi sistem dan pengalaman pengguna yang mulus.",
+        about_bio_4: "Sebagai seseorang yang memiliki ketertarikan tinggi di bidang inovasi teknologi, saya memadukan keahlian teknis dengan pemikiran kritis, komunikasi proaktif, and kolaborasi tim yang efektif. Saya terus berkembang untuk memastikan setiap proyek memberikan hasil optimal dan dampak nyata.",
         about_bio_5: "Salam hangat,",
         visi_title: "Visi",
         visi_desc: "Menjadi seseorang yang haus akan pengetahun teknologi, terus membuat inovasi baru dan mengimplementasikan di dunia nyata apa yang ada di dalam ide dan pikiran.",
@@ -76,19 +81,21 @@ const translations = {
         visitor_desc: "Orang telah melihat portofolio ini",
         repo_title: "Total Repositories",
         follower_title: "Pengikut",
-        contrib_title: "Aktivitas Kontribusi Terakhir"
+        contrib_title: "Aktivitas Kontribusi Terakhir",
+        country_title: "Demografi Negara",
+        country_desc: "Asal negara pengunjung website"
     },
     en: {
         nav_home: "Home", 
         nav_profil: "Profile", 
         nav_skill: "Skills", 
-        nav_project: "Projects",
+        nav_project: "Projects", 
         nav_cert: "Achievements", 
-        about_us: "About Me", 
+        about_us: "About", 
         nav_contact: "Contact",
-        hero_title: "HI, I AM <br> DAMTA NOVIYAN MUHAMAD FAIZ.",
+        hero_title: "HI, I AM <br> <span class='hero-name-text'>DAMTA NOVIYAN MUHAMAD FAIZ.</span>",
         hero_subtitle: "Full Stack Developer | Information Systems Student | Tech Enthusiast",
-        profil_title: "Profile", 
+        profil_title: "PROFILE", 
         label_user: "Name:", 
         label_loc: "Location:", 
         label_guild: "Campus:", 
@@ -116,12 +123,12 @@ const translations = {
         desc_c5: "Learning how to solve Air Conditioning (AC) system problems.",
         cert_6: "REDHAT", 
         desc_c6: "Learning the basics of Red Hat System Administration.",
-        about_title_main: "About",
+        about_title_main: "Vision & Mission",
         bio_heading: "About",
         about_bio_1: "A brief introduction about who I am.",
-        about_bio_2: "I am Satria Bahari, a Software Engineer based in Jambi, dedicated to building impactful digital solutions. I specialize in web platform and mobile app development using modern tech stacks, including Next.js, TypeScript, and native Android development with Kotlin.",
-        about_bio_3: "My main focus is designing software architecture that not only functions but is also well-structured, maintainable, and scalable to meet business needs. I believe that high-quality code should go hand in hand with system efficiency and logical clarity.",
-        about_bio_4: "I combine technical expertise with proactive communication, critical thinking, and effective time management. I thrive in collaborative environments and utilize leadership skills to ensure every project delivers optimal results and tangible impact.",
+        about_bio_2: "I am Damta Noviyan Muhamad Faiz, a Full Stack Developer based in Jakarta, dedicated to building impactful and visually pleasing digital solutions. I specialize in developing dynamic web platforms using modern tech stacks, including React.js, JavaScript, PHP, and relational database management.",
+        about_bio_3: "My main focus is designing system architectures that not only feature interactive user interfaces (UI/UX) but are also well-structured on the backend, maintainable, and scalable to meet business needs. I believe that high-quality code must go hand in hand with system efficiency and a seamless user experience.",
+        about_bio_4: "With a strong passion for technological innovation, I combine technical expertise with critical thinking, proactive communication, and effective team collaboration. I continuously strive to ensure every project delivers optimal results and tangible impact.",
         about_bio_5: "Warm regards,",
         visi_title: "Vision",
         visi_desc: "To become someone thirsty for technological knowledge, constantly innovating and implementing ideas in the real world.",
@@ -155,35 +162,19 @@ const translations = {
         visitor_desc: "People have viewed this portfolio",
         repo_title: "Total Repositories",
         follower_title: "Followers",
-        contrib_title: "Recent Contribution Activity"
+        contrib_title: "Recent Contribution Activity",
+        country_title: "Country Demographics",
+        country_desc: "Website visitors by country origin"
     }
 };
 
 let currentLang = 'id';
 let isLightMode = false;
 
-window.addEventListener('load', function() {
-    setTimeout(() => {
-        const welcomeScreen = document.getElementById('welcome-screen');
-        const mainContent = document.getElementById('main-content');
-        
-        if(welcomeScreen) {
-            welcomeScreen.style.opacity = '0';
-            setTimeout(() => {
-                welcomeScreen.style.display = 'none';
-                if(mainContent) {
-                    mainContent.style.display = 'block';
-                    void mainContent.offsetWidth; 
-                    mainContent.style.opacity = '1';
-                }
-            }, 1000); 
-        }
-    }, 2000); 
-});
-
 window.toggleLanguage = function() {
     currentLang = currentLang === 'id' ? 'en' : 'id';
     document.getElementById('lang-text').innerText = currentLang.toUpperCase();
+    
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[currentLang][key]) {
@@ -200,6 +191,7 @@ window.toggleTheme = function() {
     document.body.classList.toggle('light-mode');
     const icon = document.getElementById('theme-icon');
     isLightMode = !isLightMode;
+    
     if(isLightMode) {
         icon.classList.replace('ri-sun-line', 'ri-moon-line');
     } else {
@@ -238,6 +230,7 @@ window.toggleTimelineCard = function(cardElement) {
     });
 
     cardElement.classList.toggle('active');
+    
     if (cardElement.classList.contains('active')) {
         details.style.maxHeight = '1000px'; 
         openText.style.display = 'none';
@@ -251,6 +244,9 @@ window.toggleTimelineCard = function(cardElement) {
     }
 };
 
+// ==========================================
+// SCROLL ANIMATION OBSERVER
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -266,14 +262,75 @@ document.addEventListener('DOMContentLoaded', () => {
     hiddenElements.forEach((el) => observer.observe(el));
 });
 
+// ==========================================
+// MAIN LOGIC (VISITOR, CHAT, AUDIO)
+// ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const mainContent = document.getElementById('main-content');
+
+    setTimeout(() => {
+        if(welcomeScreen) {
+            welcomeScreen.style.transition = 'opacity 1s ease';
+            welcomeScreen.style.opacity = '0';
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                if (mainContent) {
+                    mainContent.style.display = 'block';
+                    void mainContent.offsetWidth; 
+                    mainContent.style.opacity = '1';
+                    
+                    // Render Dashboard saat konten muncul
+                    runDashboardStats();
+                }
+            }, 1000); 
+        }
+    }, 4500); 
+
+    // --- VIDEO AUDIO CONTROL ---
+    const heroVideo = document.getElementById('heroVideo');
+    if (heroVideo) {
+        heroVideo.volume = 0.5;
+        const enableSound = () => {
+            heroVideo.muted = false;
+            document.removeEventListener('click', enableSound);
+            document.removeEventListener('keydown', enableSound);
+            document.removeEventListener('scroll', enableSound);
+        };
+        document.addEventListener('click', enableSound);
+        document.addEventListener('keydown', enableSound);
+        document.addEventListener('scroll', enableSound);
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const threshold = window.innerHeight * 0.5; 
+            if (scrollY > threshold) {
+                if (!heroVideo.muted) heroVideo.muted = true;
+            } else {
+                if (heroVideo.muted) heroVideo.muted = false;
+            }
+        });
+    }
+
+    // --- MOUSE SPOTLIGHT EFFECT ---
+    const cards = document.querySelectorAll('.profil-card, .tech-item, .project-card, .cert-card, .vm-card, .timeline-card, .stat-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+        });
+    });
+
+    // --- DASHBOARD STATS (GITHUB & VISITOR) ---
     function animateValue(element, start, end, duration, isPadded) {
         if (!element) return;
         if(start === end) {
             element.innerText = isPadded ? String(end).padStart(5, '0') : end.toLocaleString('id-ID');
             return;
         }
+        
         let startTimestamp = null;
         const step = (timestamp) => {
             if (!startTimestamp) startTimestamp = timestamp;
@@ -295,37 +352,129 @@ document.addEventListener('DOMContentLoaded', () => {
         window.requestAnimationFrame(step);
     }
 
-    try {
-        const ghChartImg = document.getElementById('gh-chart-img');
-        if(ghChartImg) {
-            ghChartImg.src = "https://ghchart.rshah.org/00f3ff/damta8827773?v=" + new Date().getTime();
+    const dashboardElement = document.getElementById('dashboard');
+    let statsLoaded = false;
+    const statObserver = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting && !statsLoaded) {
+            statsLoaded = true;
+            runDashboardStats();
         }
+    }, { threshold: 0.3 });
 
-        const fallbackRepos = 24; 
-        const fallbackFollowers = 8; 
+    if(dashboardElement) statObserver.observe(dashboardElement);
 
-        fetch('https://api.github.com/users/damta8827773')
-            .then(response => {
-                if(!response.ok) throw new Error("API Limit");
-                return response.json();
-            })
-            .then(data => {
-                const repoDisplay = document.getElementById('repo-count');
-                const followerDisplay = document.getElementById('follower-count');
-                const repos = data.public_repos || fallbackRepos;
-                const followers = data.followers || fallbackFollowers;
-                if(repoDisplay) animateValue(repoDisplay, 0, repos, 2000, false);
-                if(followerDisplay) animateValue(followerDisplay, 0, followers, 2000, false);
-            })
-            .catch(error => {
-                console.warn("Menggunakan data cadangan Github:", error);
-                const repoDisplay = document.getElementById('repo-count');
-                const followerDisplay = document.getElementById('follower-count');
-                if(repoDisplay) animateValue(repoDisplay, 0, fallbackRepos, 2000, false);
-                if(followerDisplay) animateValue(followerDisplay, 0, fallbackFollowers, 2000, false);
-            });
-    } catch(e) { console.error("Github Error:", e) }
+    function runDashboardStats() {
+        try {
+            const ghChartImg = document.getElementById('gh-chart-img');
+            if(ghChartImg) {
+                ghChartImg.src = "https://ghchart.rshah.org/00f3ff/damta8827773?v=" + new Date().getTime();
+            }
 
+            const fallbackRepos = 24; 
+            const fallbackFollowers = 8; 
+
+            fetch('https://api.github.com/users/damta8827773')
+                .then(response => {
+                    if(!response.ok) throw new Error("API Limit");
+                    return response.json();
+                })
+                .then(data => {
+                    const repoDisplay = document.getElementById('repo-count');
+                    const followerDisplay = document.getElementById('follower-count');
+                    const repos = data.public_repos || fallbackRepos;
+                    const followers = data.followers || fallbackFollowers;
+                    
+                    if(repoDisplay) animateValue(repoDisplay, 0, repos, 2000, false);
+                    if(followerDisplay) animateValue(followerDisplay, 0, followers, 2000, false);
+                })
+                .catch(error => {
+                    console.warn("Using fallback Github data");
+                    const repoDisplay = document.getElementById('repo-count');
+                    const followerDisplay = document.getElementById('follower-count');
+                    if(repoDisplay) animateValue(repoDisplay, 0, fallbackRepos, 2000, false);
+                    if(followerDisplay) animateValue(followerDisplay, 0, fallbackFollowers, 2000, false);
+                });
+        } catch(e) { console.error("Github Error:", e) }
+
+        // Firebase Visitor Counter
+        try {
+            if (typeof firebase !== "undefined") {
+                const db = firebase.firestore();
+                const visitorDisplay = document.getElementById('visitor-count');
+                
+                if (visitorDisplay) {
+                    const visitorRef = db.collection("statistics").doc("visitors");
+                    visitorRef.get().then((docSnap) => {
+                        let targetCount = 0;
+                        if (!docSnap.exists) {
+                            visitorRef.set({ count: 1 });
+                            targetCount = 1;
+                            sessionStorage.setItem("hasVisited", "true");
+                        } else {
+                            const hasVisited = sessionStorage.getItem("hasVisited");
+                            if (!hasVisited) {
+                                visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+                                sessionStorage.setItem("hasVisited", "true");
+                                targetCount = docSnap.data().count + 1;
+                            } else {
+                                targetCount = docSnap.data().count;
+                            }
+                        }
+                        animateValue(visitorDisplay, 0, targetCount, 2000, true);
+                    }).catch(() => visitorDisplay.innerText = "00000");
+                }
+            }
+        } catch(e) { console.error("Firebase Visitor Error:", e); }
+
+        // --- AMBIL DATA NEGARA ASLI DARI BACKEND PHP ---
+        const countryContainer = document.getElementById('country-list-container');
+        
+        if (countryContainer && countryContainer.innerHTML.trim() === "") {
+            // Tampilkan teks loading saat menunggu PHP bekerja
+            countryContainer.innerHTML = "<p style='color: var(--text-muted); font-size:0.9rem;'>Mengambil data live dari Analytics...</p>";
+
+            // Fetch ke file PHP yang baru kamu buat
+            fetch('api-negara.php')
+                .then(response => response.json())
+                .then(data => {
+                    countryContainer.innerHTML = ""; // Bersihkan teks loading
+
+                    if(data.error) {
+                        console.error(data.error);
+                        countryContainer.innerHTML = "<p style='color: #ff5555;'>Gagal memuat data negara.</p>";
+                        return;
+                    }
+
+                    if(!Array.isArray(data) || data.length === 0) {
+                        countryContainer.innerHTML = "<p style='color: var(--text-muted);'>Belum ada data negara yang tersedia.</p>";
+                        return;
+                    }
+
+                    data.forEach((country, index) => {
+                        // Animasi delay progress bar
+                        setTimeout(() => {
+                            countryContainer.innerHTML += `
+                                <div class="country-item">
+                                    <div class="country-info">
+                                        <span class="country-name">${country.flag} ${country.name}</span>
+                                        <span class="country-count">${country.percentage}%</span>
+                                    </div>
+                                    <div class="progress-bar-bg">
+                                        <div class="progress-bar-fill" style="width: ${country.percentage}%;"></div>
+                                    </div>
+                                </div>
+                            `;
+                        }, index * 200); 
+                    });
+                })
+                .catch(err => {
+                    console.error("Gagal terhubung ke API:", err);
+                    countryContainer.innerHTML = "<p style='color: #ff5555;'>Gagal terhubung ke server (Koneksi terputus).</p>";
+                });
+        }
+    }
+
+    // --- 4. CHAT SYSTEM ---
     try {
         if (typeof firebase !== "undefined") {
             const firebaseConfig = {
@@ -337,39 +486,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 appId: "1:118530088464:web:f193173dcc75d7557b7495"
             };
 
-            if (!firebase.apps.length) {
-                firebase.initializeApp(firebaseConfig);
-            }
+            if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 
             const auth = firebase.auth();
             const db = firebase.firestore();
             const provider = new firebase.auth.GoogleAuthProvider();
-
-            const visitorDisplay = document.getElementById('visitor-count');
-            if (visitorDisplay) {
-                const visitorRef = db.collection("statistics").doc("visitors");
-                visitorRef.get().then((docSnap) => {
-                    let targetCount = 0;
-                    if (!docSnap.exists) {
-                        visitorRef.set({ count: 1 });
-                        targetCount = 1;
-                        sessionStorage.setItem("hasVisited", "true");
-                    } else {
-                        const hasVisited = sessionStorage.getItem("hasVisited");
-                        if (!hasVisited) {
-                            visitorRef.update({ count: firebase.firestore.FieldValue.increment(1) });
-                            sessionStorage.setItem("hasVisited", "true");
-                            targetCount = docSnap.data().count + 1;
-                        } else {
-                            targetCount = docSnap.data().count;
-                        }
-                    }
-                    animateValue(visitorDisplay, 0, targetCount, 2000, true);
-                }).catch((error) => {
-                    console.error("Firebase Visitor Error:", error);
-                    visitorDisplay.innerText = "00000"; 
-                });
-            }
 
             const authSection = document.getElementById('auth-section');
             const commentForm = document.getElementById('comment-form');
@@ -380,13 +501,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if(btnLoginGoogle) {
                 btnLoginGoogle.onclick = () => {
-                    auth.signInWithPopup(provider).catch((error) => alert("Gagal login: " + error.message));
+                    auth.signInWithPopup(provider).catch((error) => alert("Login failed: " + error.message));
                 };
             }
 
-            if(btnLogout) {
-                btnLogout.onclick = () => auth.signOut();
-            }
+            if(btnLogout) btnLogout.onclick = () => auth.signOut();
 
             auth.onAuthStateChanged((user) => {
                 if (user) {
@@ -407,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const ratingElement = document.querySelector('input[name="stars"]:checked');
                     const rating = ratingElement ? parseInt(ratingElement.value) : 0;
 
-                    if (!text) return alert("Pesan tidak boleh kosong!");
+                    if (!text) return alert("Message cannot be empty!");
 
                     try {
                         await db.collection("comments").add({
@@ -420,9 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         document.getElementById('comment-input').value = "";
                         if(ratingElement) ratingElement.checked = false;
-                    } catch (err) {
-                        alert("Gagal mengirim: " + err.message);
-                    }
+                    } catch (err) { alert("Failed to send: " + err.message); }
                 };
             }
 
@@ -434,18 +551,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
-            // LOGIKA RENDER CHAT (MENYESUAIKAN PERSIS REFERENSI SATRIA BAHARI)
             if(listContainer) {
                 db.collection("comments").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
                     listContainer.innerHTML = "";
                     if (snapshot.empty) {
-                        listContainer.innerHTML = "<p style='text-align: center; color: var(--text-muted);'>Belum ada percakapan.</p>";
+                        listContainer.innerHTML = "<p style='text-align: center; color: var(--text-muted);'>No comments yet.</p>";
                     } else {
                         snapshot.forEach((doc) => {
                             const d = doc.data();
                             const stars = "⭐".repeat(d.rating || 0);
-                            
-                            // PASTIKAN EMAIL INI SAMA DENGAN AKUN GOOGLE ANDA!
                             const isOwner = d.email === "damtafaiz@gmail.com"; 
                             
                             let timeString = "";
@@ -454,7 +568,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 timeString = date.toLocaleDateString('id-ID', {day:'2-digit', month:'2-digit', year:'numeric'}) + ', ' + date.toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit'});
                             }
 
-                            // RENDER KHUSUS JIKA OWNER (RATA KANAN, KUNING)
                             if(isOwner) {
                                 listContainer.innerHTML += `
                                     <div class="chat-item-wrapper align-right" style="justify-content: flex-end; width: 100%; margin-bottom: 15px;">
@@ -467,18 +580,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                                     </span>
                                                     <strong class="chat-name" style="color: var(--text-color); font-size: 0.9rem;">${d.name}</strong>
                                                 </div>
-                                                <div class="chat-bubble owner" style="background: #ffcc00; color: #000; padding: 12px 18px; border-radius: 15px 0 15px 15px; font-size: 0.95rem; line-height: 1.5; font-weight: 500; text-align: left;">
+                                                <div class="chat-bubble owner" style="background: #ffcc00; color: #000; padding: 12px 18px; border-radius: 15px 0 15px 15px; font-size: 0.95rem; line-height: 1.5; font-weight: 500; text-align: left; box-shadow: 0 4px 10px rgba(255, 204, 0, 0.2);">
                                                     ${d.comment}
                                                     ${d.rating > 0 ? `<div style="font-size: 0.75rem; margin-top: 5px; letter-spacing: 2px;">${stars}</div>` : ''}
                                                 </div>
                                             </div>
                                             <img src="${d.photo}" alt="${d.name}" class="chat-avatar" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover;" />
                                         </div>
-                                    </div>
-                                `;
-                            } 
-                            // RENDER JIKA USER BIASA (RATA KIRI, GELAP)
-                            else {
+                                    </div>`;
+                            } else {
                                 listContainer.innerHTML += `
                                     <div class="chat-item-wrapper align-left" style="justify-content: flex-start; width: 100%; margin-bottom: 15px;">
                                         <div class="chat-item" style="display: flex; gap: 15px; max-width: 85%; align-items: flex-start;">
@@ -492,23 +602,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                                     ${d.comment}
                                                     ${d.rating > 0 ? `<div style="font-size: 0.75rem; margin-top: 5px; letter-spacing: 2px;">${stars}</div>` : ''}
                                                 </div>
-                                                <button type="button" class="btn-reply" onclick="replyTo('${d.name}')" title="Balas" style="background: transparent; border: none; color: #888; font-size: 0.85rem; cursor: pointer; margin-top: 5px; display: flex; align-items: center; gap: 5px;">
-                                                    <i class="ri-reply-line"></i> Balas
+                                                <button type="button" class="btn-reply" onclick="replyTo('${d.name}')" title="Reply" style="background: transparent; border: none; color: #888; font-size: 0.85rem; cursor: pointer; margin-top: 5px; display: flex; align-items: center; gap: 5px;">
+                                                    <i class="ri-reply-line"></i> Reply
                                                 </button>
                                             </div>
                                         </div>
-                                    </div>
-                                `;
+                                    </div>`;
                             }
                         });
                     }
                 });
             }
-
         }
-    } catch(e) {
-        console.error("Firebase Error Full:", e);
-        const visitorDisplay = document.getElementById('visitor-count');
-        if (visitorDisplay) visitorDisplay.innerText = "00000";
-    }
+    } catch(e) { console.error("Firebase Auth/Comment Error:", e); }
 });
