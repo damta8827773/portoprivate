@@ -155,7 +155,9 @@ body {
     padding: 0 20px;
 }
 
+/* ANIMASI NAMA DARI CSS 1 */
 .hero h1 {
+    font-size: 3.5rem;
     font-weight: 800;
     text-transform: uppercase;
     text-shadow: 0 0 20px var(--primary-neon);
@@ -164,7 +166,8 @@ body {
     line-height: 1.2;
     width: 100%; 
     opacity: 0;
-    animation: hero100DReveal 1.5s cubic-bezier(0.2, 1, 0.3, 1) forwards 0.5s;
+    transform-origin: center center;
+    animation: hero10DReveal 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.2s;
     transform-style: preserve-3d;
 }
 
@@ -175,7 +178,7 @@ body {
 
 @media (max-width: 768px) {
     .hero h1 {
-        font-size: 2rem !important; 
+        font-size: 2.2rem !important; 
     }
     .hero-name-text { 
         white-space: normal !important; 
@@ -2156,12 +2159,7 @@ body.light-mode .social-icon-btn:hover {
         transform-style: flat;
     }
 
-    .hero h1 {
-        font-size: 2.2rem !important;
-        opacity: 0;
-        animation: textFadeInUp 1s ease-out forwards 0.2s !important;
-    }
-
+    /* Override untuk mobile p saja agar 10D nama tetap muncul */
     .hero p {
         font-size: 1rem !important;
         opacity: 0;
@@ -2462,30 +2460,26 @@ body.light-mode .social-icon-btn:hover {
     }
 }
 
-@keyframes hero100DReveal {
-    0% {
-        opacity: 0;
-        transform: perspective(5000px) translateZ(-4000px) rotateX(90deg) rotateY(90deg) rotateZ(-90deg) scale(0.01);
-        filter: blur(100px) brightness(0);
-        letter-spacing: -20px;
+/* KEMBALIKAN ANIMASI NAMA DARI CSS 1 */
+@keyframes hero10DReveal {
+    0% { 
+        opacity: 0; 
+        transform: perspective(3000px) rotateX(80deg) rotateY(45deg) rotateZ(-30deg) translateZ(-2000px) translateY(800px) scale(0.1); 
+        filter: blur(50px) brightness(0); 
     }
-    30% {
-        opacity: 0.5;
-        transform: perspective(5000px) translateZ(-1000px) rotateX(45deg) rotateY(45deg) rotateZ(-20deg) scale(0.5);
-        filter: blur(30px) brightness(2);
-        letter-spacing: 5px;
+    40% { 
+        opacity: 0.6; 
+        transform: perspective(3000px) rotateX(40deg) rotateY(20deg) rotateZ(-10deg) translateZ(-500px) translateY(200px) scale(0.6); 
+        filter: blur(20px) brightness(1.5); 
     }
-    60% {
-        opacity: 0.9;
-        transform: perspective(5000px) translateZ(300px) rotateX(-15deg) rotateY(-10deg) rotateZ(5deg) scale(1.1);
-        filter: blur(5px) brightness(1.5);
-        letter-spacing: 2px;
+    70% { 
+        transform: perspective(3000px) rotateX(-10deg) rotateY(-5deg) rotateZ(2deg) translateZ(100px) translateY(-50px) scale(1.1); 
+        filter: blur(5px) brightness(1.2); 
     }
-    100% {
-        opacity: 1;
-        transform: perspective(5000px) translateZ(0) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
-        filter: blur(0) brightness(1);
-        letter-spacing: normal;
+    100% { 
+        opacity: 1; 
+        transform: perspective(3000px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) translateZ(0) translateY(0) scale(1); 
+        filter: blur(0) brightness(1); 
     }
 }
 
