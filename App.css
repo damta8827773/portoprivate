@@ -294,23 +294,20 @@ body {
 }
 
 .navbar {
-    background: rgba(255, 255, 255, 0.05) !important; /* DIBUAT TRANSPARAN */
-    backdrop-filter: blur(15px) saturate(180%) !important; 
-    -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+    background: var(--navbar-bg) !important;
+    backdrop-filter: blur(10px) saturate(180%) !important;
     border-top: 1px solid rgba(255, 255, 255, 0.25) !important;
     border-left: 1px solid rgba(255, 255, 255, 0.25) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
     border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.05);
-    height: 70px; 
+    height: 70px;
     border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px; 
-    margin-top: 0; 
-    position: relative;
-    width: 100%; 
+    padding: 0 15px;
+    width: 100%;
     transition: all 0.4s ease;
 }
 
@@ -2103,18 +2100,18 @@ body.light-mode .social-icon-btn:hover {
 /* ==========================================================================
    15. MOBILE RESPONSIVE
    ========================================================================== */
-.navbar {
+@media (max-width: 768px) {
+    .navbar {
         height: auto;
-        padding: 15px 20px;
-        background: rgba(255, 255, 255, 0.05) !important; /* DIBUAT TRANSPARAN */
-        backdrop-filter: blur(15px) saturate(180%) !important;
-        -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+        padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.01) !important; 
+        backdrop-filter: blur(10px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
-        border-radius: 20px 20px 0 0;
-        border-bottom: none;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important; /* BORDER MENYESUAIKAN */
+        border-radius: 30px; 
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
     }
     
     .hamburger {
@@ -2435,7 +2432,7 @@ body.light-mode .social-icon-btn:hover {
         border-radius: 10px;
         padding: 5px;
     }
-
+}
 
 /* ==========================================================================
    SCROLL ANIMATIONS & KEYFRAMES 
