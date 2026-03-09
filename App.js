@@ -1,6 +1,5 @@
 // ==========================================================================
 // 1. PENGATURAN AWAL & EVENT LISTENER UTAMA
-// Memastikan semua script hanya berjalan SETELAH seluruh HTML selesai dimuat.
 // ==========================================================================
 
 window.addEventListener('load', () => {
@@ -10,49 +9,42 @@ window.addEventListener('load', () => {
     const mainContent = document.getElementById('main-content');
     const heroVideo = document.getElementById('heroVideo');
 
-    // Logika Auto Audio (DIPERBAIKI AGAR VIDEO TIDAK MATI)
+    // Logika Auto Audio Berdasarkan Click
     if(heroVideo) {
         heroVideo.volume = 0.5; // Set volume 50%
         
-        let isUserHasInteracted = false; // Penanda apakah user sudah klik web
+        let isUserHasInteracted = false; 
 
-        // Fungsi untuk menyalakan audio saat interaksi klik pertama
         const enableSound = () => {
             heroVideo.muted = false;
             isUserHasInteracted = true;
-            
-            // PENTING: Paksa video play lagi karena browser sering mem-pause video saat suaranya dinyalakan
             heroVideo.play().catch(e => console.log("Menunggu interaksi klik user..."));
             
             document.removeEventListener('click', enableSound);
             document.removeEventListener('touchstart', enableSound);
         };
 
-        // BROWSER POLICY: Scroll tidak diizinkan untuk menyalakan audio. Gunakan klik/sentuh.
         document.addEventListener('click', enableSound);
         document.addEventListener('touchstart', enableSound);
 
-        // Auto Mute saat Scroll ke bawah, Unmute saat ke atas
         window.addEventListener('scroll', function() {
             const scrollPosition = window.scrollY;
             const triggerHeight = window.innerHeight * 0.5; 
 
             if (scrollPosition > triggerHeight) {
-                // Scroll ke bawah -> Mute otomatis
                 if (!heroVideo.muted) {
                     heroVideo.muted = true;
                 }
             } else {
-                // Scroll balik ke atas -> Unmute (HANYA jika user sebelumnya sudah pernah nge-klik layar)
                 if (heroVideo.muted && isUserHasInteracted) {
                     heroVideo.muted = false;
-                    heroVideo.play().catch(e => {}); // Paksa play agar tidak freeze
+                    heroVideo.play().catch(e => {}); 
                 }
             }
         });
     }
 
-    // Logika Animasi Layar Pembuka (Welcome Screen)
+    // Logika Animasi Layar Pembuka
     if(welcomeScreen) {
         setTimeout(() => {
             welcomeScreen.style.transition = 'opacity 1s ease';
@@ -61,15 +53,13 @@ window.addEventListener('load', () => {
                 welcomeScreen.style.display = 'none';
                 if (mainContent) {
                     mainContent.style.display = 'block';
-                    // Trigger reflow agar animasi CSS bisa membaca perubahan display:block
-                    void mainContent.offsetWidth; 
                     mainContent.style.opacity = '1';
                 }
             }, 1000); 
         }, 4500); 
     }
     
-    // Logika Efek Spotlight Mouse Hover di Kartu
+    // Logika Efek Spotlight Mouse Hover
     const cards = document.querySelectorAll('.profil-card, .tech-item, .project-card, .cert-card, .vm-card, .timeline-card, .stat-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', e => {
@@ -79,7 +69,8 @@ window.addEventListener('load', () => {
         });
     });
 
-    // --- B. LOGIKA ANIMASI SCROLL (INTERSECTION OBSERVER) ---
+    // --- B. LOGIKA ANIMASI SCROLL (DIPERBAIKI) ---
+    // Hanya observasi elemen utama di luar popup
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
@@ -89,23 +80,19 @@ window.addEventListener('load', () => {
     }, { threshold: 0.1 }); 
 
     const hiddenElements = document.querySelectorAll(
-        '.hero, .profil-card, .skill-section, .project-card, .cert-card, .visi-misi-container, .vm-card, .history-item, section h2, #comments, #dashboard'
+        '.hero, .profil-card, .skill-section, .project-card, .cert-card, .visi-misi-container, .vm-card, section h2, #comments, #dashboard'
     );
     hiddenElements.forEach((el) => observer.observe(el));
 
-
-    // --- C. LOGIKA FIREBASE (INISIALISASI, KOMENTAR & DASHBOARD) ---
-    // Kita jalankan fungsi initFirebase secara terpisah agar aman
+    // --- C. LOGIKA FIREBASE ---
     initFirebaseApps();
 });
 
-// ==========================================================================
-// Lanjutannya sama persis (Bagian 2 Firebase, Bagian 3 Dashboard, dst) ...
+
 // ==========================================================================
 // 2. FUNGSI FIREBASE (DATABASE & AUTHENTICATION)
 // ==========================================================================
 function initFirebaseApps() {
-    // 1. Inisialisasi Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyC80W6y97OPM8m6VeiKs_0vt7oCd5HsTi8",
         authDomain: "projectdamta.firebaseapp.com",
@@ -115,7 +102,6 @@ function initFirebaseApps() {
         appId: "1:118530088464:web:f193173dcc75d7557b7495"
     };
 
-    // Pastikan Firebase belum terinisialisasi sebelumnya untuk menghindari error
     if (typeof firebase !== 'undefined' && !firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
@@ -129,7 +115,7 @@ function initFirebaseApps() {
     const db = firebase.firestore();
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    // 2. Logika Authentication & Komentar Ruang Obrolan
+    // Komentar Ruang Obrolan
     const authSection = document.getElementById('auth-section');
     const commentForm = document.getElementById('comment-form');
     const listContainer = document.getElementById('comments-display-list');
@@ -182,7 +168,6 @@ function initFirebaseApps() {
                 });
                 document.getElementById('comment-input').value = "";
                 
-                // Clear the stars
                 const radios = document.querySelectorAll('input[name="stars"]');
                 radios.forEach(radio => radio.checked = false);
 
@@ -204,7 +189,6 @@ function initFirebaseApps() {
                 const d = doc.data();
                 const stars = "⭐".repeat(d.rating);
                 
-                // Cek apakah ini owner (Email kamu)
                 const isOwner = d.email === "damtafaiz@gmail.com";
                 const alignClass = isOwner ? "align-right" : "align-left";
                 const bubbleClass = isOwner ? "owner" : "";
@@ -226,16 +210,13 @@ function initFirebaseApps() {
                         </div>
                     </div>`;
             });
-            
-            // Scroll otomatis ke bawah agar menampilkan pesan terbaru
             listContainer.scrollTop = listContainer.scrollHeight;
         });
     }
 
-    // 3. Logika Dasbor Firebase (Penghitung Pengunjung)
+    // Dasbor Firebase
     const visitorDisplay = document.getElementById('visitor-count');
     if(visitorDisplay) {
-        // Self-invoking async function khusus API
         (async () => {
             try {
                 const visitorRef = db.collection("statistics").doc("visitors");
@@ -266,7 +247,7 @@ function initFirebaseApps() {
         })();
     }
 
-    // 4. API GitHub untuk Dasbor
+    // API GitHub
     fetch('https://api.github.com/users/damta8827773')
         .then(response => response.json())
         .then(data => {
@@ -317,9 +298,25 @@ function animateValue(element, start, end, duration, isPadded) {
 // ==========================================================================
 // 3. FUNGSI KLIK UI GLOBAL (MENU, TIMELINE, DLL)
 // ==========================================================================
+
+// PENTING: Logika ini diperbaiki agar isi timeline langsung terlihat
 window.toggleHistory = function() {
     const historyPopup = document.getElementById('historyPopup');
-    if(historyPopup) historyPopup.classList.toggle('active');
+    if(historyPopup) {
+        historyPopup.classList.toggle('active');
+        
+        // Memaksa elemen di dalam popup langsung di-render opacity-nya menjadi 1
+        if (historyPopup.classList.contains('active')) {
+            const items = historyPopup.querySelectorAll('.timeline-card, .history-item');
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                    item.style.filter = 'blur(0)';
+                }, index * 100); // Animasi masuk berurutan
+            });
+        }
+    }
 }
 
 window.toggleTimelineCard = function(element) {
@@ -357,7 +354,6 @@ window.closeMenu = function() {
     if(hamburger) hamburger.classList.remove('active');
 }
 
-// Logika Tema Mode Terang/Gelap
 let isLightMode = false;
 window.toggleTheme = function() {
     document.body.classList.toggle('light-mode');
@@ -370,7 +366,6 @@ window.toggleTheme = function() {
     }
 }
 
-// Logika Ganti Bahasa
 let currentLang = 'id';
 window.toggleLanguage = function() {
     currentLang = currentLang === 'id' ? 'en' : 'id';
@@ -385,7 +380,7 @@ window.toggleLanguage = function() {
     });
 }
 
-// Kamus Bahasa (Translations Object)
+// Translations Object
 const translations = {
     id: {
         nav_home: "Beranda", 
