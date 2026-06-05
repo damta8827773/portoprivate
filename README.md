@@ -1,107 +1,160 @@
-# Damta Portfolio — Full-Stack (v3.0)
+<div align="center">
 
-Professional full-stack migration of Damta Noviyan Muhamad Faiz's portfolio, from a
-static HTML/CSS/vanilla-JS site to a typed monorepo.
+# Damta Portfolio — Full-Stack Platform
 
-- **Frontend:** React 18 · TypeScript · Vite · Tailwind CSS · React Router · React Query · Zustand
-- **Backend:** Node.js · Express · TypeScript · Prisma ORM · Zod
-- **Database:** MySQL 8 (via Docker)
-- **Auth:** Firebase Google sign-in (chat-room identity only)
+**Official source code of the personal portfolio of Damta Noviyan Muhamad Faiz.**
+A production-grade, full-stack web application — engineered, typed, and run from the terminal.
 
-The UI is intentionally **identical** to the original: the proven design system in
-`apps/web/src/styles/app.css` is reused verbatim, while Tailwind powers new layout
-utilities. All previously hard-coded content (projects, certificates, skills, timeline,
-history, demographics, visitor stats, comments) now lives in MySQL behind a REST API.
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](#)
+[![React](https://img.shields.io/badge/React%2018-20232A?logo=react&logoColor=61DAFB)](#)
+[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](#)
+[![Node.js](https://img.shields.io/badge/Node.js%2020+-339933?logo=node.js&logoColor=white)](#)
+[![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)](#)
+[![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)](#)
+[![MySQL](https://img.shields.io/badge/MySQL%208-4479A1?logo=mysql&logoColor=white)](#)
 
-## Structure
+</div>
+
+---
+
+## Overview
+
+This repository is a **monorepo** that hosts a complete, type-safe full-stack
+application. It is **not** a static HTML page served by a live-preview extension —
+it is a real client/server system started from the command line: a React + Vite
+frontend, an Express REST API, and a MySQL database managed through Prisma.
+
+Every piece of content (projects, certificates, skills, career timeline,
+demographics, visitor analytics, and the live chat room) is served by the API and
+persisted in the database, with end-to-end TypeScript types shared between the two
+applications.
+
+## Tech Stack
+
+| Layer | Technologies |
+| --- | --- |
+| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, React Router, TanStack Query, Zustand |
+| **Backend** | Node.js, Express, TypeScript, Prisma ORM, Zod |
+| **Database** | MySQL 8 (Docker) |
+| **Auth** | Firebase Authentication (Google) — identity only |
+| **Tooling** | npm workspaces, ESLint, Prettier, Pino, Helmet |
+
+## Architecture
 
 ```
 portofolio/
 ├─ apps/
-│  ├─ web/        # React + Vite frontend
-│  └─ api/        # Express + Prisma backend
+│  ├─ web/                 # React + Vite client
+│  │  └─ src/
+│  │     ├─ components/    # layout + ui primitives
+│  │     ├─ features/      # hero, projects, dashboard, comments, …
+│  │     ├─ hooks/         # data + interaction hooks
+│  │     ├─ i18n/          # ID / EN dictionaries
+│  │     ├─ lib/           # api client, query client, firebase
+│  │     └─ store/         # Zustand (theme, language)
+│  └─ api/                 # Express + Prisma server
+│     ├─ prisma/           # schema + seed
+│     └─ src/
+│        ├─ controllers/   # request handlers
+│        ├─ services/      # business logic (GitHub, …)
+│        ├─ middleware/    # auth, validation, errors
+│        ├─ schemas/       # Zod input contracts
+│        └─ config / lib   # env, prisma, logger
 ├─ packages/
-│  └─ types/      # Shared TypeScript DTOs (web ⇄ api)
-├─ legacy/        # Original static HTML/CSS/JS (reference)
-├─ docker-compose.yml   # MySQL 8
-├─ .env.example
-└─ package.json   # npm workspaces orchestrator
+│  └─ types/               # shared DTOs (web ⇄ api)
+├─ docker-compose.yml      # MySQL 8 service
+└─ package.json            # workspace orchestrator
 ```
 
-## Prerequisites
+## Getting Started
 
-- Node.js ≥ 20
-- Docker (for local MySQL) — or an existing MySQL 8 instance
+> Everything runs from the terminal. No "Open with Live Server" required.
 
-## Quick start
+### Prerequisites
+
+- **Node.js** ≥ 20
+- **Docker** (for local MySQL) — or any MySQL 8 instance
+
+### 1. Install
 
 ```bash
-# 1. Install all workspace dependencies
 npm install
+```
 
-# 2. Configure environment
+### 2. Configure environment
+
+```bash
 cp .env.example .env
 cp apps/api/.env.example apps/api/.env
 cp apps/web/.env.example apps/web/.env
-#   (fill VITE_FIREBASE_* in apps/web/.env if you want the chat login)
-
-# 3. Start MySQL
-npm run db:up
-
-# 4. Create schema + seed data
-npm run db:migrate     # prisma migrate dev
-npm run db:seed        # loads projects, certs, skills, timeline, etc.
-
-# 5. Run both apps (api:4000, web:5173)
-npm run dev
 ```
 
-Open http://localhost:5173. The Vite dev server proxies `/api` → `http://localhost:4000`.
+Fill `apps/web/.env` Firebase keys to enable the chat sign-in (optional — the app
+runs without them).
 
-## Scripts (root)
+### 3. Database
 
-| Script | Description |
-|---|---|
-| `npm run dev` | Run API + web concurrently |
-| `npm run dev:api` / `npm run dev:web` | Run one side |
-| `npm run build` | Build API then web |
-| `npm run db:up` / `db:down` | Start / stop MySQL container |
-| `npm run db:migrate` | Prisma migrate (dev) |
-| `npm run db:seed` | Seed database |
-| `npm run lint` / `npm run format` | ESLint / Prettier |
+```bash
+npm run db:up        # start MySQL (Docker)
+npm run db:migrate   # apply Prisma schema
+npm run db:seed      # load initial content
+```
 
-## API endpoints
+### 4. Run
 
-Base: `http://localhost:4000/api` — standard envelope `{ success, data }` / `{ success:false, error }`.
+```bash
+npm run dev          # API → :4000   ·   Web → :5173
+```
 
-| Method | Path | Purpose |
-|---|---|---|
-| GET | `/health` | Health check |
-| GET | `/projects` | Featured + extra projects |
-| GET | `/certificates` | Achievements |
-| GET | `/skills` | Tech marquee items (row 1/2) |
-| GET | `/timeline` | Career & education |
-| GET | `/history` | Journey by year |
-| GET | `/stats/countries` | Demographics bars |
-| GET | `/stats/visitors` | Monthly visitor chart data |
-| GET | `/visitors/count` · POST `/visitors/hit` | Total visitor counter |
-| GET | `/github` | Cached GitHub profile/repos/languages |
-| GET · POST | `/comments` | Chat room (list / create + replies) |
-| POST | `/contact` | Contact form submissions |
+Open **http://localhost:5173**. The Vite dev server proxies `/api` to the backend.
 
-## The 7 UI adjustments (from `CLAUDE.md`)
+## Scripts
 
-1. Loading screen → professional **gold & brown** palette
-2. Light-mode hero video → overlay reduced (no white fog)
-3. Hero marquee hidden on mobile (laptop only)
-4. 15+ technologies represented
-5. Projects show 6, rest behind a bilingual **See More**
-6. Demographics & statistics laid out **side-by-side**
-7. 3D robot greeting works on **all devices** (touch enabled)
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Run API and web concurrently |
+| `npm run dev:api` · `npm run dev:web` | Run a single app |
+| `npm run build` | Production build (API + web) |
+| `npm run db:up` · `db:down` | Start / stop MySQL |
+| `npm run db:migrate` · `db:seed` | Schema migration / seeding |
+| `npm run lint` · `npm run format` | ESLint / Prettier |
 
-## Notes
+## API Reference
 
-- Comments were migrated off Firestore to MySQL; Firebase is kept only for Google
-  sign-in identity. Owner replies are supported (`damtafaiz@gmail.com`).
-- The GitHub dashboard is proxied/cached server-side to respect API rate limits.
-- The original static files remain in `legacy/` for reference.
+Base URL `http://localhost:4000/api` — every response uses a consistent envelope:
+`{ "success": true, "data": … }` or `{ "success": false, "error": { … } }`.
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/health` | Service health check |
+| `GET` | `/projects` · `/certificates` · `/skills` | Portfolio content |
+| `GET` | `/timeline` · `/history` | Career & education |
+| `GET` | `/stats/countries` · `/stats/visitors` | Dashboard analytics |
+| `GET` `POST` | `/visitors/count` · `/visitors/hit` | Visitor counter |
+| `GET` | `/github` | Cached GitHub profile, repos & languages |
+| `GET` `POST` | `/comments` | Chat room (authenticated writes) |
+| `POST` | `/contact` | Contact form |
+
+## Security
+
+- **Token-verified writes** — comment submissions require a Firebase ID token that
+  is verified server-side (`firebase-admin`); identity is derived from the token,
+  never from the request body, preventing impersonation.
+- **Input validation** — every write endpoint is validated with Zod.
+- **Hardened transport** — Helmet, configurable CORS allow-list, and rate limiting
+  on write endpoints.
+- **No secret leakage** — secrets live only in `.env` (git-ignored); the GitHub
+  token is server-side only and never shipped to the client.
+- **Safe persistence** — all database access is parameterized through Prisma.
+
+## License & Usage
+
+Published as the official source code for educational analysis and technical
+reference. Please use this repository to understand the underlying engineering and
+architecture rather than for direct duplication.
+
+<div align="center">
+
+**Built by Damta Noviyan Muhamad Faiz** · Full Stack Developer
+
+</div>
