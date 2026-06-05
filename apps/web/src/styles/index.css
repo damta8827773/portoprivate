@@ -1,0 +1,8 @@
+/* Original bespoke design system — imported FIRST so it is bundled and forms the
+   base cascade (Tailwind preflight is disabled in tailwind.config.ts). */
+@import './app.css';
+
+/* Tailwind layers (utilities for new components) layer on top. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

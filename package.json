@@ -1,0 +1,34 @@
+{
+  "name": "damta-portfolio",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Full-stack portfolio of Damta Noviyan Muhamad Faiz — React + TypeScript + Express + Prisma + MySQL.",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev -w @damta/api\" \"npm run dev -w @damta/web\"",
+    "dev:web": "npm run dev -w @damta/web",
+    "dev:api": "npm run dev -w @damta/api",
+    "build": "npm run build -w @damta/api && npm run build -w @damta/web",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,css,md}\"",
+    "db:up": "docker-compose up -d",
+    "db:down": "docker-compose down",
+    "db:migrate": "npm run prisma:migrate -w @damta/api",
+    "db:seed": "npm run seed -w @damta/api"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
