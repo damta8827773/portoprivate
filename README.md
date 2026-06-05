@@ -1,160 +1,124 @@
-<div align="center">
+# 👨‍💻 Damta Noviyan Muhamad Faiz | Full-Stack Portfolio Platform
 
-# Damta Portfolio — Full-Stack Platform
+![Project Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Frontend](https://img.shields.io/badge/Frontend-React%2018%20%7C%20TypeScript%20%7C%20Vite-61DAFB)
+![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express%20%7C%20Prisma-339933)
+![Database](https://img.shields.io/badge/Database-MySQL%208-4479A1)
 
-**Official source code of the personal portfolio of Damta Noviyan Muhamad Faiz.**
-A production-grade, full-stack web application — engineered, typed, and run from the terminal.
+## 📌 Project Overview
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](#)
-[![React](https://img.shields.io/badge/React%2018-20232A?logo=react&logoColor=61DAFB)](#)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](#)
-[![Node.js](https://img.shields.io/badge/Node.js%2020+-339933?logo=node.js&logoColor=white)](#)
-[![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)](#)
-[![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)](#)
-[![MySQL](https://img.shields.io/badge/MySQL%208-4479A1?logo=mysql&logoColor=white)](#)
+Welcome to the official repository of my personal portfolio — now re-engineered into
+a **production-grade, full-stack platform**.
 
-</div>
+What began as a static site has been architected into a **typed monorepo**: a
+**React 18 + TypeScript (Vite)** frontend talking to a **Node.js + Express + Prisma**
+REST API backed by **MySQL**. All content — projects, certificates, skills, career
+timeline, analytics, and the live chat room — is served dynamically from the API and
+persisted in the database.
+
+The signature **Glassmorphism Design**, **Neon Aesthetics**, and **interactive 3D/scroll
+animations** are fully preserved — this is the same experience, rebuilt on a
+professional, scalable foundation that **runs from the terminal**, not a live-preview
+extension.
 
 ---
 
-## Overview
+## ⚠️ Academic Integrity & Usage Policy
 
-This repository is a **monorepo** that hosts a complete, type-safe full-stack
-application. It is **not** a static HTML page served by a live-preview extension —
-it is a real client/server system started from the command line: a React + Vite
-frontend, an Express REST API, and a MySQL database managed through Prisma.
+**Please read this section carefully before exploring the code.**
 
-Every piece of content (projects, certificates, skills, career timeline,
-demographics, visitor analytics, and the live chat room) is served by the API and
-persisted in the database, with end-to-end TypeScript types shared between the two
-applications.
+This repository is strictly categorized as **Open Source for Educational Analysis**.
 
-## Tech Stack
+> "Official source code for my personal portfolio. Published for **educational analysis and technical reference only**. To foster authentic learning and professional growth, please utilize this repository to understand the underlying logic rather than for direct duplication."
 
-| Layer | Technologies |
-| --- | --- |
-| **Frontend** | React 18, TypeScript, Vite, Tailwind CSS, React Router, TanStack Query, Zustand |
-| **Backend** | Node.js, Express, TypeScript, Prisma ORM, Zod |
-| **Database** | MySQL 8 (Docker) |
-| **Auth** | Firebase Authentication (Google) — identity only |
-| **Tooling** | npm workspaces, ESLint, Prettier, Pino, Helmet |
+### ✅ Permitted Use:
+* **Code Analysis:** Reviewing the architecture to understand monorepo structure, API design, and state management.
+* **Reference:** Using specific patterns (e.g. the i18n system, theme store, or token-verified comments) to implement in your own unique projects.
+* **Inspiration:** Observing how a static site is migrated into a typed full-stack application.
 
-## Architecture
+### ❌ Prohibited Use:
+* **Direct Cloning:** Copy-pasting the entire codebase and deploying it as your own portfolio.
+* **Plagiarism:** Claiming this work, design, or architecture as your own intellectual property.
 
-```
-portofolio/
-├─ apps/
-│  ├─ web/                 # React + Vite client
-│  │  └─ src/
-│  │     ├─ components/    # layout + ui primitives
-│  │     ├─ features/      # hero, projects, dashboard, comments, …
-│  │     ├─ hooks/         # data + interaction hooks
-│  │     ├─ i18n/          # ID / EN dictionaries
-│  │     ├─ lib/           # api client, query client, firebase
-│  │     └─ store/         # Zustand (theme, language)
-│  └─ api/                 # Express + Prisma server
-│     ├─ prisma/           # schema + seed
-│     └─ src/
-│        ├─ controllers/   # request handlers
-│        ├─ services/      # business logic (GitHub, …)
-│        ├─ middleware/    # auth, validation, errors
-│        ├─ schemas/       # Zod input contracts
-│        └─ config / lib   # env, prisma, logger
-├─ packages/
-│  └─ types/               # shared DTOs (web ⇄ api)
-├─ docker-compose.yml      # MySQL 8 service
-└─ package.json            # workspace orchestrator
-```
+> *"True mastery in engineering comes from building, breaking, and fixing code yourself—not by copying results."*
 
-## Getting Started
+---
 
-> Everything runs from the terminal. No "Open with Live Server" required.
+## 🛠️ Technical Specifications
+
+This project demonstrates mastery across the full stack:
+
+| Layer | Implementation Details |
+| :--- | :--- |
+| **Frontend** | React 18 + TypeScript, Vite, Tailwind CSS, React Router, TanStack Query (server state), Zustand (UI state). |
+| **Backend** | Node.js + Express + TypeScript, layered controllers/services/middleware, Pino logging, Helmet, CORS allow-list, rate limiting. |
+| **Database** | MySQL 8 modeled with Prisma ORM — type-safe queries, migrations, and seeding. |
+| **Validation** | Zod schemas guarding every write endpoint. |
+| **Auth** | Firebase Authentication (Google) with **server-side ID-token verification** to prevent identity spoofing. |
+| **Architecture** | npm-workspaces monorepo (`apps/web`, `apps/api`, `packages/types`) with shared end-to-end types. |
+
+---
+
+## ✨ Key Features
+
+* **⚡ Dynamic Theme Switcher:** Seamless toggle between Dark Mode (Neon) and Light Mode.
+* **🌐 Internationalization (i18n):** Built-in dual-language support (Indonesian & English).
+* **📱 Fully Responsive:** Optimized for Desktop, Tablet, and Mobile with a custom hamburger menu.
+* **🎨 Advanced UI/UX:** 3D hover/tilt effects, particle background, command palette (`Ctrl+K`), and an interactive 3D robot.
+* **🔌 REST API:** All portfolio data served from a documented, versioned Express API.
+* **💬 Live Chat Room:** Authenticated comments & owner replies, secured by verified Firebase tokens.
+* **📊 Live Dashboard:** Real-time GitHub stats, visitor analytics, and country demographics.
+
+---
+
+## 🚀 Getting Started (Local Development)
+
+> This is a real client/server application — it runs **from the terminal**, not by opening an HTML file.
 
 ### Prerequisites
-
 - **Node.js** ≥ 20
 - **Docker** (for local MySQL) — or any MySQL 8 instance
 
-### 1. Install
-
+### 1. Clone & install
 ```bash
+git clone https://github.com/damta8827773/portoprivate.git
+cd portoprivate
 npm install
 ```
 
 ### 2. Configure environment
-
 ```bash
 cp .env.example .env
 cp apps/api/.env.example apps/api/.env
 cp apps/web/.env.example apps/web/.env
 ```
 
-Fill `apps/web/.env` Firebase keys to enable the chat sign-in (optional — the app
-runs without them).
-
-### 3. Database
-
+### 3. Set up the database
 ```bash
 npm run db:up        # start MySQL (Docker)
-npm run db:migrate   # apply Prisma schema
+npm run db:migrate   # apply the Prisma schema
 npm run db:seed      # load initial content
 ```
 
-### 4. Run
-
+### 4. Run the apps
 ```bash
-npm run dev          # API → :4000   ·   Web → :5173
+npm run dev          # API → http://localhost:4000   ·   Web → http://localhost:5173
 ```
 
-Open **http://localhost:5173**. The Vite dev server proxies `/api` to the backend.
+Open **http://localhost:5173** in your browser.
 
-## Scripts
+---
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Run API and web concurrently |
-| `npm run dev:api` · `npm run dev:web` | Run a single app |
-| `npm run build` | Production build (API + web) |
-| `npm run db:up` · `db:down` | Start / stop MySQL |
-| `npm run db:migrate` · `db:seed` | Schema migration / seeding |
-| `npm run lint` · `npm run format` | ESLint / Prettier |
+## 📬 Contact
 
-## API Reference
+If you have any questions regarding the architecture or want to discuss a potential collaboration, feel free to reach out.
 
-Base URL `http://localhost:4000/api` — every response uses a consistent envelope:
-`{ "success": true, "data": … }` or `{ "success": false, "error": { … } }`.
+* **LinkedIn:** [Damta Noviyan Muhamad Faiz](https://www.linkedin.com/in/damta-faiz-955493221)
+* **Email:** damtafaiz@gmail.com
 
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| `GET` | `/health` | Service health check |
-| `GET` | `/projects` · `/certificates` · `/skills` | Portfolio content |
-| `GET` | `/timeline` · `/history` | Career & education |
-| `GET` | `/stats/countries` · `/stats/visitors` | Dashboard analytics |
-| `GET` `POST` | `/visitors/count` · `/visitors/hit` | Visitor counter |
-| `GET` | `/github` | Cached GitHub profile, repos & languages |
-| `GET` `POST` | `/comments` | Chat room (authenticated writes) |
-| `POST` | `/contact` | Contact form |
+---
 
-## Security
-
-- **Token-verified writes** — comment submissions require a Firebase ID token that
-  is verified server-side (`firebase-admin`); identity is derived from the token,
-  never from the request body, preventing impersonation.
-- **Input validation** — every write endpoint is validated with Zod.
-- **Hardened transport** — Helmet, configurable CORS allow-list, and rate limiting
-  on write endpoints.
-- **No secret leakage** — secrets live only in `.env` (git-ignored); the GitHub
-  token is server-side only and never shipped to the client.
-- **Safe persistence** — all database access is parameterized through Prisma.
-
-## License & Usage
-
-Published as the official source code for educational analysis and technical
-reference. Please use this repository to understand the underlying engineering and
-architecture rather than for direct duplication.
-
-<div align="center">
-
-**Built by Damta Noviyan Muhamad Faiz** · Full Stack Developer
-
-</div>
+<p align="center">
+  Created with passion by <strong>Damta Noviyan Muhamad Faiz</strong>. <br>
+  <em>Happy Coding & Keep Learning! 🚀</em>
+</p>
