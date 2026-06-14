@@ -13,6 +13,13 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:4000',
         changeOrigin: true,
+        // When the backend isn't running, the frontend uses bundled fallback
+        // data - so swallow proxy errors instead of spamming the terminal.
+        configure: (proxy) => {
+          proxy.on('error', () => {
+            /* backend offline: frontend falls back, no need to log */
+          });
+        },
       },
     },
   },
