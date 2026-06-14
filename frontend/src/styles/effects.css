@@ -155,3 +155,37 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   Hero reliability - the hero text is light (designed to sit over
+   the dark background video). Guarantee a dark backdrop so the text
+   is always readable even if the video is slow/blocked, and force
+   the content + 3D robot visible without depending on JS observers.
+   ============================================================ */
+#home.hero {
+  background: linear-gradient(160deg, #0a0f1e 0%, #0d1326 55%, #0a0f1e 100%);
+}
+body.light-mode #home.hero {
+  background: linear-gradient(160deg, #0a0f1e 0%, #131c33 55%, #0a0f1e 100%);
+}
+/* Video sits above the dark backdrop; content above the video. */
+#home .hero-video-wrapper {
+  z-index: 1;
+}
+#home .bg-video {
+  opacity: 1;
+}
+/* Robot is visible by default (its fade-in observer is just a nicety now). */
+#home .hero-robot-wrap {
+  opacity: 1 !important;
+}
+/* Never let entrance animations leave hero content stuck invisible. */
+#home .hero-content,
+#home .hero-status-badge,
+#home .hero-greeting,
+#home .hero h1,
+#home .hero-role-row,
+#home .hero-stats-row,
+#home .hero-cta {
+  opacity: 1 !important;
+}
