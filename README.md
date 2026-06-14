@@ -7,17 +7,17 @@
 
 ## 📌 Project Overview
 
-Welcome to the official repository of my personal portfolio — now re-engineered into
+Welcome to the official repository of my personal portfolio - now re-engineered into
 a **production-grade, full-stack platform**.
 
 What began as a static site has been architected into a **typed monorepo**: a
 **React 18 + TypeScript (Vite)** frontend talking to a **Node.js + Express + Prisma**
-REST API backed by **MySQL**. All content — projects, certificates, skills, career
-timeline, analytics, and the live chat room — is served dynamically from the API and
+REST API backed by **MySQL**. All content - projects, certificates, skills, career
+timeline, analytics, and the live chat room - is served dynamically from the API and
 persisted in the database.
 
 The signature **Glassmorphism Design**, **Neon Aesthetics**, and **interactive 3D/scroll
-animations** are fully preserved — this is the same experience, rebuilt on a
+animations** are fully preserved - this is the same experience, rebuilt on a
 professional, scalable foundation that **runs from the terminal**, not a live-preview
 extension.
 
@@ -40,7 +40,7 @@ This repository is strictly categorized as **Open Source for Educational Analysi
 * **Direct Cloning:** Copy-pasting the entire codebase and deploying it as your own portfolio.
 * **Plagiarism:** Claiming this work, design, or architecture as your own intellectual property.
 
-> *"True mastery in engineering comes from building, breaking, and fixing code yourself—not by copying results."*
+> *"True mastery in engineering comes from building, breaking, and fixing code yourself-not by copying results."*
 
 ---
 
@@ -52,10 +52,42 @@ This project demonstrates mastery across the full stack:
 | :--- | :--- |
 | **Frontend** | React 18 + TypeScript, Vite, Tailwind CSS, React Router, TanStack Query (server state), Zustand (UI state). |
 | **Backend** | Node.js + Express + TypeScript, layered controllers/services/middleware, Pino logging, Helmet, CORS allow-list, rate limiting. |
-| **Database** | MySQL 8 modeled with Prisma ORM — type-safe queries, migrations, and seeding. |
+| **Database** | MySQL 8 modeled with Prisma ORM - type-safe queries, migrations, and seeding. |
 | **Validation** | Zod schemas guarding every write endpoint. |
 | **Auth** | Firebase Authentication (Google) with **server-side ID-token verification** to prevent identity spoofing. |
-| **Architecture** | npm-workspaces monorepo (`apps/web`, `apps/api`, `packages/types`) with shared end-to-end types. |
+| **Architecture** | npm-workspaces monorepo (`frontend`, `backend`, `shared/types`) with shared end-to-end types. |
+
+---
+
+## 📂 Project Structure
+
+```
+portoprivate/
+├─ frontend/            # React + TypeScript + Vite client
+│  └─ src/
+│     ├─ components/    # layout + ui primitives
+│     ├─ features/      # hero, projects, dashboard, comments, ...
+│     ├─ hooks/         # data + interaction hooks
+│     ├─ i18n/          # ID / EN dictionaries
+│     ├─ lib/           # api client, query client, firebase
+│     └─ store/         # global UI state (theme, language)
+│
+├─ backend/             # Node.js + Express + Prisma API
+│  ├─ prisma/           # schema + seed
+│  └─ src/
+│     ├─ controllers/   # request handlers
+│     ├─ services/      # business logic (GitHub, ...)
+│     ├─ middleware/    # auth, validation, errors
+│     ├─ schemas/       # Zod input contracts
+│     └─ config, lib    # env, prisma, logger
+│
+├─ shared/
+│  └─ types/            # shared TypeScript DTOs (frontend + backend)
+│
+├─ docker-compose.yml   # MySQL 8 service
+├─ tsconfig.base.json   # shared TypeScript config
+└─ package.json         # workspace orchestrator
+```
 
 ---
 
@@ -73,11 +105,11 @@ This project demonstrates mastery across the full stack:
 
 ## 🚀 Getting Started (Local Development)
 
-> This is a real client/server application — it runs **from the terminal**, not by opening an HTML file.
+> This is a real client/server application - it runs **from the terminal**, not by opening an HTML file.
 
 ### Prerequisites
-- **Node.js** ≥ 20
-- **Docker** (for local MySQL) — or any MySQL 8 instance
+- **Node.js** >= 20
+- **Docker** (for local MySQL) - or any MySQL 8 instance
 
 ### 1. Clone & install
 ```bash
@@ -89,8 +121,8 @@ npm install
 ### 2. Configure environment
 ```bash
 cp .env.example .env
-cp apps/api/.env.example apps/api/.env
-cp apps/web/.env.example apps/web/.env
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env
 ```
 
 ### 3. Set up the database
@@ -102,7 +134,7 @@ npm run db:seed      # load initial content
 
 ### 4. Run the apps
 ```bash
-npm run dev          # API → http://localhost:4000   ·   Web → http://localhost:5173
+npm run dev          # API -> http://localhost:4000   -   Web -> http://localhost:5173
 ```
 
 Open **http://localhost:5173** in your browser.

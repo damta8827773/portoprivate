@@ -1,4 +1,4 @@
-/** Root ESLint config — shared by apps/web and apps/api. */
+/** Root ESLint config - shared by apps/web and apps/api. */
 module.exports = {
   root: true,
   env: { node: true, browser: true, es2022: true },

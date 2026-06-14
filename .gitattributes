@@ -4,7 +4,7 @@
 # --- GitHub Linguist: present this repo as the TypeScript project it is ---
 # The reused design-system stylesheet is a large, non-hand-authored asset and
 # should not dominate the language statistics.
-apps/web/src/styles/app.css linguist-vendored
+frontend/src/styles/app.css linguist-vendored
 
 # Lockfiles & generated output are not source code.
 package-lock.json linguist-generated

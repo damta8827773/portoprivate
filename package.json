@@ -2,22 +2,23 @@
   "name": "damta-portfolio",
   "version": "3.0.0",
   "private": true,
-  "description": "Full-stack portfolio of Damta Noviyan Muhamad Faiz — React + TypeScript + Express + Prisma + MySQL.",
+  "description": "Full-stack portfolio of Damta Noviyan Muhamad Faiz - React + TypeScript + Express + Prisma + MySQL.",
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "frontend",
+    "backend",
+    "shared/*"
   ],
   "scripts": {
-    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev -w @damta/api\" \"npm run dev -w @damta/web\"",
-    "dev:web": "npm run dev -w @damta/web",
-    "dev:api": "npm run dev -w @damta/api",
-    "build": "npm run build -w @damta/api && npm run build -w @damta/web",
+    "dev": "concurrently -n backend,frontend -c blue,magenta \"npm run dev -w @damta/backend\" \"npm run dev -w @damta/frontend\"",
+    "dev:web": "npm run dev -w @damta/frontend",
+    "dev:api": "npm run dev -w @damta/backend",
+    "build": "npm run build -w @damta/backend && npm run build -w @damta/frontend",
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write \"**/*.{ts,tsx,js,json,css,md}\"",
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down",
-    "db:migrate": "npm run prisma:migrate -w @damta/api",
-    "db:seed": "npm run seed -w @damta/api"
+    "db:migrate": "npm run prisma:migrate -w @damta/backend",
+    "db:seed": "npm run seed -w @damta/backend"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.18.0",

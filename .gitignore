@@ -21,7 +21,7 @@ npm-debug.log*
 logs/
 
 # prisma
-apps/api/prisma/*.db
+backend/prisma/*.db
 
 # editor / os
 .DS_Store
@@ -34,6 +34,10 @@ coverage/
 .turbo/
 *.tsbuildinfo
 
+# local AI/dev instruction file (kept local, not published)
+CLAUDE.md
+claude.md
+
 # tsc-emitted vite config artifacts (from composite build)
-apps/web/vite.config.js
-apps/web/vite.config.d.ts
+frontend/vite.config.js
+frontend/vite.config.d.ts
