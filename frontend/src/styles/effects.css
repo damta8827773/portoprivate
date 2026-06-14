@@ -119,3 +119,39 @@
     animation: none;
   }
 }
+
+/* ============================================================
+   Dashboard tidy - balanced columns, equal-height cards,
+   responsive chart & repo grid (fixes the cluttered ordering).
+   ============================================================ */
+#dashboard .dash-top-row,
+#dashboard .dash-bottom-row,
+#dashboard .dash-side-row {
+  align-items: stretch; /* paired cards share the same height */
+}
+/* Balance the GitHub activity row (languages | contribution chart) */
+#dashboard .dash-bottom-row {
+  grid-template-columns: 1fr 1fr;
+}
+/* Contribution heatmap scales to its card instead of overflowing */
+#dashboard .github-chart-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+/* Repos wrap into even, responsive columns */
+#dashboard .gh-repos-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-content: start;
+}
+/* Keep each card's content stacked cleanly top-to-bottom */
+#dashboard .dash-card {
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 768px) {
+  #dashboard .dash-bottom-row {
+    grid-template-columns: 1fr;
+  }
+}

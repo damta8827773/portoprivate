@@ -18,6 +18,20 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    sourcemap: true,
+    // Sourcemaps disabled in production: they are the main memory hog and not
+    // needed for a deployed portfolio (avoids "heap out of memory" on build).
+    sourcemap: false,
+    chunkSizeWarningLimit: 900,
+    rollupOptions: {
+      output: {
+        // Split big vendors into their own chunks for lighter, faster builds.
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          firebase: ['firebase/app', 'firebase/auth'],
+          charts: ['chart.js'],
+          query: ['@tanstack/react-query'],
+        },
+      },
+    },
   },
 });
