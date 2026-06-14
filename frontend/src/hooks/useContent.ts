@@ -23,45 +23,50 @@ import {
 
 const GH_USER = import.meta.env.VITE_GITHUB_USERNAME || 'damta8827773';
 
-/** Try the API; if it (or the backend) is unavailable, use bundled fallback data. */
-async function withFallback<T>(path: string, fallback: T): Promise<T> {
-  try {
-    return await api.get<T>(path);
-  } catch {
-    return fallback;
-  }
+/**
+ * Content is shown from bundled fallback data INSTANTLY (initialData), so the
+ * site is never empty - even with no backend. If the API is reachable it
+ * refetches in the background and replaces the fallback with live data.
+ */
+function useContentQuery<T>(key: string, path: string, fallback: T) {
+  return useQuery({
+    queryKey: [key],
+    queryFn: async () => {
+      try {
+        return await api.get<T>(path);
+      } catch {
+        return fallback;
+      }
+    },
+    initialData: fallback,
+    staleTime: 0,
+    retry: 0,
+    refetchOnMount: 'always',
+  });
 }
 
-const opts = { staleTime: 5 * 60 * 1000, retry: 0 as const };
-
-export const useProjects = () =>
-  useQuery({ queryKey: ['projects'], queryFn: () => withFallback<Project[]>('/projects', fallbackProjects), ...opts });
-
+export const useProjects = () => useContentQuery<Project[]>('projects', '/projects', fallbackProjects);
 export const useCertificates = () =>
-  useQuery({ queryKey: ['certificates'], queryFn: () => withFallback<Certificate[]>('/certificates', fallbackCertificates), ...opts });
-
-export const useSkills = () =>
-  useQuery({ queryKey: ['skills'], queryFn: () => withFallback<Skill[]>('/skills', fallbackSkills), ...opts });
-
+  useContentQuery<Certificate[]>('certificates', '/certificates', fallbackCertificates);
+export const useSkills = () => useContentQuery<Skill[]>('skills', '/skills', fallbackSkills);
 export const useTimeline = () =>
-  useQuery({ queryKey: ['timeline'], queryFn: () => withFallback<TimelineEntry[]>('/timeline', fallbackTimeline), ...opts });
-
-export const useHistory = () =>
-  useQuery({ queryKey: ['history'], queryFn: () => withFallback<HistoryEntry[]>('/history', fallbackHistory), ...opts });
-
+  useContentQuery<TimelineEntry[]>('timeline', '/timeline', fallbackTimeline);
+export const useHistory = () => useContentQuery<HistoryEntry[]>('history', '/history', fallbackHistory);
 export const useCountries = () =>
-  useQuery({ queryKey: ['countries'], queryFn: () => withFallback<CountryStat[]>('/stats/countries', fallbackCountries), ...opts });
-
+  useContentQuery<CountryStat[]>('countries', '/stats/countries', fallbackCountries);
 export const useVisitorStats = () =>
-  useQuery({ queryKey: ['visitor-stats'], queryFn: () => withFallback<VisitorStat[]>('/stats/visitors', fallbackVisitorStats), ...opts });
+  useContentQuery<VisitorStat[]>('visitor-stats', '/stats/visitors', fallbackVisitorStats);
 
-/** GitHub: backend proxy -> direct GitHub API -> static fallback. */
+/** GitHub: instant fallback -> backend proxy -> direct GitHub API. */
 async function fetchGithubDirect(): Promise<GithubSummary> {
   const headers = { Accept: 'application/vnd.github+json' };
   const profileRes = await fetch(`https://api.github.com/users/${GH_USER}`, { headers });
   if (!profileRes.ok) throw new Error('gh profile');
   const profile = (await profileRes.json()) as GithubSummary['profile'];
-  const reposRes = await fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=updated`, { headers });
+  const reposRes = await fetch(
+    `https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=updated`,
+    { headers },
+  );
   const reposRaw = reposRes.ok ? ((await reposRes.json()) as GithubSummary['repos']) : [];
   const totalStars = reposRaw.reduce((s, r) => s + (r.stargazers_count || 0), 0);
   const languages: Record<string, number> = {};
@@ -83,8 +88,10 @@ export const useGithub = () =>
         }
       }
     },
-    staleTime: 10 * 60 * 1000,
+    initialData: fallbackGithub,
+    staleTime: 0,
     retry: 0,
+    refetchOnMount: 'always',
   });
 
 export const useVisitorCount = () =>

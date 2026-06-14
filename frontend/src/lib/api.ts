@@ -2,12 +2,21 @@ import type { ApiResponse } from '@damta/types';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
-/** Thin typed fetch wrapper that unwraps the { success, data } envelope. */
-export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE_URL}${path}`, {
-    headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
-    ...init,
-  });
+/** Thin typed fetch wrapper that unwraps the { success, data } envelope.
+ *  Aborts after a timeout so a missing/slow backend never hangs the UI. */
+export async function apiFetch<T>(path: string, init?: RequestInit, timeoutMs = 4000): Promise<T> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let res: Response;
+  try {
+    res = await fetch(`${BASE_URL}${path}`, {
+      headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
+      signal: controller.signal,
+      ...init,
+    });
+  } finally {
+    clearTimeout(timer);
+  }
 
   let json: ApiResponse<T>;
   try {
