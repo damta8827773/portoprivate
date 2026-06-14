@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useI18n } from '../../i18n/useI18n';
+import { NumberTicker } from '../../components/ui/NumberTicker';
 import { useGithub, useCountries } from '../../hooks/useContent';
 import { useVisitorCounter } from '../../hooks/useVisitorCounter';
 import { useVisitorChart } from './useVisitorChart';
@@ -53,10 +54,10 @@ export function Dashboard() {
             </div>
           </div>
           <div className="gh-stats-grid">
-            <div className="gh-stat-box"><span className="gh-stat-num">{gh?.profile.public_repos ?? '-'}</span><span className="gh-stat-lab">{t('dash_repos')}</span></div>
-            <div className="gh-stat-box"><span className="gh-stat-num">{gh?.profile.followers ?? '-'}</span><span className="gh-stat-lab">{t('dash_followers')}</span></div>
-            <div className="gh-stat-box"><span className="gh-stat-num">{gh?.profile.following ?? '-'}</span><span className="gh-stat-lab">{t('dash_following')}</span></div>
-            <div className="gh-stat-box"><span className="gh-stat-num">{gh?.totalStars ?? '-'}</span><span className="gh-stat-lab">{t('dash_stars')}</span></div>
+            <div className="gh-stat-box"><span className="gh-stat-num">{gh ? <NumberTicker value={gh.profile.public_repos} /> : '-'}</span><span className="gh-stat-lab">{t('dash_repos')}</span></div>
+            <div className="gh-stat-box"><span className="gh-stat-num">{gh ? <NumberTicker value={gh.profile.followers} /> : '-'}</span><span className="gh-stat-lab">{t('dash_followers')}</span></div>
+            <div className="gh-stat-box"><span className="gh-stat-num">{gh ? <NumberTicker value={gh.profile.following} /> : '-'}</span><span className="gh-stat-lab">{t('dash_following')}</span></div>
+            <div className="gh-stat-box"><span className="gh-stat-num">{gh ? <NumberTicker value={gh.totalStars} /> : '-'}</span><span className="gh-stat-lab">{t('dash_stars')}</span></div>
           </div>
         </div>
 
@@ -66,7 +67,7 @@ export function Dashboard() {
             <span>{t('visitor_title')}</span>
           </div>
           <div className="visitor-big-num primary-neon-shadow" id="visitor-count">
-            {visitorCount === null ? <i className="ri-loader-4-line ri-spin" /> : String(visitorCount).padStart(5, '0')}
+            {visitorCount === null ? <i className="ri-loader-4-line ri-spin" /> : <NumberTicker value={visitorCount} pad={5} durationMs={2000} />}
           </div>
           <div className="visitor-label">{t('visitor_desc')}</div>
           <div className="visitor-mini-row">

@@ -1,8 +1,17 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
+import confetti from 'canvas-confetti';
 import { useI18n } from '../../i18n/useI18n';
 import { useComments, useCreateComment } from '../../hooks/useComments';
 import { useFirebaseAuth } from '../../hooks/useFirebaseAuth';
 import type { Comment } from '@damta/types';
+
+/** Celebratory burst in the brand's gold/bronze/neon palette. */
+function fireConfetti() {
+  const colors = ['#D4AF37', '#C9922A', '#B87333', '#fde68a', '#60a5fa'];
+  confetti({ particleCount: 90, spread: 70, origin: { y: 0.7 }, colors });
+  setTimeout(() => confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 }, colors }), 150);
+  setTimeout(() => confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 }, colors }), 150);
+}
 
 const OWNER_EMAIL = 'damtafaiz@gmail.com';
 
@@ -114,6 +123,7 @@ export function Comments() {
     }
     if (!user) return;
     await create.mutateAsync({ comment: text, rating });
+    fireConfetti();
     setText('');
     setRating(0);
   };

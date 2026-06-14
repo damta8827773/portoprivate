@@ -7,7 +7,7 @@ function ProjectCard({ project, extra }: { project: Project; extra: boolean }) {
   const { t, lang } = useI18n();
   const desc = lang === 'en' ? project.descEn : project.descId;
   return (
-    <div className={`project-card hidden${extra ? ' project-extra show' : ''}`}>
+    <div className={`project-card border-beam hidden${extra ? ' project-extra show' : ''}`}>
       <div className="project-img">
         <img
           src={`/assets/img/${project.image.replace('assets/img/', '')}`}

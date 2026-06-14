@@ -13,7 +13,7 @@ export function Certificates() {
       </h2>
       <div className="cert-container">
         {certs.map((c) => (
-          <div className="cert-card hidden" key={c.id}>
+          <div className="cert-card border-beam hidden" key={c.id}>
             <div className="cert-img-box">
               <img
                 src={`/assets/img/${c.image.replace('assets/img/', '')}`}

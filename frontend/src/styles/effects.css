@@ -1,0 +1,121 @@
+/* ============================================================
+   21st.dev-inspired effects (additive layer over app.css)
+   Gold / bronze / neon palette to match the existing design.
+   ============================================================ */
+
+/* Animatable angle for the border beam */
+@property --bb-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* --- 1. Border Beam: light traveling around a card's edge --- */
+.border-beam {
+  position: relative;
+}
+.border-beam::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--bb-angle),
+    transparent 0 68%,
+    rgba(201, 146, 42, 0.6) 80%,
+    #fde68a 88%,
+    rgba(96, 165, 250, 0.7) 94%,
+    transparent 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: bb-rotate 5s linear infinite;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.85;
+}
+@keyframes bb-rotate {
+  to {
+    --bb-angle: 360deg;
+  }
+}
+
+/* --- 2. Shimmer Button: moving sheen across a CTA --- */
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: shimmer-sweep 3.6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.shimmer-btn > * {
+  position: relative;
+  z-index: 1;
+}
+@keyframes shimmer-sweep {
+  0% {
+    left: -150%;
+  }
+  55%,
+  100% {
+    left: 160%;
+  }
+}
+
+/* --- 3. Aurora: soft drifting gradient (used in the welcome screen) --- */
+.ws-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.ws-aurora::before {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  top: -25%;
+  left: -25%;
+  background:
+    radial-gradient(38% 48% at 22% 30%, rgba(212, 175, 55, 0.18), transparent 60%),
+    radial-gradient(40% 50% at 78% 22%, rgba(184, 115, 51, 0.16), transparent 60%),
+    radial-gradient(46% 56% at 60% 80%, rgba(201, 146, 42, 0.14), transparent 60%);
+  filter: blur(46px);
+  animation: aurora-drift 20s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    transform: translate(-5%, 4%) rotate(9deg) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-beam::after,
+  .shimmer-btn::before,
+  .ws-aurora::before {
+    animation: none;
+  }
+}

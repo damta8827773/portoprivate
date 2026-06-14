@@ -120,11 +120,11 @@ export function Hero() {
         </div>
 
         <div className="hero-cta">
-          <a href="#projects" className="cta-primary magnetic-btn">
+          <a href="#projects" className="cta-primary magnetic-btn shimmer-btn">
             <span>{t('hero_btn_projects')}</span>
             <i className="ri-arrow-right-line" />
           </a>
-          <a href="#contact" className="cta-secondary magnetic-btn">
+          <a href="#contact" className="cta-secondary magnetic-btn shimmer-btn">
             <span>{t('hero_btn_contact')}</span>
             <i className="ri-send-plane-line" />
           </a>

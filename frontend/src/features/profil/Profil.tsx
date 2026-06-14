@@ -28,7 +28,7 @@ export function Profil() {
           </span>
         ))}
       </div>
-      <div className="profil-card hidden">
+      <div className="profil-card border-beam hidden">
         <div className="profil-bg-decoration" />
         <span className="card-corner tl" aria-hidden="true" />
         <span className="card-corner tr" aria-hidden="true" />

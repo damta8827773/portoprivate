@@ -154,6 +154,7 @@ export function WelcomeScreen({ onDone }: { onDone: () => void }) {
 
   return (
     <div id="welcome-screen" className="welcome-screen" ref={rootRef}>
+      <div className="ws-aurora" aria-hidden="true" />
       <canvas id="welcomeCanvas" className="ws-canvas" ref={canvasRef} />
       <div className="ws-grid-overlay" />
       <div className="ws-scanlines" />
