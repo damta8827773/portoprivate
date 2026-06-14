@@ -5,7 +5,11 @@ import { z } from 'zod';
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().default(4000),
-  DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+  // Defaulted so the API still boots without a .env (DB calls just fall back).
+  DATABASE_URL: z
+    .string()
+    .min(1)
+    .default('mysql://damta:damtapass@localhost:3306/damta_portfolio'),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
   GITHUB_USERNAME: z.string().default('damta8827773'),
   GITHUB_TOKEN: z.string().optional(),
