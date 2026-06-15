@@ -212,7 +212,13 @@ export function Comments() {
     const target = comments.find((c) => c.id === commentId);
     if (target?.email) {
       try {
-        await sendReplyEmail({ name: target.name || 'Teman', email: target.email, reply: replyText });
+        await sendReplyEmail({
+          name: target.name || 'Teman',
+          email: target.email,
+          reply: replyText,
+          fromName: user.name,
+          fromPhoto: user.photo,
+        });
       } catch (err) {
         // Reply is saved regardless; only the email notification failed.
         console.error('EmailJS error:', err);

@@ -18,14 +18,27 @@ function ensureInit() {
 }
 
 /** Notifies the commenter that the owner replied. Resolves silently if no email. */
-export async function sendReplyEmail(params: { name: string; email: string; reply: string }) {
+export async function sendReplyEmail(params: {
+  name: string;
+  email: string;
+  reply: string;
+  fromName?: string;
+  fromPhoto?: string;
+}) {
   if (!params.email) return;
   ensureInit();
+  const photo =
+    params.fromPhoto ||
+    `https://ui-avatars.com/api/?name=${encodeURIComponent(params.fromName || 'Damta')}&background=D4AF37&color=fff`;
   return emailjs.send(SERVICE_ID, TEMPLATE_ID, {
     name: params.name || 'Teman',
     email: params.email,
     to_email: params.email,
     message: params.reply,
+    from_name: params.fromName || 'Damta Noviyan Muhamad Faiz',
+    // Profile photo of the replier (use in the template as <img src="{{photo}}">).
+    photo,
+    from_photo: photo,
     time: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' }),
     portfolio_url: 'https://damtaweb.com',
   });
