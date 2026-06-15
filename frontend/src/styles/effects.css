@@ -189,3 +189,299 @@ body.light-mode #home.hero {
 #home .hero-cta {
   opacity: 1 !important;
 }
+
+/* ============================================================
+   21st.dev effects - full set (additive, non-destructive)
+   ============================================================ */
+
+/* #3 Animated gradient text - section titles + hero name shimmer */
+.neon-title,
+.neon-title-blue {
+  position: relative;
+  background: linear-gradient(90deg, #fde68a, #fbbf24, #ffffff, #60a5fa, #a78bfa, #fbbf24, #fde68a);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: grad-flow 9s linear infinite;
+}
+@keyframes grad-flow {
+  to {
+    background-position: 300% 50%;
+  }
+}
+.hero-name-text {
+  background-size: 220% auto !important;
+  animation: grad-flow 10s linear infinite !important;
+}
+
+/* #15 Lamp / spotlight beam above section headings */
+.neon-title::before,
+.neon-title-blue::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  transform: translateX(-50%);
+  width: 55%;
+  height: 36px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(96, 165, 250, 0.5), transparent 70%);
+  filter: blur(12px);
+  opacity: 0.85;
+}
+
+/* #6 + #10 Spotlight / Magic card - gold cursor glow (enhances existing ::before) */
+.project-card::before,
+.cert-card::before,
+.vm-card::before,
+.timeline-card::before,
+.stat-card::before,
+.tech-item::before,
+.profil-card::before {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, -500px) var(--mouse-y, -500px),
+    rgba(212, 175, 55, 0.22),
+    rgba(96, 165, 250, 0.1) 40%,
+    transparent 65%
+  ) !important;
+}
+
+/* #18 Card glare on hover */
+.cert-card:hover,
+.project-card:hover {
+  box-shadow:
+    0 12px 44px rgba(96, 165, 250, 0.2),
+    0 0 0 1px rgba(212, 175, 55, 0.22) !important;
+}
+
+/* #11 Meteors - thin falling streaks (markup injected in Hero) */
+.meteors {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+.meteor {
+  position: absolute;
+  top: -8%;
+  width: 2px;
+  height: 70px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.9), transparent);
+  filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.6));
+  animation: meteor-fall linear infinite;
+}
+@keyframes meteor-fall {
+  0% {
+    transform: translate(0, 0) rotate(22deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-240px, 760px) rotate(22deg);
+    opacity: 0;
+  }
+}
+
+/* #12 Retro interactive grid - animated grid backdrop for the stack section */
+#stack {
+  position: relative;
+}
+#stack::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(rgba(96, 165, 250, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(96, 165, 250, 0.06) 1px, transparent 1px);
+  background-size: 42px 42px;
+  animation: grid-move 6s linear infinite;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%);
+}
+@keyframes grid-move {
+  to {
+    background-position: 42px 42px;
+  }
+}
+/* #5 Animated beams - moving light sweep across the stack section */
+#stack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.7;
+  background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.12), transparent);
+  background-size: 50% 100%;
+  background-repeat: no-repeat;
+  animation: beam-sweep 5.5s linear infinite;
+}
+@keyframes beam-sweep {
+  0% {
+    background-position: -60% 0;
+  }
+  100% {
+    background-position: 160% 0;
+  }
+}
+#stack > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* #14 Orbiting circles around the profile avatar (markup injected in Profil) */
+.orbit-ring {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  animation: orbit-spin 18s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.orbit-ring.r2 {
+  inset: -42px;
+  animation-duration: 26s;
+  animation-direction: reverse;
+  border-color: rgba(96, 165, 250, 0.25);
+}
+.orbit-dot {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: #d4af37;
+  box-shadow: 0 0 12px #d4af37;
+}
+.orbit-ring.r2 .orbit-dot {
+  background: #60a5fa;
+  box-shadow: 0 0 12px #60a5fa;
+}
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* #9 macOS dock - floating magnify dock (desktop only) */
+.mac-dock {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 18px;
+  background: rgba(18, 18, 28, 0.62);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+.mac-dock a {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+.mac-dock a:hover {
+  transform: translateY(-12px) scale(1.4);
+  background: rgba(212, 175, 55, 0.28);
+}
+@media (max-width: 768px) {
+  .mac-dock {
+    display: none;
+  }
+}
+
+/* #19 circular scroll progress ring */
+.circ-progress {
+  position: fixed;
+  bottom: 86px;
+  right: 26px;
+  z-index: 55;
+  width: 52px;
+  height: 52px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.circ-progress.show {
+  opacity: 1;
+}
+.circ-progress svg {
+  transform: rotate(-90deg);
+}
+.circ-progress circle {
+  fill: none;
+  stroke-width: 4;
+}
+.circ-progress .track {
+  stroke: rgba(255, 255, 255, 0.14);
+}
+.circ-progress .bar {
+  stroke: url(#circGrad);
+  stroke-linecap: round;
+}
+
+/* #16 rotating globe for the demographics card (markup injected in Dashboard) */
+.demo-globe {
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  position: relative;
+  background: radial-gradient(circle at 32% 30%, #1e3a8a, #0a0f1e 72%);
+  box-shadow:
+    inset -8px -8px 22px rgba(0, 0, 0, 0.6),
+    0 0 28px rgba(96, 165, 250, 0.3);
+  overflow: hidden;
+}
+.demo-globe::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 13px, rgba(96, 165, 250, 0.28) 13px 14px),
+    repeating-linear-gradient(90deg, transparent 0 13px, rgba(96, 165, 250, 0.2) 13px 14px);
+  animation: globe-spin 9s linear infinite;
+}
+@keyframes globe-spin {
+  to {
+    background-position: 116px 0, 116px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .neon-title,
+  .neon-title-blue,
+  .hero-name-text,
+  .meteor,
+  #stack::before,
+  #stack::after,
+  .orbit-ring,
+  .demo-globe::before {
+    animation: none !important;
+  }
+}

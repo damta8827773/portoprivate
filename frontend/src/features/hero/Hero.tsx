@@ -87,6 +87,20 @@ export function Hero() {
         <div className="video-overlay" />
       </div>
 
+      <div className="meteors" aria-hidden="true">
+        {Array.from({ length: 14 }).map((_, i) => (
+          <span
+            key={i}
+            className="meteor"
+            style={{
+              left: `${(10 + i * 6.5) % 92}%`,
+              animationDelay: `${(i * 0.7) % 6}s`,
+              animationDuration: `${4 + (i % 5)}s`,
+            }}
+          />
+        ))}
+      </div>
+
       <div className="hero-content">
         <div className="hero-status-badge">
           <span className="status-dot" />

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useI18n } from '../../i18n/useI18n';
 import { useTimeline, useHistory } from '../../hooks/useContent';
+import { TextReveal } from '../../components/ui/TextReveal';
 import type { TimelineEntry } from '@damta/types';
 
 function TimelineCard({ entry }: { entry: TimelineEntry }) {
@@ -78,9 +79,9 @@ export function About() {
               {t('bio_heading')}
             </h3>
             <p>{t('about_bio_1')}</p>
-            <p>{t('about_bio_2')}</p>
-            <p>{t('about_bio_3')}</p>
-            <p>{t('about_bio_4')}</p>
+            <TextReveal text={t('about_bio_2')} />
+            <TextReveal text={t('about_bio_3')} />
+            <TextReveal text={t('about_bio_4')} />
             <p>{t('about_bio_5')}</p>
           </div>
 

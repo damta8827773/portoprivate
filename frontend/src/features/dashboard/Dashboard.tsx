@@ -162,6 +162,7 @@ export function Dashboard() {
           <p className="stat-desc" style={{ marginBottom: 16, fontSize: '0.82rem', textAlign: 'left' }}>
             {t('country_desc')}
           </p>
+          <div className="demo-globe" aria-hidden="true" />
           <div className="country-list">
             {(countries ?? []).map((c) => (
               <div className="country-item" key={c.id}>

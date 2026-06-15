@@ -46,6 +46,12 @@ export function Profil() {
                 alt="Foto Profil Damta"
                 onError={(e) => ((e.currentTarget as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=Damta&background=random')}
               />
+              <span className="orbit-ring" aria-hidden="true">
+                <span className="orbit-dot" />
+              </span>
+              <span className="orbit-ring r2" aria-hidden="true">
+                <span className="orbit-dot" />
+              </span>
             </div>
             <div className="profil-available-tag">
               <span className="status-dot" />

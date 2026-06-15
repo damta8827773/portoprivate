@@ -4,6 +4,7 @@ import { Cursor } from './components/layout/Cursor';
 import { ParticleCanvas } from './components/layout/ParticleCanvas';
 import { ScrollProgress } from './components/layout/ScrollProgress';
 import { CommandPalette } from './components/layout/CommandPalette';
+import { MacDock } from './components/layout/MacDock';
 import { WelcomeScreen } from './components/layout/WelcomeScreen';
 import { Home } from './pages/Home';
 import { useAppStore } from './store/useAppStore';
@@ -25,6 +26,7 @@ export default function App() {
       <ParticleCanvas />
       <ScrollProgress />
       <CommandPalette />
+      <MacDock />
       {showWelcome && <WelcomeScreen onDone={() => setShowWelcome(false)} />}
       <Routes>
         <Route path="/" element={<Home />} />
