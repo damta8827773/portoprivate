@@ -11,6 +11,7 @@ import {
 import { useI18n } from '../../i18n/useI18n';
 import { useFirebaseAuth } from '../../hooks/useFirebaseAuth';
 import { db } from '../../lib/firebase';
+import { sendReplyEmail } from '../../lib/emailjs';
 
 const OWNER_EMAIL = 'damtafaiz@gmail.com';
 
@@ -207,6 +208,16 @@ export function Comments() {
       reply: replyText,
       timestamp: serverTimestamp(),
     });
+    // Notify the commenter by email (original EmailJS behaviour).
+    const target = comments.find((c) => c.id === commentId);
+    if (target?.email) {
+      try {
+        await sendReplyEmail({ name: target.name || 'Teman', email: target.email, reply: replyText });
+      } catch (err) {
+        // Reply is saved regardless; only the email notification failed.
+        console.error('EmailJS error:', err);
+      }
+    }
   };
 
   return (
