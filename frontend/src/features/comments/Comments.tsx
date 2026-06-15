@@ -1,17 +1,16 @@
 import { Fragment, useEffect, useRef, useState } from 'react';
 import confetti from 'canvas-confetti';
+import {
+  collection,
+  query,
+  orderBy,
+  onSnapshot,
+  addDoc,
+  serverTimestamp,
+} from 'firebase/firestore';
 import { useI18n } from '../../i18n/useI18n';
-import { useComments, useCreateComment } from '../../hooks/useComments';
 import { useFirebaseAuth } from '../../hooks/useFirebaseAuth';
-import type { Comment } from '@damta/types';
-
-/** Celebratory burst in the brand's gold/bronze/neon palette. */
-function fireConfetti() {
-  const colors = ['#D4AF37', '#C9922A', '#B87333', '#fde68a', '#60a5fa'];
-  confetti({ particleCount: 90, spread: 70, origin: { y: 0.7 }, colors });
-  setTimeout(() => confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 }, colors }), 150);
-  setTimeout(() => confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 }, colors }), 150);
-}
+import { db } from '../../lib/firebase';
 
 const OWNER_EMAIL = 'damtafaiz@gmail.com';
 
@@ -24,27 +23,60 @@ const FLOATERS = [
   ['93%', '40%', '0.85rem', '1.7s', '0.06', '=>'],
 ] as const;
 
-function ReplyForm({ parentId, onSent }: { parentId: number; onSent: () => void }) {
-  const { user } = useFirebaseAuth();
-  const create = useCreateComment();
+/** Celebratory burst in the brand's gold/bronze/neon palette. */
+function fireConfetti() {
+  const colors = ['#D4AF37', '#C9922A', '#B87333', '#fde68a', '#60a5fa'];
+  confetti({ particleCount: 90, spread: 70, origin: { y: 0.7 }, colors });
+  setTimeout(() => confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0 }, colors }), 150);
+  setTimeout(() => confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 }, colors }), 150);
+}
+
+interface FsComment {
+  id: string;
+  name?: string;
+  photo?: string;
+  email?: string;
+  comment?: string;
+  rating?: number;
+}
+interface FsReply {
+  id: string;
+  name?: string;
+  photo?: string;
+  reply?: string;
+}
+
+function ReplyForm({ commentId, onSend }: { commentId: string; onSend: (id: string, text: string) => void }) {
   const [text, setText] = useState('');
-  const submit = async () => {
-    if (!text.trim() || !user) return;
-    await create.mutateAsync({ comment: text, parentId });
-    setText('');
-    onSent();
-  };
   return (
     <div className="reply-form-inline" style={{ display: 'flex' }}>
       <input className="reply-input" placeholder="Tulis balasan..." value={text} onChange={(e) => setText(e.target.value)} />
-      <button className="reply-submit-btn" onClick={submit}>
+      <button
+        className="reply-submit-btn"
+        onClick={() => {
+          if (text.trim()) {
+            onSend(commentId, text.trim());
+            setText('');
+          }
+        }}
+      >
         <i className="ri-send-plane-fill" /> Kirim
       </button>
     </div>
   );
 }
 
-function ChatItem({ c, isOwnerViewer }: { c: Comment; isOwnerViewer: boolean }) {
+function ChatItem({
+  c,
+  replies,
+  isOwnerViewer,
+  onReply,
+}: {
+  c: FsComment;
+  replies: FsReply[];
+  isOwnerViewer: boolean;
+  onReply: (id: string, text: string) => void;
+}) {
   const [replyOpen, setReplyOpen] = useState(false);
   const isOwnerMsg = c.email === OWNER_EMAIL;
   const align = isOwnerMsg ? 'align-right' : 'align-left';
@@ -62,7 +94,7 @@ function ChatItem({ c, isOwnerViewer }: { c: Comment; isOwnerViewer: boolean }) 
           <div className="chat-content">
             <div className="chat-header">
               <span className="chat-name">
-                {c.name} {isOwnerMsg && <span className="owner-badge">Owner</span>}
+                {c.name || 'Anonim'} {isOwnerMsg && <span className="owner-badge">Owner</span>}
               </span>
               <span className="chat-stars">{'⭐'.repeat(c.rating || 0)}</span>
             </div>
@@ -72,13 +104,13 @@ function ChatItem({ c, isOwnerViewer }: { c: Comment; isOwnerViewer: boolean }) 
                 <button className="chat-reply-btn" onClick={() => setReplyOpen((o) => !o)}>
                   <i className="ri-reply-line" /> Balas
                 </button>
-                {replyOpen && <ReplyForm parentId={c.id} onSent={() => setReplyOpen(false)} />}
+                {replyOpen && <ReplyForm commentId={c.id} onSend={onReply} />}
               </>
             )}
           </div>
         </div>
         <div className="chat-replies-container" style={{ marginLeft: 60 }}>
-          {c.replies?.map((r) => (
+          {replies.map((r) => (
             <div className="chat-reply-item" key={r.id}>
               <img
                 src={r.photo || ''}
@@ -90,7 +122,7 @@ function ChatItem({ c, isOwnerViewer }: { c: Comment; isOwnerViewer: boolean }) 
                   <i className="ri-shield-star-fill" style={{ fontSize: '0.65rem' }} />
                   {r.name || 'Owner'}
                 </div>
-                <div className="chat-reply-bubble">{r.comment}</div>
+                <div className="chat-reply-bubble">{r.reply}</div>
               </div>
             </div>
           ))}
@@ -102,18 +134,50 @@ function ChatItem({ c, isOwnerViewer }: { c: Comment; isOwnerViewer: boolean }) 
 
 export function Comments() {
   const { t } = useI18n();
-  const { data: comments, isLoading } = useComments();
   const { user, login, logout } = useFirebaseAuth();
-  const create = useCreateComment();
+  const [comments, setComments] = useState<FsComment[]>([]);
+  const [replies, setReplies] = useState<Record<string, FsReply[]>>({});
+  const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [rating, setRating] = useState(0);
   const listRef = useRef<HTMLDivElement>(null);
 
   const isOwnerViewer = user?.email === OWNER_EMAIL;
 
+  // Live comments from Firestore (restores the original visitor data).
+  useEffect(() => {
+    if (!db) {
+      setLoading(false);
+      return;
+    }
+    const q = query(collection(db, 'comments'), orderBy('timestamp', 'asc'));
+    const unsub = onSnapshot(
+      q,
+      (snap) => {
+        setComments(snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<FsComment, 'id'>) })));
+        setLoading(false);
+      },
+      () => setLoading(false),
+    );
+    return unsub;
+  }, []);
+
+  // Live replies per comment.
+  const idsKey = comments.map((c) => c.id).join(',');
+  useEffect(() => {
+    if (!db || comments.length === 0) return;
+    const unsubs = comments.map((c) =>
+      onSnapshot(query(collection(db!, 'comments', c.id, 'replies'), orderBy('timestamp', 'asc')), (snap) => {
+        setReplies((prev) => ({ ...prev, [c.id]: snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<FsReply, 'id'>) })) }));
+      }),
+    );
+    return () => unsubs.forEach((u) => u());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idsKey]);
+
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
-  }, [comments]);
+  }, [comments, replies]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,11 +185,28 @@ export function Comments() {
       alert('Isi pesan dan pilih bintang rating terlebih dahulu!');
       return;
     }
-    if (!user) return;
-    await create.mutateAsync({ comment: text, rating });
+    if (!user || !db) return;
+    await addDoc(collection(db, 'comments'), {
+      name: user.name,
+      photo: user.photo,
+      email: user.email,
+      comment: text,
+      rating,
+      timestamp: serverTimestamp(),
+    });
     fireConfetti();
     setText('');
     setRating(0);
+  };
+
+  const sendReply = async (commentId: string, replyText: string) => {
+    if (!user || !db) return;
+    await addDoc(collection(db, 'comments', commentId, 'replies'), {
+      name: user.name,
+      photo: user.photo,
+      reply: replyText,
+      timestamp: serverTimestamp(),
+    });
   };
 
   return (
@@ -154,12 +235,14 @@ export function Comments() {
         </div>
 
         <div className="chat-messages" ref={listRef}>
-          {isLoading ? (
+          {loading ? (
             <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>{t('chat_loading')}</p>
-          ) : !comments?.length ? (
+          ) : !comments.length ? (
             <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>{t('chat_empty')}</p>
           ) : (
-            comments.map((c) => <ChatItem key={c.id} c={c} isOwnerViewer={isOwnerViewer} />)
+            comments.map((c) => (
+              <ChatItem key={c.id} c={c} replies={replies[c.id] || []} isOwnerViewer={isOwnerViewer} onReply={sendReply} />
+            ))
           )}
         </div>
 

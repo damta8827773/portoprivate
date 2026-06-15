@@ -1,9 +1,10 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, type Auth } from 'firebase/auth';
+import { getFirestore, type Firestore } from 'firebase/firestore';
 
 /**
- * Firebase is used ONLY for Google sign-in identity in the chat room.
- * Comment data itself lives in MySQL via the REST API (see useComments).
+ * Firebase powers Google sign-in AND the chat-room comments (Firestore),
+ * so the original live comment data is preserved exactly as before.
  *
  * Web Firebase config values are public by design (security comes from Firebase
  * Authorized Domains + rules, not key secrecy). These are the project's original
@@ -22,15 +23,18 @@ const config = {
 
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
+let firestore: Firestore | null = null;
 
 export const isFirebaseConfigured = Boolean(config.apiKey && config.projectId);
 
 if (isFirebaseConfigured) {
   app = initializeApp(config);
   auth = getAuth(app);
+  firestore = getFirestore(app);
 }
 
 export const firebaseAuth = auth;
+export const db = firestore;
 export const googleProvider = new GoogleAuthProvider();
 
 /** Current user's Firebase ID token, sent to the API to prove identity. */
