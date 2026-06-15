@@ -15,6 +15,12 @@ import { sendReplyEmail } from '../../lib/emailjs';
 
 const OWNER_EMAIL = 'damtafaiz@gmail.com';
 
+/** Name-based avatar (gold initials) - reliable fallback when no/expired photo. */
+function avatarUrl(name?: string, owner = false) {
+  const bg = owner ? '60a5fa' : 'D4AF37';
+  return `https://ui-avatars.com/api/?name=${encodeURIComponent(name || 'User')}&background=${bg}&color=fff&bold=true`;
+}
+
 const FLOATERS = [
   ['2%', '15%', '1.1rem', '0s', '0.07', '</>'],
   ['90%', '12%', '0.8rem', '1.4s', '0.06', '{ }'],
@@ -88,9 +94,10 @@ function ChatItem({
       <div style={{ width: '100%' }}>
         <div className={`chat-item ${align}`}>
           <img
-            src={c.photo || ''}
+            src={c.photo || avatarUrl(c.name, isOwnerMsg)}
             className="chat-avatar"
-            onError={(e) => ((e.currentTarget as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=U&background=random')}
+            referrerPolicy="no-referrer"
+            onError={(e) => ((e.currentTarget as HTMLImageElement).src = avatarUrl(c.name, isOwnerMsg))}
           />
           <div className="chat-content">
             <div className="chat-header">
@@ -114,9 +121,10 @@ function ChatItem({
           {replies.map((r) => (
             <div className="chat-reply-item" key={r.id}>
               <img
-                src={r.photo || ''}
+                src={r.photo || avatarUrl(r.name, true)}
                 className="chat-reply-avatar"
-                onError={(e) => ((e.currentTarget as HTMLImageElement).src = 'https://ui-avatars.com/api/?name=D&background=60a5fa&color=fff')}
+                referrerPolicy="no-referrer"
+                onError={(e) => ((e.currentTarget as HTMLImageElement).src = avatarUrl(r.name, true))}
               />
               <div>
                 <div className="chat-reply-name">
@@ -187,27 +195,36 @@ export function Comments() {
       return;
     }
     if (!user || !db) return;
-    await addDoc(collection(db, 'comments'), {
-      name: user.name,
-      photo: user.photo,
-      email: user.email,
-      comment: text,
-      rating,
-      timestamp: serverTimestamp(),
-    });
-    fireConfetti();
-    setText('');
-    setRating(0);
+    try {
+      await addDoc(collection(db, 'comments'), {
+        name: user.name,
+        photo: user.photo || '',
+        email: user.email,
+        comment: text,
+        rating,
+        timestamp: serverTimestamp(),
+      });
+      fireConfetti();
+      setText('');
+      setRating(0);
+    } catch (err) {
+      alert(`Gagal mengirim: ${(err as Error).message}`);
+    }
   };
 
   const sendReply = async (commentId: string, replyText: string) => {
     if (!user || !db) return;
-    await addDoc(collection(db, 'comments', commentId, 'replies'), {
-      name: user.name,
-      photo: user.photo,
-      reply: replyText,
-      timestamp: serverTimestamp(),
-    });
+    try {
+      await addDoc(collection(db, 'comments', commentId, 'replies'), {
+        name: user.name,
+        photo: user.photo || '',
+        reply: replyText,
+        timestamp: serverTimestamp(),
+      });
+    } catch (err) {
+      alert(`Gagal mengirim balasan: ${(err as Error).message}`);
+      return;
+    }
     // Notify the commenter by email (original EmailJS behaviour).
     const target = comments.find((c) => c.id === commentId);
     if (target?.email) {
@@ -275,7 +292,12 @@ export function Comments() {
           ) : (
             <form className="comment-input-section" style={{ display: 'flex' }} onSubmit={submit}>
               <div className="user-active-info">
-                <img src={user.photo} alt="User" />
+                <img
+                  src={user.photo || avatarUrl(user.name, true)}
+                  alt="User"
+                  referrerPolicy="no-referrer"
+                  onError={(e) => ((e.currentTarget as HTMLImageElement).src = avatarUrl(user.name, true))}
+                />
                 <span>{user.name}</span>
                 <div className="star-rating">
                   {[5, 4, 3, 2, 1].map((n) => (
