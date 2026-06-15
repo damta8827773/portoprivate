@@ -11,6 +11,11 @@ export default {
   corePlugins: {
     preflight: false,
   },
+  // The original site uses `.hidden` as a scroll-reveal MARKER (not real hiding).
+  // Tailwind's `.hidden` utility would force display:none on those elements
+  // (hero, cards, sections), making content vanish. Block it so the markup keeps
+  // its intended display from app.css; the reveal observer only adds `.show`.
+  blocklist: ['hidden'],
   theme: {
     extend: {
       colors: {
