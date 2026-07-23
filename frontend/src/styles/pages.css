@@ -1472,3 +1472,22 @@ body.light-mode .chat-wrapper {
   box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
 }
 .progress-row:hover .progress-pct { color: #D4AF37; font-weight: 600; }
+
+/* ==========================================================================
+   Bottom-CENTER overlap fix (v3.10)
+   The fixed macOS dock duplicates the footer's social links and, at the very
+   bottom of the page, floats on top of the footer text. Fade it out while the
+   footer is in view; give the footer a little breathing room as a fallback.
+   ========================================================================== */
+.mac-dock {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.mac-dock-hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(24px);
+  pointer-events: none;
+}
+
+footer#contact {
+  padding-bottom: 64px;
+}
