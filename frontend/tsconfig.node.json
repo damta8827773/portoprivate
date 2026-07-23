@@ -6,7 +6,11 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
-    "strict": true
+    "strict": true,
+    // Composite projects must emit, so send the output somewhere harmless:
+    // emitting beside the source produced a vite.config.js, and Vite resolves
+    // .js before .ts - the stale copy silently won and ignored this config.
+    "outDir": "./node_modules/.tmp/node-config"
   },
   "include": ["vite.config.ts"]
 }

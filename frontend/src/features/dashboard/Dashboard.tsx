@@ -3,7 +3,9 @@ import { useI18n } from '../../i18n/useI18n';
 import { NumberTicker } from '../../components/ui/NumberTicker';
 import { useGithub, useCountries } from '../../hooks/useContent';
 import { useVisitorCounter } from '../../hooks/useVisitorCounter';
+import { useContributions } from '../../hooks/useInsights';
 import { useVisitorChart } from './useVisitorChart';
+import { ContributionCalendar } from './ContributionCalendar';
 
 const GH_USER = import.meta.env.VITE_GITHUB_USERNAME || 'damta8827773';
 
@@ -14,11 +16,17 @@ const LANG_COLORS: Record<string, string> = {
   Kotlin: '#a97bff', Shell: '#89e051', SCSS: '#c6538c', Dart: '#00b4ab',
 };
 
-export function Dashboard() {
+interface DashboardProps {
+  /** On /dashboard the section is the page - skip the scroll-reveal gate. */
+  standalone?: boolean;
+}
+
+export function Dashboard({ standalone = false }: DashboardProps) {
   const { t } = useI18n();
   const { data: gh, isLoading: ghLoading } = useGithub();
   const { data: countries } = useCountries();
   const visitorCount = useVisitorCounter();
+  const { data: contributions } = useContributions();
   const chartCanvas = useRef<HTMLCanvasElement>(null);
   const { filter, applyFilter } = useVisitorChart(chartCanvas);
 
@@ -28,8 +36,8 @@ export function Dashboard() {
   const langTotal = langEntries.reduce((s, [, c]) => s + c, 0);
 
   return (
-    <section id="dashboard" className="hidden">
-      <h2 className="neon-title">{t('dashboard_title')}</h2>
+    <section id="dashboard" className={standalone ? 'dashboard-standalone' : 'hidden'}>
+      {!standalone && <h2 className="neon-title">{t('dashboard_title')}</h2>}
 
       {/* Row 1: GitHub profile + visitor */}
       <div className="dash-top-row">
@@ -118,9 +126,7 @@ export function Dashboard() {
             <i className="ri-bar-chart-grouped-line" />
             <span>{t('contrib_title')}</span>
           </div>
-          <div className="github-chart-container">
-            <img src={`https://ghchart.rshah.org/D4AF37/${GH_USER}`} alt="GitHub Contributions" className="github-chart-img" />
-          </div>
+          <ContributionCalendar data={contributions} />
         </div>
 
         <div className="dash-card stat-card">
@@ -142,7 +148,7 @@ export function Dashboard() {
                       <span className="lang-pct">{pct}%</span>
                     </div>
                     <div className="lang-bar-bg">
-                      <div className="lang-bar-fill" style={{ background: color, width: `${pct}%` }} />
+                      <div className="lang-bar-fill grow-in" style={{ background: color, ['--target-w' as string]: `${pct}%` }} />
                     </div>
                   </div>
                 );
@@ -163,6 +169,9 @@ export function Dashboard() {
             {t('country_desc')}
           </p>
           <div className="demo-globe" aria-hidden="true" />
+          {(countries ?? []).length === 0 && (
+            <p className="stat-desc" style={{ fontSize: '0.8rem' }}>{t('country_empty')}</p>
+          )}
           <div className="country-list">
             {(countries ?? []).map((c) => (
               <div className="country-item" key={c.id}>

@@ -5,6 +5,12 @@
 /* 21st.dev-inspired additive effects */
 @import './effects.css';
 
+/* Sub-pages: /projects, /achievements, /blog, /dashboard */
+@import './pages.css';
+
+/* Comments premium redesign - loaded last so it wins the cascade */
+@import './comments.css';
+
 /* Tailwind layers (utilities for new components) layer on top. */
 @tailwind base;
 @tailwind components;

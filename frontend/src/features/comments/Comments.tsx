@@ -38,6 +38,9 @@ function fireConfetti() {
   setTimeout(() => confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1 }, colors }), 150);
 }
 
+/** Firestore Timestamp is read as an object exposing toDate()/seconds. */
+type FsTimestamp = { toDate?: () => Date; seconds?: number } | null | undefined;
+
 interface FsComment {
   id: string;
   name?: string;
@@ -45,12 +48,35 @@ interface FsComment {
   email?: string;
   comment?: string;
   rating?: number;
+  timestamp?: FsTimestamp;
 }
 interface FsReply {
   id: string;
   name?: string;
   photo?: string;
   reply?: string;
+  timestamp?: FsTimestamp;
+}
+
+/** Full date + time, e.g. "20 Feb 2026, 00.24" - matches the stored records. */
+function ChatTime({ ts, lang }: { ts: FsTimestamp; lang: 'id' | 'en' }) {
+  if (!ts) return null;
+  const date = ts.toDate ? ts.toDate() : ts.seconds ? new Date(ts.seconds * 1000) : null;
+  if (!date || Number.isNaN(date.getTime())) return null;
+
+  const full = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'id-ID', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+
+  return (
+    <time className="chat-time" dateTime={date.toISOString()} title={date.toLocaleString()}>
+      <i className="ri-time-line" /> {full}
+    </time>
+  );
 }
 
 function ReplyForm({ commentId, onSend }: { commentId: string; onSend: (id: string, text: string) => void }) {
@@ -84,6 +110,7 @@ function ChatItem({
   isOwnerViewer: boolean;
   onReply: (id: string, text: string) => void;
 }) {
+  const { lang } = useI18n();
   const [replyOpen, setReplyOpen] = useState(false);
   const isOwnerMsg = c.email === OWNER_EMAIL;
   const align = isOwnerMsg ? 'align-right' : 'align-left';
@@ -105,6 +132,7 @@ function ChatItem({
                 {c.name || 'Anonim'} {isOwnerMsg && <span className="owner-badge">Owner</span>}
               </span>
               <span className="chat-stars">{'⭐'.repeat(c.rating || 0)}</span>
+              <ChatTime ts={c.timestamp} lang={lang} />
             </div>
             <div className={`chat-bubble ${isOwnerMsg ? 'owner' : ''}`}>{c.comment}</div>
             {canReply && (
@@ -130,6 +158,7 @@ function ChatItem({
                 <div className="chat-reply-name">
                   <i className="ri-shield-star-fill" style={{ fontSize: '0.65rem' }} />
                   {r.name || 'Owner'}
+                  <ChatTime ts={r.timestamp} lang={lang} />
                 </div>
                 <div className="chat-reply-bubble">{r.reply}</div>
               </div>
@@ -141,7 +170,13 @@ function ChatItem({
   );
 }
 
-export function Comments() {
+interface CommentsProps {
+  /** Rendered inside the floating widget: no section heading, no scroll-reveal. */
+  variant?: 'section' | 'widget';
+}
+
+export function Comments({ variant = 'section' }: CommentsProps) {
+  const isWidget = variant === 'widget';
   const { t } = useI18n();
   const { user, login, logout } = useFirebaseAuth();
   const [comments, setComments] = useState<FsComment[]>([]);
@@ -244,15 +279,23 @@ export function Comments() {
   };
 
   return (
-    <section id="comments" className="hidden" style={{ background: 'transparent' }}>
-      <div className="comment-tech-floaters" aria-hidden="true">
-        {FLOATERS.map(([x, y, s, d, o, txt], i) => (
-          <span key={i} className="ctf" style={{ ['--x' as string]: x, ['--y' as string]: y, ['--s' as string]: s, ['--d' as string]: d, ['--o' as string]: o }}>
-            {txt}
-          </span>
-        ))}
-      </div>
-      <h2 className="neon-title" style={{ marginBottom: 20 }}>{t('comment_title')}</h2>
+    <section
+      id={isWidget ? undefined : 'comments'}
+      className={isWidget ? 'comments-widget-body' : 'hidden'}
+      style={{ background: 'transparent' }}
+    >
+      {!isWidget && (
+        <div className="comment-tech-floaters" aria-hidden="true">
+          {FLOATERS.map(([x, y, s, d, o, txt], i) => (
+            <span key={i} className="ctf" style={{ ['--x' as string]: x, ['--y' as string]: y, ['--s' as string]: s, ['--d' as string]: d, ['--o' as string]: o }}>
+              {txt}
+            </span>
+          ))}
+        </div>
+      )}
+      {!isWidget && (
+        <h2 className="neon-title" style={{ marginBottom: 20 }}>{t('comment_title')}</h2>
+      )}
 
       <div className="chat-wrapper">
         <span className="card-corner tl" aria-hidden="true" />

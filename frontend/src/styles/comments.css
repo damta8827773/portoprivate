@@ -1,0 +1,316 @@
+/* ==========================================================================
+   Comments — premium redesign (v3.8)
+   Loaded LAST so it wins the cascade over the flat base styles in app.css.
+   Direction: glass panel with a slowly rotating gradient rim, glowing avatars,
+   gradient speech bubbles with tails + shine, and an elevated input dock.
+   Works in both light and dark themes.
+   ========================================================================== */
+
+@property --cmt-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ---------- panel with animated gradient rim ---------- */
+#comments .chat-wrapper {
+  position: relative;
+  border: 0 !important;
+  border-radius: 24px !important;
+  background: var(--chat-bg) !important;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.light-mode #comments .chat-wrapper {
+  box-shadow: 0 24px 55px rgba(30, 41, 59, 0.14) !important;
+}
+
+/* The rim: a conic gradient that slowly rotates behind the panel. */
+#comments .chat-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  z-index: -1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--cmt-angle),
+    #D4AF37,
+    #60a5fa,
+    #a78bfa,
+    #34d399,
+    #D4AF37
+  );
+  opacity: 0.75;
+  animation: cmtSpin 8s linear infinite;
+}
+
+@keyframes cmtSpin {
+  to {
+    --cmt-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #comments .chat-wrapper::before {
+    animation: none;
+  }
+}
+
+/* ---------- message area: subtle depth pattern ---------- */
+#comments .chat-messages {
+  position: relative;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(212, 175, 55, 0.06), transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(96, 165, 250, 0.06), transparent 45%),
+    radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: auto, auto, 22px 22px;
+  gap: 22px !important;
+}
+
+/* ---------- staggered entrance ---------- */
+#comments .chat-item-wrapper {
+  animation: cmtRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+#comments .chat-item-wrapper:nth-child(2) { animation-delay: 0.05s; }
+#comments .chat-item-wrapper:nth-child(3) { animation-delay: 0.1s; }
+#comments .chat-item-wrapper:nth-child(4) { animation-delay: 0.15s; }
+
+@keyframes cmtRise {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ---------- avatars: glowing gradient ring ---------- */
+#comments .chat-avatar {
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  padding: 2px;
+  background: linear-gradient(140deg, #60a5fa, #a78bfa);
+  box-shadow: 0 6px 16px rgba(96, 165, 250, 0.35);
+  object-fit: cover;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#comments .chat-item.align-right .chat-avatar {
+  background: linear-gradient(140deg, #e6c65a, #D4AF37);
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+}
+
+#comments .chat-item:hover .chat-avatar {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+/* ---------- name row ---------- */
+#comments .chat-name {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+#comments .chat-stars {
+  filter: drop-shadow(0 1px 4px rgba(212, 175, 55, 0.5));
+}
+
+/* timestamp chip in the header / reply name */
+.chat-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  white-space: nowrap;
+  opacity: 0.85;
+}
+
+.chat-time i {
+  font-size: 0.72rem;
+}
+
+#comments .chat-header {
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+#comments .chat-reply-name .chat-time {
+  margin-left: 6px;
+}
+
+/* ---------- owner badge: gold pill with glow ---------- */
+#comments .owner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 0 !important;
+  color: #10151f !important;
+  background: linear-gradient(140deg, #f4d67a, #D4AF37) !important;
+  box-shadow: 0 3px 10px rgba(212, 175, 55, 0.45);
+  font-weight: 700 !important;
+}
+
+#comments .owner-badge::before {
+  content: '\f2c1'; /* remixicon shield-star */
+  font-family: 'remixicon';
+  font-size: 0.7rem;
+}
+
+/* ---------- bubbles: gradient + tail + glow ---------- */
+#comments .chat-bubble {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--text-muted) 16%, transparent) !important;
+  border-radius: 4px 18px 18px 18px !important;
+  padding: 12px 18px !important;
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--chat-bubble) 96%, white 4%),
+    var(--chat-bubble)
+  ) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#comments .chat-bubble:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* The pointed top corner (asymmetric radius) already reads as a speech
+   bubble; owner messages mirror it to the right. */
+#comments .chat-item.align-right .chat-bubble {
+  border-radius: 18px 4px 18px 18px !important;
+}
+
+/* ---------- owner bubble: gold with a shine sweep ---------- */
+#comments .chat-bubble.owner {
+  color: #10151f !important;
+  border: 0 !important;
+  background: linear-gradient(140deg, #f4d67a, #D4AF37 55%, #c49a26) !important;
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4) !important;
+  overflow: hidden;
+}
+
+body.light-mode #comments .chat-bubble.owner {
+  color: #10151f !important;
+}
+
+#comments .chat-bubble.owner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: cmtShine 4.5s ease-in-out infinite;
+}
+
+@keyframes cmtShine {
+  0%, 60% { transform: translateX(-120%); }
+  80%, 100% { transform: translateX(120%); }
+}
+
+/* ---------- replies: connected + tinted ---------- */
+#comments .chat-replies-container {
+  position: relative;
+  margin-left: 62px !important;
+  padding-left: 18px;
+  margin-top: 14px;
+}
+
+#comments .chat-replies-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: -6px;
+  bottom: 12px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.6), transparent);
+}
+
+#comments .chat-reply-avatar {
+  width: 30px !important;
+  height: 30px !important;
+  padding: 1.5px;
+  background: linear-gradient(140deg, #e6c65a, #D4AF37) !important;
+  border: 0 !important;
+}
+
+#comments .chat-reply-name {
+  color: #c9962a !important;
+}
+
+#comments .chat-reply-bubble {
+  border-radius: 4px 14px 14px 14px !important;
+  background: color-mix(in srgb, #D4AF37 12%, var(--chat-bubble)) !important;
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14) !important;
+}
+
+/* ---------- input dock ---------- */
+#comments .chat-input-container {
+  border-top: 1px solid color-mix(in srgb, var(--text-muted) 14%, transparent) !important;
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--chat-bg) 92%, transparent),
+    transparent
+  ) !important;
+  backdrop-filter: blur(10px);
+}
+
+#comments .chat-input-row {
+  border-radius: 18px !important;
+  border: 1px solid color-mix(in srgb, var(--text-muted) 22%, transparent) !important;
+  background: color-mix(in srgb, var(--chat-bubble) 80%, transparent) !important;
+  padding: 8px 8px 8px 18px !important;
+}
+
+#comments .chat-input-row:focus-within {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.16) !important;
+}
+
+#comments .star-rating input:checked ~ label,
+#comments .star-rating label:hover,
+#comments .star-rating label:hover ~ label {
+  color: #D4AF37;
+  filter: drop-shadow(0 1px 4px rgba(212, 175, 55, 0.6));
+}
+
+/* ---------- send button: gradient pill, no longer a bare icon ---------- */
+#comments .btn-send {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 14px !important;
+  color: #10151f !important;
+  background: linear-gradient(140deg, #f4d67a, #D4AF37) !important;
+  box-shadow: 0 8px 18px rgba(212, 175, 55, 0.4) !important;
+  font-size: 1.15rem !important;
+}
+
+#comments .btn-send::after {
+  display: none !important; /* drop the old glow overlay */
+}
+
+#comments .btn-send:hover {
+  transform: translateY(-2px) scale(1.06) !important;
+  color: #10151f !important;
+  text-shadow: none !important;
+  box-shadow: 0 12px 26px rgba(212, 175, 55, 0.55) !important;
+}
+
+/* ---------- login button: branded, not plain white ---------- */
+#comments .btn-auth {
+  background: linear-gradient(140deg, #ffffff, #f1f5f9);
+  color: #10151f;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* widget variant inherits everything except the big outer rim/shadow */
+.comments-widget-body .chat-wrapper {
+  box-shadow: none !important;
+}
+.comments-widget-body .chat-wrapper::before {
+  display: none;
+}

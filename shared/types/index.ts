@@ -23,6 +23,12 @@ export interface Project {
   url: string;
   featured: boolean;
   order: number;
+  /** Long-form markdown body rendered on /projects/:slug. */
+  contentId?: string | null;
+  contentEn?: string | null;
+  /** Tech stack badges, stored as a JSON string array in MySQL. */
+  stacks?: string[];
+  repoUrl?: string | null;
 }
 
 export interface Certificate {
@@ -36,6 +42,27 @@ export interface Certificate {
   descId: string;
   descEn: string;
   order: number;
+  /** Groups achievements in the /achievements filter (e.g. "Course", "Award"). */
+  category?: string;
+  /** Link to the credential / verification page. */
+  credentialUrl?: string | null;
+}
+
+/** Blog article rendered from markdown on /blog and /blog/:slug. */
+export interface Post {
+  id: number;
+  slug: string;
+  titleId: string;
+  titleEn: string;
+  excerptId: string;
+  excerptEn: string;
+  contentId: string;
+  contentEn: string;
+  cover: string;
+  tags: string[];
+  published: boolean;
+  publishedAt: string;
+  readingMinutes: number;
 }
 
 export interface Skill {
@@ -124,4 +151,90 @@ export interface GithubSummary {
   totalStars: number;
   repos: GithubRepo[];
   languages: Record<string, number>;
+}
+
+export interface ContributionDay {
+  date: string;
+  count: number;
+  /** 0-4 intensity level, mapped to the calendar's colour scale. */
+  level: number;
+}
+
+export interface ContributionWeek {
+  firstDay: string;
+  days: ContributionDay[];
+}
+
+export interface ContributionCalendar {
+  totalContributions: number;
+  weeks: ContributionWeek[];
+  months: Array<{ name: string; firstDay: string; totalWeeks: number }>;
+  /** Best single day and current streak, shown as overview tiles. */
+  bestDay: { date: string; count: number } | null;
+  averagePerDay: number;
+  /** False when no GitHub token is set - the calendar shows sample data. */
+  configured: boolean;
+}
+
+/** A named slice with a percentage - shared by Wakatime languages/editors. */
+export interface WakatimeSlice {
+  name: string;
+  percent: number;
+  text: string;
+}
+
+export interface WakatimeStats {
+  /** Cumulative coding time since the account was created. */
+  allTimeText: string;
+  allTimeSeconds: number;
+  last7Days: {
+    startDate: string;
+    endDate: string;
+    dailyAverage: string;
+    total: string;
+    bestDay: { date: string; text: string } | null;
+    languages: WakatimeSlice[];
+    editors: WakatimeSlice[];
+  };
+  /** False when no API key is configured - the UI shows sample data instead. */
+  configured: boolean;
+}
+
+export interface CodewarsStats {
+  username: string;
+  honor: number;
+  leaderboardPosition: number | null;
+  rankName: string;
+  rankColor: string;
+  rankScore: number;
+  totalCompleted: number;
+  languages: Array<{ name: string; rankName: string; score: number }>;
+  configured: boolean;
+}
+
+export interface MonkeytypeStats {
+  username: string;
+  /** Personal-best words-per-minute keyed by test duration ("15" | "30" | "60" | "120"). */
+  bestWpm: Record<string, { wpm: number; accuracy: number; consistency: number }>;
+  testsCompleted: number;
+  testsStarted: number;
+  timeTyping: number;
+  configured: boolean;
+}
+
+export interface UmamiPoint {
+  x: string;
+  y: number;
+}
+
+export interface UmamiStats {
+  pageviews: UmamiPoint[];
+  sessions: UmamiPoint[];
+  totals: {
+    pageviews: number;
+    visitors: number;
+    visits: number;
+    countries: number;
+  };
+  configured: boolean;
 }

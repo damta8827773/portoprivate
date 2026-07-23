@@ -1,33 +1,34 @@
 import type { Request, Response } from 'express';
-import { prisma } from '../lib/prisma.js';
 import { ok } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
+import {
+  recordVisit,
+  getTotalVisits,
+  getCountryStats,
+  getMonthlyStats,
+} from '../services/analytics.service.js';
 
-export const getCountries = asyncHandler(async (_req: Request, res: Response) => {
-  const countries = await prisma.countryStat.findMany({ orderBy: { order: 'asc' } });
-  return ok(res, countries);
-});
+/**
+ * All visitor statistics come from the self-hosted analytics store (real,
+ * accumulated visits) - the seeded Prisma tables are no longer consulted so
+ * fabricated demo numbers can never leak into the dashboard.
+ */
 
-export const getVisitorStats = asyncHandler(async (_req: Request, res: Response) => {
-  const stats = await prisma.visitorStat.findMany({ orderBy: { monthIndex: 'asc' } });
-  return ok(res, stats);
-});
+export const getCountries = asyncHandler(async (_req: Request, res: Response) =>
+  ok(res, getCountryStats()),
+);
 
-export const getVisitorCount = asyncHandler(async (_req: Request, res: Response) => {
-  const counter = await prisma.visitorCounter.upsert({
-    where: { id: 1 },
-    create: { id: 1, count: 0 },
-    update: {},
-  });
-  return ok(res, { count: counter.count });
-});
+export const getVisitorStats = asyncHandler(async (_req: Request, res: Response) =>
+  ok(res, getMonthlyStats()),
+);
 
-/** Increments the total-visitor counter once per session (client guards with sessionStorage). */
-export const hitVisitor = asyncHandler(async (_req: Request, res: Response) => {
-  const counter = await prisma.visitorCounter.upsert({
-    where: { id: 1 },
-    create: { id: 1, count: 1 },
-    update: { count: { increment: 1 } },
-  });
-  return ok(res, { count: counter.count });
+export const getVisitorCount = asyncHandler(async (_req: Request, res: Response) =>
+  ok(res, { count: getTotalVisits() }),
+);
+
+/** Records one real visit (client guards per-session via sessionStorage). */
+export const hitVisitor = asyncHandler(async (req: Request, res: Response) => {
+  const { country } = (req.body ?? {}) as { country?: unknown };
+  const count = recordVisit(country, req.headers['user-agent'] ?? '');
+  return ok(res, { count });
 });

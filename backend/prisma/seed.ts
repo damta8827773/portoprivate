@@ -103,7 +103,7 @@ const projects = [
   {
     slug: 'web-vidio-viral-2',
     title: 'Web Vidio Viral',
-    image: 'assets/img/Project9.png',
+    image: 'assets/img/covers/web-vidio-viral-2.svg',
     url: 'https://damtaproyek.ecommercedamta.com/login.php',
     featured: false,
     order: 9,
@@ -113,6 +113,144 @@ const projects = [
       'Roadmap Web App using PHP, HTML5, and CSS3 Neon Style. Backend uses MySQL with Google Login security features (OAuth 2.0).',
   },
 ];
+
+/**
+ * Projects catalogued from the local VS Code workspaces under Desktop.
+ * Descriptions come from each project's own README / package.json.
+ * Covers are generated artwork under public/assets/img/covers/, not
+ * screenshots: these projects only run locally.
+ */
+const localProjects = [
+  {
+    slug: 'sentinel-devsecops',
+    title: 'Sentinel - DevSecOps Platform',
+    descId:
+      'Platform keamanan web terdistribusi. Melakukan DAST stateful dan auto-patching yang sadar AST, dijaga hierarki peran SOC enam tingkat serta audit log berantai hash.',
+    descEn:
+      'Distributed web-security platform. Stateful DAST and AST-aware auto-patching, gated by a six-tier SOC role hierarchy and a hash-chained audit log.',
+    stacksCsv: 'Polyglot Monorepo,DevSecOps,DAST,Docker',
+  },
+  {
+    slug: 'sentinel-parafrase',
+    title: 'Sentinel - AI Detection & Paraphrase',
+    descId:
+      'Platform deteksi teks AI dan parafrase yang berjalan sepenuhnya di localhost. Arsitektur microservices polyglot, zero-trust, single-tenant.',
+    descEn:
+      'Private AI-detection and paraphrase platform that runs entirely on localhost. Polyglot microservices, zero-trust, single-tenant.',
+    stacksCsv: 'Microservices,AI/NLP,Monorepo,Docker',
+  },
+  {
+    slug: 'thunder-ashes-esports',
+    title: 'Thunder Ashes - Esports MIS',
+    descId:
+      'Sistem informasi manajemen untuk tim esports Mobile Legends di MPL Indonesia. Delapan modul: pemantauan performa tim, analitik pemain, valuasi dan bursa transfer, bedah pertandingan, simulator draft, penjadwalan, kebugaran pemain, dan kontrol akses.',
+    descEn:
+      'Management information system for a Mobile Legends esports team competing in MPL Indonesia. Eight modules: team performance monitoring, player analytics, valuation and transfer market, match breakdown, draft simulator, scheduling, player fitness, and access control.',
+    stacksCsv: 'Next.js,React,TypeScript',
+  },
+  {
+    slug: 'perpustakaan-digital-uin',
+    title: 'Perpustakaan Digital UIN Jakarta',
+    descId:
+      'Sistem perpustakaan digital dengan antarmuka Mahasiswa dan Admin yang terpisah. Pinjam buku fisik, baca e-book langsung di peramban, dan kelola koleksi dalam satu platform.',
+    descEn:
+      'Digital library system with separate Student and Admin interfaces. Borrow physical books, read e-books directly in the browser, and manage the collection on one platform.',
+    stacksCsv: 'React,TypeScript,Microservices',
+  },
+  {
+    slug: 'warung-analytics',
+    title: 'Warung Analytics',
+    descId:
+      'Etalase toko sekaligus dasbor inventaris admin untuk warung kelontong. Satu aplikasi full-stack Next.js 14 dengan backend Firebase.',
+    descEn:
+      'Storefront plus an admin inventory dashboard for a grocery store. A single full-stack Next.js 14 app with a Firebase backend.',
+    stacksCsv: 'Next.js,React,Firebase,Tailwind,TypeScript',
+  },
+  {
+    slug: 'lumera-store',
+    title: 'Lumera - General Store',
+    descId:
+      'Toko e-commerce general store dengan arsitektur frontend/backend terpisah. Halaman produk berbasis problem-solution, sticky add-to-cart, quantity breaks, frequently bought together, dan ulasan.',
+    descEn:
+      'General-store e-commerce with a separated frontend/backend architecture. Problem-solution product pages, sticky add-to-cart, quantity breaks, frequently bought together, and reviews.',
+    stacksCsv: 'Node.js,Express,REST API',
+  },
+  {
+    slug: 'dup-tokped',
+    title: 'Marketplace Microservices',
+    descId:
+      'E-commerce berarsitektur microservices polyglot dalam satu monorepo: storefront, panel admin, dan API gateway.',
+    descEn:
+      'Polyglot microservices e-commerce in a single monorepo: storefront, admin panel, and API gateway.',
+    stacksCsv: 'Microservices,Docker,API Gateway',
+  },
+  {
+    slug: 'steam-cuci-motor',
+    title: 'Steam Cuci Motor',
+    descId:
+      'Sistem kasir modern untuk bisnis cuci motor steam, dengan frontend dan backend terpisah.',
+    descEn:
+      'A modern point-of-sale system for a motorcycle steam-wash business, with a separated frontend and backend.',
+    stacksCsv: 'Node.js,Express,REST API',
+  },
+  {
+    slug: 'pendapatan-income-tracker',
+    title: 'Pendapatan - Income Tracker',
+    descId:
+      'Aplikasi full-stack untuk mencatat dan memantau arus kas usaha. Catat pemasukan harian, lihat total bulan berjalan, dan kelola histori transaksi dalam satu dasbor.',
+    descEn:
+      'A fullstack app to record and monitor business cash flow. Log daily income, see the running monthly total, and manage transaction history in one dashboard.',
+    stacksCsv: 'React,Node.js,Express',
+  },
+  {
+    slug: 'gagas-inventory',
+    title: 'Gagas Inventory',
+    descId:
+      'Formulir master barang dengan frontend responsif dan backend ganda PHP serta Node.js/Express.',
+    descEn:
+      'A goods master-data form with a responsive frontend and a dual PHP plus Node.js/Express backend.',
+    stacksCsv: 'Node.js,Express,PHP,JavaScript',
+  },
+  {
+    slug: 'neuro-nexus',
+    title: 'Neuro-Nexus - Cognitive Engine',
+    descId:
+      'Blueprint SaaS mesin kompilasi kognitif: neural gateway, cognitive engine, core memory vault, dan antarmuka klien yang terpisah sebagai layanan.',
+    descEn:
+      'A cognitive compilation engine SaaS blueprint: neural gateway, cognitive engine, core memory vault, and a client interface split into separate services.',
+    stacksCsv: 'Microservices,Docker,Firebase',
+  },
+  {
+    slug: 'absensi-face-recognition',
+    title: 'Absensi Face Recognition',
+    descId:
+      'Sistem absensi karyawan berbasis pengenalan wajah, dibangun murni dengan Python dan Streamlit tanpa HTML/CSS/JS. Terdiri dari sisi Karyawan (operasional) dan sisi Atasan (Executive Information System).',
+    descEn:
+      'Face-recognition employee attendance system built purely in Python and Streamlit with no HTML/CSS/JS. Split into an Employee (operational) side and a Manager side (Executive Information System).',
+    stacksCsv: 'Python,Streamlit,Face Recognition,SQL',
+  },
+].map((p, index) => ({
+  ...p,
+  // Real screenshots exist for the projects that booted locally; the rest use
+  // generated cover artwork. Keep this list in sync with projectsExtra.ts.
+  image: [
+    'sentinel-devsecops',
+    'sentinel-parafrase',
+    'lumera-store',
+    'warung-analytics',
+    'thunder-ashes-esports',
+    'gagas-inventory',
+    'neuro-nexus',
+    'steam-cuci-motor',
+    'pendapatan-income-tracker',
+    'absensi-face-recognition',
+  ].includes(p.slug)
+    ? `assets/img/shots/${p.slug}.png`
+    : `assets/img/covers/${p.slug}.svg`,
+  url: '',
+  featured: false,
+  order: 100 + index,
+}));
 
 const certificates = [
   { slug: 'public-speaking', titleId: 'Belajar Public Speaking', titleEn: 'Learning Public Speaking', org: 'SMK Yappenda', year: '2024', image: 'assets/img/ser1.png', order: 1, descId: 'Menyelesaikan Program yang Berfokus gimana caranya Public Speaking.', descEn: 'Completed a program focused on Public Speaking techniques.' },
@@ -155,7 +293,7 @@ const skills = [
 ];
 
 const timeline = [
-  { slug: 'bki', icon: 'ri-briefcase-4-fill', logo: 'assets/img/bki.jpg', order: 1, titleId: 'Full Stack Developer', titleEn: 'Full Stack Developer', companyId: 'PT. Biro Klasifikasi Indonesia (Persero)', companyEn: 'PT. Biro Klasifikasi Indonesia (Persero)', dateId: '2026 - Sekarang • Jakarta, Indonesia', dateEn: '2026 - Present • Jakarta, Indonesia', descId: 'Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional. Bertanggung jawab dalam merancang arsitektur perangkat lunak yang fungsional dan efisien.', descEn: 'Became a professional developer at BKI and contributed to national projects. Responsible for designing functional and efficient software architecture.' },
+  { slug: 'bki', icon: 'ri-briefcase-4-fill', logo: 'assets/img/covers/bki.svg', order: 1, titleId: 'Full Stack Developer', titleEn: 'Full Stack Developer', companyId: 'PT. Biro Klasifikasi Indonesia (Persero)', companyEn: 'PT. Biro Klasifikasi Indonesia (Persero)', dateId: '2026 - Sekarang • Jakarta, Indonesia', dateEn: '2026 - Present • Jakarta, Indonesia', descId: 'Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional. Bertanggung jawab dalam merancang arsitektur perangkat lunak yang fungsional dan efisien.', descEn: 'Became a professional developer at BKI and contributed to national projects. Responsible for designing functional and efficient software architecture.' },
   { slug: 'uin', icon: 'ri-graduation-cap-fill', logo: 'assets/img/uin.png', order: 2, titleId: 'Mahasiswa Sistem Informasi', titleEn: 'Information Systems Student', companyId: 'UIN Syarif Hidayatullah Jakarta', companyEn: 'UIN Syarif Hidayatullah Jakarta', dateId: '2025 - Sekarang • Ciputat, Indonesia', dateEn: '2025 - Present • Ciputat, Indonesia', descId: 'Lulus dari SMK Yappenda dan melanjutkan pendidikan tinggi di UIN Jakarta. Titik awal saya mendalami dunia Web Developer secara komprehensif.', descEn: 'Graduated from SMK Yappenda and continued higher education at UIN Jakarta. The starting point for me to delve into the world of Web Developers comprehensively.' },
   { slug: 'smk', icon: 'ri-school-fill', logo: 'assets/img/yappenda.png', order: 3, titleId: 'Teknik Komputer Jaringan (TKJ)', titleEn: 'Computer and Network Engineering (TKJ)', companyId: 'SMK Yappenda Jakarta', companyEn: 'SMK Yappenda Jakarta', dateId: '2022 - 2025 • Jakarta, Indonesia', dateEn: '2022 - 2025 • Jakarta, Indonesia', descId: 'Fokus mendalami ilmu Teknik Komputer Jaringan. Aktif di ekstrakurikuler dan Ekskill untuk penajaman skill. Menguasai CISCO dan mempraktekannya dalam PKL.', descEn: 'Focusing on Computer and Network Engineering. Active in extracurriculars for skill sharpening. Mastered CISCO and put it into practice during internship.' },
 ];
@@ -179,6 +317,132 @@ const desktop = [128, 215, 187, 293, 342, 412, 387, 521, 468, 587, 634, 712];
 const mobile = [97, 163, 142, 218, 267, 318, 291, 398, 357, 442, 489, 543];
 const visitorStats = months.map((m, i) => ({ month: m, monthIndex: i, desktop: desktop[i], mobile: mobile[i] }));
 
+/** Tech badges per project slug - stored as CSV, split back into an array by the API. */
+const projectStacks: Record<string, string> = {
+  'web-relationship': 'HTML,CSS,JavaScript',
+  'web-portofolio': 'React,TypeScript,Vite,Tailwind',
+  'web-absensi': 'PHP,MySQL,Bootstrap',
+  'web-ecommerce': 'PHP,MySQL,CSS',
+  'web-vidio-viral': 'PHP,MySQL,OAuth 2.0',
+  'web-couple': 'PHP,MySQL,WhatsApp API',
+  'web-rangkum-bisnis': 'Next.js,Express,Prisma,Tailwind',
+  'web-premium': 'PHP,Firebase,Midtrans',
+  'web-vidio-viral-2': 'PHP,MySQL,OAuth 2.0',
+};
+
+/** Category buckets driving the filter chips on /achievements. */
+const certCategories: Record<string, string> = {
+  'public-speaking': 'Soft Skill',
+  'dasar-ai': 'Course',
+  'cisco-packet-tracer': 'Networking',
+  'microsoft-apps': 'Course',
+  'ekstra-skill': 'Soft Skill',
+  redhat: 'Networking',
+};
+
+const posts = [
+  {
+    slug: 'migrasi-html-ke-react',
+    titleId: 'Migrasi Portofolio dari HTML ke React + TypeScript',
+    titleEn: 'Migrating a Portfolio from HTML to React + TypeScript',
+    excerptId:
+      'Catatan lengkap saat memindahkan portofolio satu berkas HTML ke arsitektur React, TypeScript, Express, dan Prisma.',
+    excerptEn:
+      'Full notes from moving a single-file HTML portfolio to a React, TypeScript, Express, and Prisma architecture.',
+    contentId: [
+      '## Kenapa saya migrasi ke React + TypeScript',
+      '',
+      'Portofolio ini awalnya satu berkas HTML raksasa dengan CSS dan JavaScript vanilla.',
+      'Menyenangkan untuk dimulai, tapi menyakitkan untuk dirawat.',
+      '',
+      '### Masalah yang saya temui',
+      '',
+      '- Satu perubahan kecil memaksa saya membaca ribuan baris.',
+      '- Tidak ada tipe, jadi salah ketik baru ketahuan di browser.',
+      '- Sulit memakai ulang potongan UI yang sama.',
+      '',
+      '### Hasil setelah migrasi',
+      '',
+      '1. Komponen kecil yang bisa dipakai ulang.',
+      '2. TypeScript **strict** menangkap kesalahan sebelum runtime.',
+      '3. Backend Express + Prisma memisahkan data dari tampilan.',
+      '',
+      '> Kode yang baik bukan yang paling pintar, tapi yang paling mudah diubah.',
+    ].join('\n'),
+    contentEn: [
+      '## Why I migrated to React + TypeScript',
+      '',
+      'This portfolio started as one huge HTML file with vanilla CSS and JavaScript.',
+      'Fun to start, painful to maintain.',
+      '',
+      '### Problems I ran into',
+      '',
+      '- One small change forced me to read thousands of lines.',
+      '- No types, so typos only surfaced in the browser.',
+      '- Hard to reuse the same piece of UI.',
+      '',
+      '### The result after migrating',
+      '',
+      '1. Small components I can reuse.',
+      '2. TypeScript **strict** catches mistakes before runtime.',
+      '3. An Express + Prisma backend separates data from presentation.',
+      '',
+      '> Good code is not the cleverest, it is the easiest to change.',
+    ].join('\n'),
+    cover: 'assets/img/Project2.png',
+    tagsCsv: 'React,TypeScript,Migrasi',
+    publishedAt: new Date('2026-05-18T09:00:00.000Z'),
+    readingMinutes: 6,
+  },
+  {
+    slug: 'tech-stack-2026',
+    titleId: 'Tech Stack yang Saya Pakai di 2026',
+    titleEn: 'The Tech Stack I Use in 2026',
+    excerptId:
+      'Alasan di balik pemilihan React, Vite, Express, Prisma, dan Zod, serta perkakas yang sengaja saya hindari.',
+    excerptEn:
+      'The reasoning behind React, Vite, Express, Prisma, and Zod, plus the tools I deliberately avoid.',
+    contentId: [
+      '## Tumpukan teknologi yang saya pakai sehari-hari',
+      '',
+      'Saya memilih perkakas berdasarkan satu pertanyaan: **apakah ini mengurangi waktu saya memperbaiki bug?**',
+      '',
+      '### Frontend',
+      '',
+      '- **React + TypeScript** untuk komponen dan tipe.',
+      '- **Vite** untuk dev server yang nyaris instan.',
+      '- **Tailwind** untuk komponen baru, tanpa membuang design system lama.',
+      '',
+      '### Backend',
+      '',
+      '- **Express** karena kecil, jelas, dan mudah dibaca.',
+      '- **Prisma** karena skema jadi sumber kebenaran.',
+      '- **Zod** untuk memvalidasi input di perbatasan sistem.',
+    ].join('\n'),
+    contentEn: [
+      '## The stack I use day to day',
+      '',
+      'I pick tools by asking one question: **does this reduce the time I spend fixing bugs?**',
+      '',
+      '### Frontend',
+      '',
+      '- **React + TypeScript** for components and types.',
+      '- **Vite** for a near-instant dev server.',
+      '- **Tailwind** for new components, without throwing away the old design system.',
+      '',
+      '### Backend',
+      '',
+      '- **Express** because it is small, explicit, and easy to read.',
+      '- **Prisma** because the schema is the source of truth.',
+      '- **Zod** to validate input at the edge of the system.',
+    ].join('\n'),
+    cover: 'assets/img/Project7.png',
+    tagsCsv: 'Stack,Backend,Frontend',
+    publishedAt: new Date('2026-03-02T09:00:00.000Z'),
+    readingMinutes: 4,
+  },
+];
+
 async function main() {
   console.log('🌱 Seeding database...');
 
@@ -191,9 +455,18 @@ async function main() {
   await prisma.historyEntry.deleteMany();
   await prisma.countryStat.deleteMany();
   await prisma.visitorStat.deleteMany();
+  await prisma.post.deleteMany();
 
-  await prisma.project.createMany({ data: projects });
-  await prisma.certificate.createMany({ data: certificates });
+  await prisma.project.createMany({
+    data: [
+      ...projects.map((p) => ({ ...p, stacksCsv: projectStacks[p.slug] ?? '' })),
+      ...localProjects,
+    ],
+  });
+  await prisma.certificate.createMany({
+    data: certificates.map((c) => ({ ...c, category: certCategories[c.slug] ?? 'Course' })),
+  });
+  await prisma.post.createMany({ data: posts });
   await prisma.skill.createMany({ data: skills });
   await prisma.timelineEntry.createMany({ data: timeline });
   await prisma.historyEntry.createMany({ data: history });

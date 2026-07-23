@@ -8,7 +8,10 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 5173,
+    // Fixed port: other projects on this machine also default to 5173+, and a
+    // silently shifted port meant loading the wrong app. Fail loudly instead.
+    port: 5180,
+    strictPort: true,
     proxy: {
       '/api': {
         target: 'http://localhost:4000',

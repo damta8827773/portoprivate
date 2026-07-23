@@ -41,3 +41,6 @@ claude.md
 # tsc-emitted vite config artifacts (from composite build)
 frontend/vite.config.js
 frontend/vite.config.d.ts
+
+# Runtime analytics store (real visit data, not source)
+backend/data/
