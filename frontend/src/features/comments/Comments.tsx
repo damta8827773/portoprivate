@@ -58,23 +58,20 @@ interface FsReply {
   timestamp?: FsTimestamp;
 }
 
-/** Full date + time, e.g. "20 Feb 2026, 00.24" - matches the stored records. */
-function ChatTime({ ts, lang }: { ts: FsTimestamp; lang: 'id' | 'en' }) {
+/** Numeric date + time, e.g. "29/05/2026, 23:12" - matches the reference site. */
+function ChatTime({ ts }: { ts: FsTimestamp }) {
   if (!ts) return null;
   const date = ts.toDate ? ts.toDate() : ts.seconds ? new Date(ts.seconds * 1000) : null;
   if (!date || Number.isNaN(date.getTime())) return null;
 
-  const full = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'id-ID', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(date);
+  const p2 = (n: number) => String(n).padStart(2, '0');
+  const full =
+    `${p2(date.getDate())}/${p2(date.getMonth() + 1)}/${date.getFullYear()}, ` +
+    `${p2(date.getHours())}:${p2(date.getMinutes())}`;
 
   return (
     <time className="chat-time" dateTime={date.toISOString()} title={date.toLocaleString()}>
-      <i className="ri-time-line" /> {full}
+      {full}
     </time>
   );
 }
@@ -110,7 +107,6 @@ function ChatItem({
   isOwnerViewer: boolean;
   onReply: (id: string, text: string) => void;
 }) {
-  const { lang } = useI18n();
   const [replyOpen, setReplyOpen] = useState(false);
   const isOwnerMsg = c.email === OWNER_EMAIL;
   const align = isOwnerMsg ? 'align-right' : 'align-left';
@@ -132,7 +128,7 @@ function ChatItem({
                 {c.name || 'Anonim'} {isOwnerMsg && <span className="owner-badge">Owner</span>}
               </span>
               <span className="chat-stars">{'⭐'.repeat(c.rating || 0)}</span>
-              <ChatTime ts={c.timestamp} lang={lang} />
+              <ChatTime ts={c.timestamp} />
             </div>
             <div className={`chat-bubble ${isOwnerMsg ? 'owner' : ''}`}>{c.comment}</div>
             {canReply && (
@@ -158,7 +154,7 @@ function ChatItem({
                 <div className="chat-reply-name">
                   <i className="ri-shield-star-fill" style={{ fontSize: '0.65rem' }} />
                   {r.name || 'Owner'}
-                  <ChatTime ts={r.timestamp} lang={lang} />
+                  <ChatTime ts={r.timestamp} />
                 </div>
                 <div className="chat-reply-bubble">{r.reply}</div>
               </div>

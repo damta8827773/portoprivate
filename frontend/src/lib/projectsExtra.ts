@@ -82,13 +82,13 @@ const seeds: Seed[] = [
   },
   {
     slug: 'dup-tokped',
-    title: 'Marketplace Microservices',
+    title: 'Damta Web Studio',
     folder: 'dup tokped',
     descId:
-      'E-commerce berarsitektur microservices polyglot dalam satu monorepo: storefront, panel admin, dan API gateway.',
+      'Pembuat website otomatis untuk pasangan dan portofolio, dibantu AI. Pilih tema, tulis cerita, lalu sistem menyusun website yang langsung tampil live dalam hitungan detik. Arsitektur microservices (web Next.js + API) dalam satu monorepo.',
     descEn:
-      'Polyglot microservices e-commerce in a single monorepo: storefront, admin panel, and API gateway.',
-    stacks: ['Microservices', 'Docker', 'API Gateway'],
+      'An automated website builder for couple and portfolio sites, AI-assisted. Pick a theme, write your story, and the system assembles a live website in seconds. Microservices architecture (Next.js web + API) in a single monorepo.',
+    stacks: ['Next.js', 'Node.js', 'Microservices', 'API Gateway'],
   },
   {
     slug: 'steam-cuci-motor',
@@ -157,6 +157,8 @@ const HAS_SCREENSHOT = new Set([
   'steam-cuci-motor',
   'pendapatan-income-tracker',
   'absensi-face-recognition',
+  'perpustakaan-digital-uin',
+  'dup-tokped',
 ]);
 
 /** Continues the id/order sequence after the nine hand-written entries. */

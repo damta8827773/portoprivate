@@ -1425,3 +1425,50 @@ body.light-mode .chat-wrapper {
   .tm-year-display { position: static; text-align: right; margin-bottom: 6px; }
   .tm-ticks { flex-wrap: wrap; gap: 2px; }
 }
+
+/* ==========================================================================
+   Bottom-corner elements must not overlap (v3.9)
+   Three fixed widgets share the bottom-right: back-to-top, its progress ring,
+   and the chat launcher. Stack them cleanly; the ring encircles the button.
+   ========================================================================== */
+
+/* Back-to-top: bottommost, with the progress ring concentric around it. */
+.btn-top {
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 60 !important;
+}
+
+.circ-progress {
+  bottom: 20px !important;   /* 52px ring centered on the 44px button */
+  right: 20px !important;
+  z-index: 59 !important;
+}
+
+/* Chat launcher sits ABOVE the back-to-top unit with a clear gap. */
+.chat-widget-btn {
+  bottom: 92px !important;
+  right: 26px !important;
+}
+
+/* Its popup opens above the launcher. */
+.chat-widget-panel {
+  bottom: 156px !important;
+  right: 26px !important;
+}
+
+@media (max-width: 768px) {
+  .btn-top { bottom: 18px !important; right: 18px !important; }
+  .circ-progress { bottom: 14px !important; right: 14px !important; }
+  .chat-widget-btn { bottom: 82px !important; right: 18px !important; }
+  .chat-widget-panel { bottom: 142px !important; right: 12px !important; left: 12px !important; }
+}
+
+/* Progress bars react to hover so the Wakatime card feels interactive too. */
+.progress-row { transition: transform 0.2s ease; cursor: default; }
+.progress-row:hover { transform: translateX(3px); }
+.progress-row:hover .progress-fill {
+  filter: brightness(1.15) saturate(1.1);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+.progress-row:hover .progress-pct { color: #D4AF37; font-weight: 600; }
