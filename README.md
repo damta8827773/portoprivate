@@ -100,6 +100,30 @@ portoprivate/
 * **🔌 REST API:** All portfolio data served from a documented, versioned Express API.
 * **💬 Live Chat Room:** Authenticated comments & owner replies, secured by verified Firebase tokens.
 * **📊 Live Dashboard:** Real-time GitHub stats, visitor analytics, and country demographics.
+* **📄 Dedicated Pages:** Beyond the one-page hero, the site routes to `/projects`, `/projects/:slug`, `/achievements`, `/blog`, `/blog/:slug`, and `/dashboard`.
+* **🔎 Search & Filter:** Achievements and blog posts are filterable by category/tag with live search.
+* **📝 Markdown Blog:** Posts are stored in MySQL and rendered by a dependency-free markdown renderer (`frontend/src/lib/markdown.ts`).
+* **⏱️ Coding Activity:** Wakatime, Codewars, Monkeytype, and Umami statistics proxied and cached by the API.
+
+---
+
+## 🧭 Routes & API
+
+| Page | Data source |
+| --- | --- |
+| `/` | Home - all original sections |
+| `/projects`, `/projects/:slug` | `GET /api/projects`, `GET /api/projects/:slug` |
+| `/achievements` | `GET /api/certificates` |
+| `/blog`, `/blog/:slug` | `GET /api/posts`, `GET /api/posts/:slug` |
+| `/dashboard` | `GET /api/github`, `GET /api/insights` |
+| `/about` | `GET /api/timeline`, `GET /api/history`, `GET /api/skills` |
+| `/legal/privacy-policy`, `/legal/terms-of-service` | static, bilingual |
+
+`GET /api/insights` bundles Wakatime, Codewars, Monkeytype, and Umami in one
+response (each also available individually under `/api/insights/*`). Every
+provider is **optional**: with no API key the endpoint returns representative
+sample data and sets `configured: false`, which the UI badges as `demo`. Keys go
+in `backend/.env` - see `backend/.env.example`.
 
 ---
 

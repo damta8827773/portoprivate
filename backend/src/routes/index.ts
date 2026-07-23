@@ -1,11 +1,22 @@
 import { Router } from 'express';
 import {
   getProjects,
+  getProjectBySlug,
+  getPosts,
+  getPostBySlug,
   getCertificates,
   getSkills,
   getTimeline,
   getHistory,
 } from '../controllers/content.controller.js';
+import {
+  getWakatime,
+  getCodewars,
+  getMonkeytype,
+  getUmami,
+  getInsights,
+  getGithubContributions,
+} from '../controllers/insights.controller.js';
 import {
   getCountries,
   getVisitorStats,
@@ -26,6 +37,9 @@ apiRouter.get('/health', (_req, res) => res.json({ success: true, data: { status
 
 // Content (was hard-coded in the HTML)
 apiRouter.get('/projects', getProjects);
+apiRouter.get('/projects/:slug', getProjectBySlug);
+apiRouter.get('/posts', getPosts);
+apiRouter.get('/posts/:slug', getPostBySlug);
 apiRouter.get('/certificates', getCertificates);
 apiRouter.get('/skills', getSkills);
 apiRouter.get('/timeline', getTimeline);
@@ -37,6 +51,14 @@ apiRouter.get('/stats/visitors', getVisitorStats);
 apiRouter.get('/visitors/count', getVisitorCount);
 apiRouter.post('/visitors/hit', hitVisitor);
 apiRouter.get('/github', getGithub);
+apiRouter.get('/github/contributions', getGithubContributions);
+
+// External coding-activity providers (each degrades to sample data if unset)
+apiRouter.get('/insights', getInsights);
+apiRouter.get('/insights/wakatime', getWakatime);
+apiRouter.get('/insights/codewars', getCodewars);
+apiRouter.get('/insights/monkeytype', getMonkeytype);
+apiRouter.get('/insights/umami', getUmami);
 
 // Comments (chat room) - replaces Firestore
 apiRouter.get('/comments', listComments);

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/useI18n';
 
 const SOCIALS = [
@@ -22,6 +23,15 @@ export function Footer() {
         &copy; {new Date().getFullYear()} Damta Noviyan Muhamad Faiz.
         <span style={{ display: 'block', marginTop: 5, fontSize: '1rem', opacity: 1 }}>{t('footer')}</span>
       </p>
+      <nav className="footer-legal">
+        <Link to="/about">{t('about_title_main')}</Link>
+        <span aria-hidden="true">·</span>
+        <Link to="/journey">{t('journey_title')}</Link>
+        <span aria-hidden="true">·</span>
+        <Link to="/legal/privacy-policy">{t('legal_privacy')}</Link>
+        <span aria-hidden="true">·</span>
+        <Link to="/legal/terms-of-service">{t('legal_terms')}</Link>
+      </nav>
     </footer>
   );
 }

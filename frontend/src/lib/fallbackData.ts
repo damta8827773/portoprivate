@@ -13,8 +13,9 @@ import type {
   VisitorStat,
   GithubSummary,
 } from '@damta/types';
+import { extraProjects } from './projectsExtra';
 
-export const fallbackProjects: Project[] = [
+const baseProjects: Project[] = [
   { id: 1, slug: 'web-relationship', title: 'Web Relationship', image: 'assets/img/Project1.png', url: 'https://najwaweb.site', featured: true, order: 1, descId: 'Website interaktif yang dibangun menggunakan HTML, CSS, dan JavaScript murni (Vanilla JS) tanpa framework, menonjolkan desain UI/UX yang romantis dan personal.', descEn: 'An interactive website built using HTML, CSS, and pure JavaScript (Vanilla JS) without frameworks, highlighting a romantic and personal UI/UX design.' },
   { id: 2, slug: 'web-portofolio', title: 'Web Portofolio', image: 'assets/img/Project2.png', url: 'https://damtaweb.com', featured: true, order: 2, descId: 'Website portofolio profesional bergaya modern dengan efek Glassmorphism dan animasi Neon 6D. Dikembangkan secara dinamis dan responsif menggunakan framework React.js, HTML5, dan CSS3.', descEn: 'A modern professional portfolio website with Glassmorphism visual effects and 6D Neon animation. Dynamically and responsively developed using React.js, HTML5, and CSS3.' },
   { id: 3, slug: 'web-absensi', title: 'Web Absensi Karyawan', image: 'assets/img/Project3.png', url: 'https://presensi.ecommercedamta.com/', featured: true, order: 3, descId: 'Sistem absensi berbasis web terintegrasi yang memanfaatkan PHP dan MySQL untuk verifikasi kehadiran karyawan secara real-time. Dilengkapi fitur unggah foto bukti fisik dan laporan otomatis dalam format Excel.', descEn: 'An integrated web-based attendance system utilizing PHP and MySQL for real-time employee attendance verification. Equipped with physical proof photo upload features and automatic Excel reports.' },
@@ -23,10 +24,49 @@ export const fallbackProjects: Project[] = [
   { id: 6, slug: 'web-couple', title: 'Web Couple', image: 'assets/img/Project6.png', url: 'https://proyek.ecommercedamta.com/', featured: true, order: 6, descId: 'Sistem pemesanan web interaktif dengan menggunakan PHP Native dan MySQL. Dilengkapi fitur kustomisasi desain (Tema/Font), manajemen database pesanan, serta integrasi invoice otomatis ke WhatsApp.', descEn: 'Interactive web ordering system using PHP Native and MySQL. Equipped with design customization (Theme/Font), order database management, and automatic WhatsApp invoice integration.' },
   { id: 7, slug: 'web-rangkum-bisnis', title: 'Web Rangkum Bisnis', image: 'assets/img/Project7.png', url: 'https://financecreps.site/', featured: false, order: 7, descId: 'Aplikasi pencatatan keuangan Full-Stack berstandar industri yang dibangun menggunakan ekosistem JavaScript/TypeScript modern. Antarmuka (Frontend) dirancang menggunakan Next.js dan Tailwind CSS. Sisi peladen (Backend) ditenagai Node.js dan Express.js yang terhubung ke database melalui Prisma ORM.', descEn: 'An industry-standard Full-Stack financial recording application built using a modern JavaScript/TypeScript ecosystem. The frontend uses Next.js and Tailwind CSS; the backend is powered by Node.js and Express.js connected to a database through Prisma ORM.' },
   { id: 8, slug: 'web-premium', title: 'Web Premium', image: 'assets/img/web premium.png', url: '#', featured: false, order: 8, descId: 'Platform jual-beli akun premium (Canva, Netflix, Spotify, YouTube Premium, CapCut, AlightMotion) dengan sistem deposit saldo, manajemen stok otomatis, dan admin dashboard lengkap. Dibangun menggunakan PHP murni, Firebase, dan Vanilla JS. Pembayaran via Midtrans Snap.js.', descEn: 'A premium account marketplace platform (Canva, Netflix, Spotify, YouTube Premium, CapCut, AlightMotion) featuring a balance deposit system, automatic stock management, and a complete admin dashboard. Built with pure PHP, Firebase, and Vanilla JS. Payments via Midtrans Snap.js.' },
-  { id: 9, slug: 'web-vidio-viral-2', title: 'Web Vidio Viral', image: 'assets/img/Project9.png', url: 'https://damtaproyek.ecommercedamta.com/login.php', featured: false, order: 9, descId: 'Web App Roadmap menggunakan PHP, HTML5, and CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).', descEn: 'Roadmap Web App using PHP, HTML5, and CSS3 Neon Style. Backend uses MySQL with Google Login security features (OAuth 2.0).' },
+  { id: 9, slug: 'web-vidio-viral-2', title: 'Web Vidio Viral', image: 'assets/img/covers/web-vidio-viral-2.svg', url: 'https://damtaproyek.ecommercedamta.com/login.php', featured: false, order: 9, descId: 'Web App Roadmap menggunakan PHP, HTML5, and CSS3 Neon Style. Backend menggunakan MySQL dengan fitur keamanan Login Google (OAuth 2.0).', descEn: 'Roadmap Web App using PHP, HTML5, and CSS3 Neon Style. Backend uses MySQL with Google Login security features (OAuth 2.0).' },
 ];
 
-export const fallbackCertificates: Certificate[] = [
+/** Tech badges per project - shown on the card and the /projects/:slug page. */
+const projectStacks: Record<string, string[]> = {
+  'web-relationship': ['HTML', 'CSS', 'JavaScript'],
+  'web-portofolio': ['React', 'TypeScript', 'Vite', 'Tailwind'],
+  'web-absensi': ['PHP', 'MySQL', 'Bootstrap'],
+  'web-ecommerce': ['PHP', 'MySQL', 'CSS'],
+  'web-vidio-viral': ['PHP', 'MySQL', 'OAuth 2.0'],
+  'web-couple': ['PHP', 'MySQL', 'WhatsApp API'],
+  'web-rangkum-bisnis': ['Next.js', 'Express', 'Prisma', 'Tailwind'],
+  'web-premium': ['PHP', 'Firebase', 'Midtrans'],
+  'web-vidio-viral-2': ['PHP', 'MySQL', 'OAuth 2.0'],
+};
+
+const projectRepos: Record<string, string> = {
+  'web-portofolio': 'https://github.com/damta8827773/portoprivate',
+};
+
+export const fallbackProjects: Project[] = [
+  ...baseProjects.map((p) => ({
+    ...p,
+    stacks: projectStacks[p.slug] ?? [],
+    repoUrl: projectRepos[p.slug] ?? null,
+    contentId: null,
+    contentEn: null,
+  })),
+  // Everything else built locally - see projectsExtra.ts for provenance.
+  ...extraProjects,
+];
+
+/** Category buckets used by the filter chips on /achievements. */
+const certCategories: Record<string, string> = {
+  'public-speaking': 'Soft Skill',
+  'dasar-ai': 'Course',
+  'cisco-packet-tracer': 'Networking',
+  'microsoft-apps': 'Course',
+  'ekstra-skill': 'Soft Skill',
+  redhat: 'Networking',
+};
+
+const baseCertificates: Certificate[] = [
   { id: 1, slug: 'public-speaking', titleId: 'Belajar Public Speaking', titleEn: 'Learning Public Speaking', org: 'SMK Yappenda', year: '2024', image: 'assets/img/ser1.png', order: 1, descId: 'Menyelesaikan Program yang Berfokus gimana caranya Public Speaking.', descEn: 'Completed a program focused on Public Speaking techniques.' },
   { id: 2, slug: 'dasar-ai', titleId: 'Belajar Dasar AI', titleEn: 'Learning Basic AI', org: 'Dicoding Indonesia', year: '2025', image: 'assets/img/ser2.png', order: 2, descId: 'Menyelesaikan gimana cara menggunakan AI yang Efektif.', descEn: 'Completed how to use AI effectively.' },
   { id: 3, slug: 'cisco-packet-tracer', titleId: 'CISCO Packet Tracer', titleEn: 'CISCO Packet Tracer', org: 'SMK Yappenda', year: '2024', image: 'assets/img/ser3.png', order: 3, descId: 'Pemahaman mendalam tentang pembuatan Proyek Mandiri (Karya Tulis Ilmiah).', descEn: 'In-depth understanding of making Independent Projects (Scientific Writing).' },
@@ -34,6 +74,12 @@ export const fallbackCertificates: Certificate[] = [
   { id: 5, slug: 'ekstra-skill', titleId: 'Ekstra Skill', titleEn: 'Extra Skill', org: 'SMK Yappenda', year: '2024', image: 'assets/img/ser5.png', order: 5, descId: 'Mempelajari tentang gimana cara menyelesaikan Sistem Pendingin Udara (Air Conditioner/AC).', descEn: 'Learning how to solve Air Conditioning (AC) system problems.' },
   { id: 6, slug: 'redhat', titleId: 'REDHAT', titleEn: 'REDHAT', org: 'SMK Yappenda', year: '2024', image: 'assets/img/ser6.png', order: 6, descId: 'Mempelajari Tentang Dasar-dasar Red Hat System Administration.', descEn: 'Learning about Red Hat System Administration Basics.' },
 ];
+
+export const fallbackCertificates: Certificate[] = baseCertificates.map((c) => ({
+  ...c,
+  category: certCategories[c.slug] ?? 'Course',
+  credentialUrl: null,
+}));
 
 const mkSkill = (id: number, name: string, image: string, category: string, level: number, row: number, order: number): Skill => ({ id, name, image, category, level, row, order });
 export const fallbackSkills: Skill[] = [
@@ -67,7 +113,7 @@ export const fallbackSkills: Skill[] = [
 ];
 
 export const fallbackTimeline: TimelineEntry[] = [
-  { id: 1, slug: 'bki', icon: 'ri-briefcase-4-fill', logo: 'assets/img/bki.jpg', order: 1, titleId: 'Full Stack Developer', titleEn: 'Full Stack Developer', companyId: 'PT. Biro Klasifikasi Indonesia (Persero)', companyEn: 'PT. Biro Klasifikasi Indonesia (Persero)', dateId: '2026 - Sekarang - Jakarta, Indonesia', dateEn: '2026 - Present - Jakarta, Indonesia', descId: 'Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional. Bertanggung jawab dalam merancang arsitektur perangkat lunak yang fungsional dan efisien.', descEn: 'Became a professional developer at BKI and contributed to national projects. Responsible for designing functional and efficient software architecture.' },
+  { id: 1, slug: 'bki', icon: 'ri-briefcase-4-fill', logo: 'assets/img/covers/bki.svg', order: 1, titleId: 'Full Stack Developer', titleEn: 'Full Stack Developer', companyId: 'PT. Biro Klasifikasi Indonesia (Persero)', companyEn: 'PT. Biro Klasifikasi Indonesia (Persero)', dateId: '2026 - Sekarang - Jakarta, Indonesia', dateEn: '2026 - Present - Jakarta, Indonesia', descId: 'Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional. Bertanggung jawab dalam merancang arsitektur perangkat lunak yang fungsional dan efisien.', descEn: 'Became a professional developer at BKI and contributed to national projects. Responsible for designing functional and efficient software architecture.' },
   { id: 2, slug: 'uin', icon: 'ri-graduation-cap-fill', logo: 'assets/img/uin.png', order: 2, titleId: 'Mahasiswa Sistem Informasi', titleEn: 'Information Systems Student', companyId: 'UIN Syarif Hidayatullah Jakarta', companyEn: 'UIN Syarif Hidayatullah Jakarta', dateId: '2025 - Sekarang - Ciputat, Indonesia', dateEn: '2025 - Present - Ciputat, Indonesia', descId: 'Lulus dari SMK Yappenda dan melanjutkan pendidikan tinggi di UIN Jakarta. Titik awal saya mendalami dunia Web Developer secara komprehensif.', descEn: 'Graduated from SMK Yappenda and continued higher education at UIN Jakarta. The starting point for me to delve into the world of Web Developers comprehensively.' },
   { id: 3, slug: 'smk', icon: 'ri-school-fill', logo: 'assets/img/yappenda.png', order: 3, titleId: 'Teknik Komputer Jaringan (TKJ)', titleEn: 'Computer and Network Engineering (TKJ)', companyId: 'SMK Yappenda Jakarta', companyEn: 'SMK Yappenda Jakarta', dateId: '2022 - 2025 - Jakarta, Indonesia', dateEn: '2022 - 2025 - Jakarta, Indonesia', descId: 'Fokus mendalami ilmu Teknik Komputer Jaringan. Aktif di ekstrakurikuler dan Ekskill untuk penajaman skill. Menguasai CISCO dan mempraktekannya dalam PKL.', descEn: 'Focusing on Computer and Network Engineering. Active in extracurriculars for skill sharpening. Mastered CISCO and put it into practice during internship.' },
 ];
@@ -80,18 +126,15 @@ export const fallbackHistory: HistoryEntry[] = [
   { id: 5, year: '2026', image: 'assets/img/file5.png', order: 5, descId: 'Menjadi pengembang profesional di BKI dan berkontribusi pada proyek nasional.', descEn: 'Became a professional developer at BKI and contributed to national projects.' },
 ];
 
-export const fallbackCountries: CountryStat[] = [
-  { id: 1, name: 'Indonesia', flag: '🇮🇩', percentage: 95, order: 1 },
-  { id: 2, name: 'Malaysia', flag: '🇲🇾', percentage: 3, order: 2 },
-  { id: 3, name: 'Amerika Serikat', flag: '🇺🇸', percentage: 2, order: 3 },
-];
+// Visitor analytics are REAL accumulated visits served by the API's
+// self-hosted store - so the offline fallbacks are deliberately empty,
+// never invented numbers.
+export const fallbackCountries: CountryStat[] = [];
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-const desktop = [128, 215, 187, 293, 342, 412, 387, 521, 468, 587, 634, 712];
-const mobile = [97, 163, 142, 218, 267, 318, 291, 398, 357, 442, 489, 543];
-export const fallbackVisitorStats: VisitorStat[] = months.map((m, i) => ({ id: i + 1, month: m, monthIndex: i, desktop: desktop[i], mobile: mobile[i] }));
+export const fallbackVisitorStats: VisitorStat[] = months.map((m, i) => ({ id: i + 1, month: m, monthIndex: i, desktop: 0, mobile: 0 }));
 
-export const fallbackVisitorCount = 1280;
+export const fallbackVisitorCount = 0;
 
 export const fallbackGithub: GithubSummary = {
   profile: {

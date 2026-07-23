@@ -22,24 +22,54 @@ model Project {
   featured  Boolean  @default(true) // among the first 6
   order     Int      @default(0)
   createdAt DateTime @default(now())
+  // Long-form markdown rendered on the /projects/:slug detail page.
+  contentId String?  @db.Text
+  contentEn String?  @db.Text
+  // Comma-separated tech badges ("React,TypeScript,Prisma"); split in the controller.
+  stacksCsv String   @default("") @db.Text
+  repoUrl   String?
 
   @@index([order])
 }
 
-/// Achievements / certificates in the #certificates section.
+/// Achievements / certificates in the #certificates section and /achievements page.
 model Certificate {
-  id      Int    @id @default(autoincrement())
-  slug    String @unique
-  titleId String
-  titleEn String
-  org     String
-  year    String
-  image   String
-  descId  String @db.Text
-  descEn  String @db.Text
-  order   Int    @default(0)
+  id            Int     @id @default(autoincrement())
+  slug          String  @unique
+  titleId       String
+  titleEn       String
+  org           String
+  year          String
+  image         String
+  descId        String  @db.Text
+  descEn        String  @db.Text
+  order         Int     @default(0)
+  /// Drives the category filter on /achievements.
+  category      String  @default("Course")
+  credentialUrl String?
 
   @@index([order])
+  @@index([category])
+}
+
+/// Blog articles rendered from markdown on /blog and /blog/:slug.
+model Post {
+  id             Int      @id @default(autoincrement())
+  slug           String   @unique
+  titleId        String
+  titleEn        String
+  excerptId      String   @db.Text
+  excerptEn      String   @db.Text
+  contentId      String   @db.LongText
+  contentEn      String   @db.LongText
+  cover          String   @default("")
+  /// Comma-separated tags ("react,typescript"); split in the controller.
+  tagsCsv        String   @default("") @db.Text
+  published      Boolean  @default(true)
+  publishedAt    DateTime @default(now())
+  readingMinutes Int      @default(3)
+
+  @@index([published, publishedAt])
 }
 
 /// Tech / tools shown in the two scrolling skill marquees.

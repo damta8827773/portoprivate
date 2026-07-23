@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400" role="img" aria-label="Warung Analytics">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#b87333"/>
+      <stop offset="100%" stop-color="#331a0c"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0 H0 V40" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="400" fill="url(#bg)"/>
+  <rect width="800" height="400" fill="url(#grid)"/>
+  <rect x="0" y="0" width="800" height="4" fill="url(#sheen)"/>
+  <circle cx="690" cy="72" r="150" fill="rgba(255,255,255,0.05)"/>
+
+  <g transform="translate(56 72)" opacity="0.92">
+    <path d="M8 12 H16 L22 40 H48 L54 20 H20 M24 50 A3 3 0 1 0 24 56 A3 3 0 1 0 24 50 M44 50 A3 3 0 1 0 44 56 A3 3 0 1 0 44 50" fill="none" stroke="#f8fafc" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+  </g>
+
+  <text x="56" y="212" font-family="Poppins,Segoe UI,sans-serif" font-size="46" font-weight="700" fill="#ffffff">Warung Analytics</text>
+  <text x="56" y="254" font-family="Poppins,Segoe UI,sans-serif" font-size="21" fill="rgba(255,255,255,0.75)">Storefront + Admin</text>
+<g transform="translate(56 300)">
+      <rect rx="14" width="86.19999999999999" height="28" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.24)"/>
+      <text x="43.099999999999994" y="19" font-family="Poppins,Segoe UI,sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle">Next.js</text>
+    </g>
+<g transform="translate(152.2 300)">
+      <rect rx="14" width="94.8" height="28" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.24)"/>
+      <text x="47.4" y="19" font-family="Poppins,Segoe UI,sans-serif" font-size="13" fill="#f8fafc" text-anchor="middle">Firebase</text>
+    </g>
+  <text x="744" y="366" font-family="Poppins,Segoe UI,sans-serif" font-size="14" fill="rgba(255,255,255,0.45)" text-anchor="end">damta</text>
+</svg>

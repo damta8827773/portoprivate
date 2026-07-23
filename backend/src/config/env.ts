@@ -19,6 +19,15 @@ const envSchema = z.object({
   FIREBASE_PROJECT_ID: z.string().optional(),
   FIREBASE_CLIENT_EMAIL: z.string().optional(),
   FIREBASE_PRIVATE_KEY: z.string().optional(),
+  // External dashboard providers - all optional; each endpoint reports
+  // `configured: false` and serves sample data when its key is missing.
+  WAKATIME_API_KEY: z.string().optional(),
+  CODEWARS_USERNAME: z.string().optional(),
+  MONKEYTYPE_USERNAME: z.string().optional(),
+  MONKEYTYPE_API_KEY: z.string().optional(),
+  UMAMI_BASE_URL: z.string().default('https://api.umami.is/v1/websites'),
+  UMAMI_WEBSITE_ID: z.string().optional(),
+  UMAMI_API_KEY: z.string().optional(),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -40,4 +49,8 @@ export const env = {
   isFirebaseAdminConfigured: Boolean(
     data.FIREBASE_PROJECT_ID && data.FIREBASE_CLIENT_EMAIL && data.FIREBASE_PRIVATE_KEY,
   ),
+  isWakatimeConfigured: Boolean(data.WAKATIME_API_KEY),
+  isCodewarsConfigured: Boolean(data.CODEWARS_USERNAME),
+  isMonkeytypeConfigured: Boolean(data.MONKEYTYPE_USERNAME && data.MONKEYTYPE_API_KEY),
+  isUmamiConfigured: Boolean(data.UMAMI_WEBSITE_ID && data.UMAMI_API_KEY),
 };

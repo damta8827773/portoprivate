@@ -1,0 +1,1427 @@
+/* ==========================================================================
+   Sub-pages added in v3.1: /projects, /projects/:slug, /achievements,
+   /blog, /blog/:slug, /dashboard. Reuses the tokens defined in app.css so
+   both themes stay consistent with the rest of the site.
+   ========================================================================== */
+
+.page-shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 140px 24px 80px;
+  width: 100%;
+}
+
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 8px 14px;
+  border: var(--card-border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  transition: color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.page-back:hover {
+  color: var(--primary-neon);
+  border-color: var(--primary-neon);
+  transform: translateX(-4px);
+}
+
+.page-head {
+  margin: 28px 0 36px;
+}
+
+.page-head h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  line-height: 1.15;
+}
+
+.page-head-desc {
+  color: var(--text-muted);
+  max-width: 62ch;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ---------- toolbar: search + result count ---------- */
+
+.page-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 260px;
+  padding: 11px 16px;
+  border: var(--card-border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.search-field:focus-within {
+  border-color: var(--primary-neon);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-neon) 18%, transparent);
+}
+
+.search-field i {
+  color: var(--text-muted);
+}
+
+.search-field input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.result-count {
+  min-width: 42px;
+  text-align: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-neon);
+  border: 1px solid color-mix(in srgb, var(--primary-neon) 35%, transparent);
+  background: color-mix(in srgb, var(--primary-neon) 10%, transparent);
+}
+
+/* ---------- filter chips ---------- */
+
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.filter-chip {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: var(--card-border);
+  background: var(--card-bg);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-chip:hover {
+  color: var(--text-color);
+  border-color: var(--primary-neon);
+}
+
+.filter-chip.active {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+}
+
+body.light-mode .filter-chip.active {
+  color: #fff;
+}
+
+/* ---------- shared bits ---------- */
+
+.stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+}
+
+.stack-chips li {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  border: var(--card-border);
+  background: var(--glass-highlight);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 60px 20px;
+  border: 1px dashed color-mix(in srgb, var(--text-muted) 35%, transparent);
+  border-radius: 18px;
+}
+
+.empty-state .btn-view {
+  margin-top: 20px;
+  display: inline-flex;
+}
+
+.project-card-actions,
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.btn-view-ghost {
+  background: transparent !important;
+  border: 1px solid var(--primary-neon) !important;
+  color: var(--primary-neon) !important;
+}
+
+/* ---------- detail pages ---------- */
+
+.detail-article {
+  max-width: 820px;
+}
+
+.detail-cover {
+  border-radius: 18px;
+  overflow: hidden;
+  border: var(--card-border);
+  background: var(--card-bg);
+  margin-bottom: 28px;
+}
+
+.detail-cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.detail-block {
+  margin-bottom: 28px;
+}
+
+.detail-block-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ---------- markdown body ---------- */
+
+.markdown-body {
+  line-height: 1.8;
+  color: var(--text-color);
+  margin-top: 28px;
+}
+
+.markdown-body h2 {
+  font-size: 1.5rem;
+  margin: 36px 0 14px;
+  color: var(--primary-neon);
+}
+
+.markdown-body h3 {
+  font-size: 1.15rem;
+  margin: 28px 0 12px;
+}
+
+.markdown-body p {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin: 0 0 18px;
+  padding-left: 22px;
+  color: var(--text-muted);
+}
+
+.markdown-body li {
+  margin-bottom: 8px;
+}
+
+.markdown-body strong {
+  color: var(--text-color);
+}
+
+.markdown-body a {
+  color: var(--primary-neon);
+}
+
+.markdown-body blockquote {
+  margin: 0 0 20px;
+  padding: 14px 20px;
+  border-left: 3px solid var(--primary-neon);
+  border-radius: 0 12px 12px 0;
+  background: var(--glass-highlight);
+  color: var(--text-color);
+  font-style: italic;
+}
+
+.markdown-body code {
+  font-family: 'Fira Code', ui-monospace, monospace;
+  font-size: 0.88em;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--glass-highlight);
+  color: var(--accent-neon);
+}
+
+.markdown-body pre.md-code {
+  position: relative;
+  margin: 0 0 22px;
+  padding: 20px;
+  border-radius: 14px;
+  overflow-x: auto;
+  border: var(--card-border);
+  background: var(--cert-bg);
+}
+
+.markdown-body pre.md-code code {
+  background: transparent;
+  padding: 0;
+  color: var(--text-color);
+  white-space: pre;
+}
+
+.markdown-body pre.md-code::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ---------- blog list ---------- */
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 26px;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  border: var(--card-border);
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px var(--shadow-color);
+}
+
+.post-cover {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.post-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.post-card:hover .post-cover img {
+  transform: scale(1.05);
+}
+
+.post-body {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.post-meta {
+  display: flex;
+  gap: 14px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.post-meta-lead {
+  margin-bottom: 22px;
+}
+
+.post-body h3 {
+  margin: 0 0 10px;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+
+.post-body h3 a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.post-body h3 a:hover {
+  color: var(--primary-neon);
+}
+
+.post-body p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  flex: 1;
+}
+
+/* ---------- achievements ---------- */
+
+.cert-category {
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--secondary-neon);
+  border: 1px solid color-mix(in srgb, var(--secondary-neon) 40%, transparent);
+  margin-bottom: 8px;
+}
+
+.cert-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--primary-neon);
+  text-decoration: none;
+}
+
+/* ---------- dashboard insight cards ---------- */
+
+.dash-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 22px;
+  margin-bottom: 30px;
+}
+
+.dashboard-standalone {
+  display: block;
+  padding: 0;
+}
+
+.dash-subhead {
+  margin: 18px 0 10px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.sample-badge {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  border: 1px solid color-mix(in srgb, var(--text-muted) 35%, transparent);
+}
+
+/* Long duration strings need to shrink below the numeric ticker size. */
+.gh-stat-text {
+  font-size: 0.95rem !important;
+  line-height: 1.35;
+}
+
+.codewars-rank {
+  display: inline-block;
+  margin: 4px 0 16px;
+  padding: 6px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #10151f;
+  background: #cbd5e1;
+}
+
+.codewars-rank.rank-yellow { background: #facc15; }
+.codewars-rank.rank-blue { background: #60a5fa; }
+.codewars-rank.rank-purple { background: #a78bfa; }
+.codewars-rank.rank-white { background: #f8fafc; }
+.codewars-rank.rank-red { background: #f87171; }
+
+.wpm-unit {
+  font-size: 1rem;
+  margin-left: 6px;
+  color: var(--text-muted);
+}
+
+.wpm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.wpm-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 8px;
+  border-radius: 12px;
+  border: var(--card-border);
+  background: var(--glass-highlight);
+}
+
+.wpm-duration {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.wpm-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-neon);
+}
+
+.wpm-acc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 90px;
+  margin-top: 20px;
+  padding: 0 2px;
+}
+
+.sparkline-bar {
+  flex: 1;
+  min-width: 3px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(to top, var(--primary-neon), var(--secondary-neon));
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.sparkline-bar:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .page-shell {
+    padding: 110px 16px 60px;
+  }
+
+  .dash-insight-grid,
+  .post-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Floating chat widget, About page, legal links (v3.2)
+   ========================================================================== */
+
+.chat-widget-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 61;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.45rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary-neon), var(--secondary-neon));
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.chat-widget-btn:hover {
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.chat-widget-btn.active {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border: var(--card-border);
+}
+
+.chat-widget-panel {
+  position: fixed;
+  right: 22px;
+  bottom: 88px;
+  z-index: 61;
+  width: min(420px, calc(100vw - 44px));
+  max-height: min(70vh, 620px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  border: var(--card-border);
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+  animation: chatWidgetIn 0.25s ease;
+}
+
+@keyframes chatWidgetIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.chat-widget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color);
+  border-bottom: var(--card-border);
+}
+
+.chat-widget-head button {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.chat-widget-head button:hover { color: var(--primary-neon); }
+
+.chat-widget-scroll {
+  overflow-y: auto;
+  padding: 0 12px 12px;
+}
+
+/* Inside the widget the comments section drops its page-level chrome. */
+.comments-widget-body {
+  padding: 0 !important;
+  min-height: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .chat-widget-btn { right: 16px; bottom: 16px; width: 48px; height: 48px; }
+  .chat-widget-panel { right: 12px; left: 12px; width: auto; bottom: 74px; }
+}
+
+/* ---------- About page ---------- */
+
+.about-section { margin-bottom: 46px; }
+
+.about-section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.35rem;
+  margin: 0 0 20px;
+  color: var(--primary-neon);
+}
+
+.about-biography-page p {
+  color: var(--text-muted);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+.about-signoff { color: var(--text-color) !important; }
+
+.about-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.about-timeline-desc {
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 10px 0 0;
+}
+
+.resume-card {
+  padding: 26px;
+  border-radius: 18px;
+  border: var(--card-border);
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+}
+
+.resume-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin: 0 0 24px;
+}
+
+.resume-grid dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.resume-grid dd {
+  margin: 0;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.resume-grid dd a { color: var(--primary-neon); text-decoration: none; }
+
+.resume-subhead {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ---------- footer legal links ---------- */
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+}
+
+.footer-legal a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.footer-legal a:hover { color: var(--primary-neon); }
+
+/* Printing the resume should not carry the site chrome along. */
+@media print {
+  .navbar-container, .mac-dock, .chat-widget-btn, .chat-widget-panel,
+  .page-back, footer, canvas { display: none !important; }
+  .page-shell { padding-top: 0; }
+}
+
+/* ---------- charts (v3.3) ---------- */
+
+.chart-box {
+  position: relative;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.chart-box canvas {
+  max-width: 100%;
+}
+
+/* ---------- project thumbnail placeholder ---------- */
+
+.project-thumb-fallback {
+  width: 100%;
+  height: 100%;
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-thumb-fallback::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.project-thumb-fallback span {
+  position: relative;
+  z-index: 1;
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.45);
+}
+
+.detail-cover .project-thumb-fallback {
+  min-height: 260px;
+}
+
+.detail-cover .project-thumb-fallback span {
+  font-size: 4rem;
+}
+
+/* ---------- damtaweb-style animated progress bars (v3.4) ---------- */
+
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
+.progress-name {
+  width: 96px;
+  flex-shrink: 0;
+  color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.progress-track {
+  position: relative;
+  flex: 1;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--glass-highlight);
+  overflow: hidden;
+}
+
+body.light-mode .progress-track {
+  background: rgba(15, 23, 42, 0.08);
+}
+
+.progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.progress-pct {
+  width: 38px;
+  flex-shrink: 0;
+  text-align: right;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Home dashboard language bars sweep in with the same easing. */
+.lang-bar-fill.grow-in {
+  width: 0;
+  animation: langGrow 900ms cubic-bezier(0.16, 1, 0.3, 1) 150ms forwards;
+}
+
+@keyframes langGrow {
+  to { width: var(--target-w); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill { transition: none; }
+  .lang-bar-fill.grow-in { animation: none; width: var(--target-w); }
+}
+
+/* ---------- GitHub contribution calendar (v3.5) ---------- */
+
+.contrib { margin-top: 8px; }
+
+.contrib-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.contrib-total strong { color: var(--text-color); font-size: 1.05rem; }
+
+.contrib-scroll { overflow-x: auto; padding-bottom: 6px; }
+
+.contrib-body { display: flex; gap: 8px; min-width: max-content; }
+
+.contrib-days {
+  display: grid;
+  grid-template-rows: repeat(7, 13px);
+  gap: 3px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.62rem;
+  color: var(--text-muted);
+}
+
+.contrib-days li { line-height: 13px; }
+
+.contrib-grid { display: flex; gap: 3px; }
+
+.contrib-week { display: grid; grid-template-rows: repeat(7, 13px); gap: 3px; }
+
+.contrib-cell {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  display: block;
+  transition: transform 0.15s ease, outline-color 0.15s ease;
+  outline: 1px solid transparent;
+}
+
+.contrib-cell.empty { background: rgba(148, 163, 184, 0.14) !important; }
+
+body.light-mode .contrib-cell.empty { background: rgba(15, 23, 42, 0.07) !important; }
+
+.contrib-cell:hover {
+  transform: scale(1.25);
+  outline-color: var(--primary-neon);
+}
+
+.contrib-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.contrib-legend { display: inline-flex; align-items: center; gap: 4px; }
+
+.contrib-hint { min-height: 18px; }
+
+/* ---------- technology logos in chips & progress rows (v3.6) ---------- */
+
+.stack-chips li.has-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 6px;
+}
+
+.stack-chips li img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.progress-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.progress-name img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ---------- navbar overflow fix (v3.6) ----------
+   The nav grew to 10 items; a fixed 15px gap pushed the last entries past the
+   rounded pill. Shrink spacing progressively instead of letting it overflow. */
+
+@media (min-width: 769px) {
+  .navbar {
+    overflow: hidden;
+    gap: 10px;
+  }
+
+  .nav-links {
+    min-width: 0;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .nav-links ul {
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+
+  .nav-links li {
+    min-width: 0;
+  }
+
+  .nav-links a span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Comfortable default: labels readable, still guaranteed to fit. */
+@media (min-width: 769px) {
+  .nav-links ul { gap: 13px; }
+  .nav-links a { font-size: 0.74rem; letter-spacing: 0.2px; }
+}
+
+@media (min-width: 769px) and (max-width: 1360px) {
+  .nav-links ul { gap: 10px; }
+  .nav-links a { font-size: 0.69rem; }
+  .nav-links a img { width: 16px !important; height: 16px !important; }
+}
+
+@media (min-width: 769px) and (max-width: 1180px) {
+  .nav-links ul { gap: 8px; }
+  .nav-links a { font-size: 0.64rem; }
+}
+
+/* Below this the labels no longer fit: show icon-only, keep the tooltip text. */
+@media (min-width: 769px) and (max-width: 1020px) {
+  .nav-links ul { gap: 8px; }
+  .nav-links a span { display: none; }
+  .nav-links a { padding: 7px; }
+  .nav-links a img { width: 19px !important; height: 19px !important; }
+  .controls { margin-left: 6px; }
+}
+
+/* ---------- comments restyled to damtaweb.com (v3.6) ----------
+   Reference: modules/chat/components/ChatItem.tsx - 40px round avatar, name +
+   Author pill + time above, asymmetric bubble corner, gold bubble for the
+   owner mirrored to the right. */
+
+.chat-item { align-items: flex-start; gap: 12px; }
+
+.chat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 4px;
+  border: 1px solid var(--chat-border);
+  flex-shrink: 0;
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.chat-name { font-size: 0.85rem; color: var(--text-color); }
+
+.owner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Asymmetric corner: square-ish where the bubble meets the avatar. */
+.chat-bubble {
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 14px 14px 14px 14px;
+  border-top-left-radius: 4px;
+  padding: 11px 16px;
+  background: var(--chat-bubble);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background 0.25s ease;
+}
+
+.chat-item:hover .chat-bubble { background: var(--glass-highlight); }
+
+.chat-bubble.owner {
+  background: #D4AF37;
+  color: #10151f;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 4px;
+  margin-left: auto;
+}
+
+.chat-item.align-right { flex-direction: row-reverse; }
+.chat-item.align-right .chat-header { flex-direction: row-reverse; }
+.chat-item.align-right .chat-content { display: flex; flex-direction: column; align-items: flex-end; }
+
+.chat-reply-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--chat-border);
+  flex-shrink: 0;
+}
+
+.chat-reply-item { display: flex; gap: 10px; align-items: flex-start; margin-top: 10px; }
+
+.chat-reply-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: #D4AF37;
+  margin-bottom: 4px;
+}
+
+.chat-reply-bubble {
+  width: fit-content;
+  border-radius: 12px;
+  border-top-left-radius: 4px;
+  padding: 9px 14px;
+  background: var(--chat-bubble);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* Reply action only appears on hover, like the reference. */
+.chat-reply-btn {
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.chat-item-wrapper:hover .chat-reply-btn,
+.chat-reply-btn:focus-visible { opacity: 1; }
+
+@media (max-width: 768px) {
+  .chat-reply-btn { opacity: 1; }
+}
+
+/* ---------- comments depth pass (v3.7): kill the flatness ---------- */
+
+.chat-wrapper {
+  position: relative;
+  border-radius: 22px !important;
+  background:
+    linear-gradient(var(--chat-bg), var(--chat-bg)) padding-box,
+    linear-gradient(140deg, rgba(212, 175, 55, 0.55), rgba(96, 165, 250, 0.25), rgba(212, 175, 55, 0.1)) border-box !important;
+  border: 1px solid transparent !important;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+body.light-mode .chat-wrapper {
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+.chat-avatar {
+  box-shadow: 0 0 0 2px var(--chat-bg), 0 0 0 3.5px rgba(212, 175, 55, 0.65);
+}
+
+.chat-bubble {
+  background: linear-gradient(160deg, var(--chat-bubble), color-mix(in srgb, var(--chat-bubble) 82%, transparent));
+  border: 1px solid color-mix(in srgb, var(--text-muted) 14%, transparent);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.chat-bubble.owner {
+  background: linear-gradient(140deg, #e6c65a, #D4AF37 55%, #b8912a);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.35);
+}
+
+.chat-item-wrapper {
+  animation: chatRise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes chatRise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-input-container {
+  border-top: 1px solid color-mix(in srgb, var(--text-muted) 15%, transparent);
+  background: linear-gradient(to top, color-mix(in srgb, var(--chat-bg) 88%, transparent), transparent);
+  backdrop-filter: blur(8px);
+}
+
+.chat-input-row textarea {
+  border-radius: 16px !important;
+  border: 1px solid color-mix(in srgb, var(--text-muted) 22%, transparent) !important;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.chat-input-row textarea:focus {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+  outline: none;
+}
+
+.btn-send {
+  background: linear-gradient(140deg, #e6c65a, #D4AF37) !important;
+  color: #10151f !important;
+  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-send:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.55);
+}
+
+/* ---------- responsive polish: tablet & phone (v3.7) ---------- */
+
+/* Tablet: dashboard side-by-side rows become single column sooner. */
+@media (max-width: 1024px) {
+  .dash-top-row,
+  .dash-bottom-row,
+  .dash-side-row {
+    grid-template-columns: 1fr !important;
+    display: grid;
+    gap: 20px;
+  }
+
+  .dash-insight-grid { grid-template-columns: 1fr; }
+  .detail-article { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .page-shell { padding: 100px 14px 56px; }
+  .page-head h1 { font-size: 1.65rem; }
+  .page-head { margin: 20px 0 26px; }
+
+  /* Filter chips scroll sideways instead of stacking 3 rows deep. */
+  .filter-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .filter-chip { flex-shrink: 0; }
+
+  .project-card-actions .btn-view,
+  .detail-actions .btn-view { width: 100%; justify-content: center; }
+
+  .cert-container { grid-template-columns: 1fr !important; }
+  .resume-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .wpm-grid { grid-template-columns: repeat(2, 1fr); }
+
+  .gh-stats-grid { gap: 8px; }
+  .gh-stat-text { font-size: 0.8rem !important; }
+
+  .contrib-cell { width: 10px; height: 10px; }
+  .contrib-week { grid-template-rows: repeat(7, 10px); }
+  .contrib-days { grid-template-rows: repeat(7, 10px); font-size: 0.55rem; }
+
+  .markdown-body h2 { font-size: 1.25rem; }
+  .markdown-body pre.md-code { padding: 14px; font-size: 0.82rem; }
+
+  .about-section-title { font-size: 1.15rem; }
+  .history-item { flex-direction: column; }
+
+  .chat-bubble { max-width: 88vw; }
+  .chat-replies-container { margin-left: 20px !important; }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+  .page-shell { padding: 92px 10px 48px; }
+  .resume-grid { grid-template-columns: 1fr; }
+  .post-grid { gap: 18px; }
+  .search-field { padding: 9px 14px; }
+  .chat-widget-panel { max-height: 62vh; }
+}
+
+/* Large desktop: let content breathe wider. */
+@media (min-width: 1600px) {
+  .page-shell { max-width: 1320px; }
+}
+
+/* ---------- Time Machine /journey (v3.7) ---------- */
+
+.tm-controls {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 34px;
+}
+
+.tm-play {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  color: #10151f;
+  cursor: pointer;
+  background: linear-gradient(140deg, #e6c65a, #D4AF37);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.tm-play:hover { transform: scale(1.08); }
+
+.tm-slider-wrap { flex: 1; min-width: 0; }
+
+.tm-slider-wrap input[type="range"] {
+  width: 100%;
+  height: 8px;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  background: linear-gradient(to right, #D4AF37 var(--tm-progress, 0%), var(--glass-highlight) var(--tm-progress, 0%));
+}
+
+.tm-slider-wrap input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #D4AF37;
+  border: 3px solid var(--chat-bg);
+  box-shadow: 0 0 0 2px #D4AF37, 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease;
+}
+
+.tm-slider-wrap input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+
+.tm-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.tm-tick {
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.tm-tick:hover { color: var(--text-color); }
+
+.tm-tick.active {
+  color: #D4AF37;
+  font-weight: 700;
+  background: rgba(212, 175, 55, 0.12);
+}
+
+.tm-era { position: relative; animation: chatRise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.tm-year-display {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  font-size: clamp(4rem, 12vw, 8rem);
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(212, 175, 55, 0.28);
+  pointer-events: none;
+  user-select: none;
+}
+
+.tm-era-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 420px) 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.tm-era-media {
+  border-radius: 18px;
+  overflow: hidden;
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.tm-era-media img { display: block; width: 100%; height: auto; }
+
+.tm-era-desc {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.tm-milestones {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tm-milestones li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.tm-milestones i { color: #D4AF37; font-size: 1.2rem; }
+
+.tm-milestones span { display: flex; flex-direction: column; }
+
+.tm-milestones small { color: var(--text-muted); }
+
+@media (max-width: 768px) {
+  .tm-era-grid { grid-template-columns: 1fr; }
+  .tm-year-display { position: static; text-align: right; margin-bottom: 6px; }
+  .tm-ticks { flex-wrap: wrap; gap: 2px; }
+}

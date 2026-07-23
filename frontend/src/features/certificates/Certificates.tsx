@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useI18n } from '../../i18n/useI18n';
 import { useCertificates } from '../../hooks/useContent';
 
@@ -32,6 +33,12 @@ export function Certificates() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="see-more-wrap">
+        <Link to="/achievements" className="btn-see-more">
+          <span>{t('see_more')}</span>
+          <i className="ri-arrow-right-line" />
+        </Link>
       </div>
     </section>
   );
