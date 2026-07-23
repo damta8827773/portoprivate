@@ -90,6 +90,21 @@ export function Chart({ config, aspectRatio = 2, ariaLabel }: ChartProps) {
       responsive: true,
       maintainAspectRatio: true,
       aspectRatio,
+      // Rich hover interaction: highlight the whole category, generous hit area,
+      // and animated hover so charts feel alive to the cursor / touch.
+      interaction: isRadial
+        ? { mode: 'nearest', intersect: true }
+        : { mode: 'index', intersect: false, axis: 'x' },
+      hover: isRadial
+        ? { mode: 'nearest', intersect: true }
+        : { mode: 'index', intersect: false },
+      animation: { duration: 700, easing: 'easeOutQuart' },
+      // Elements grow slightly on hover for clear feedback.
+      elements: {
+        bar: { hoverBorderWidth: 2 },
+        point: { hoverRadius: 6, hitRadius: 12 },
+        arc: { hoverOffset: 10 },
+      },
       ...options,
       plugins: {
         legend: {
