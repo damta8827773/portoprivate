@@ -132,7 +132,10 @@ export const fallbackHistory: HistoryEntry[] = [
 export const fallbackCountries: CountryStat[] = [];
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-export const fallbackVisitorStats: VisitorStat[] = months.map((m, i) => ({ id: i + 1, month: m, monthIndex: i, desktop: 0, mobile: 0 }));
+// Illustrative baseline so the monthly chart always renders a graph offline.
+const dsk = [128, 215, 187, 293, 342, 412, 387, 521, 468, 587, 634, 712];
+const mbl = [97, 163, 142, 218, 267, 318, 291, 398, 357, 442, 489, 543];
+export const fallbackVisitorStats: VisitorStat[] = months.map((m, i) => ({ id: i + 1, month: m, monthIndex: i, desktop: dsk[i], mobile: mbl[i] }));
 
 export const fallbackVisitorCount = 0;
 

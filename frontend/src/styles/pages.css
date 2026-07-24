@@ -1567,3 +1567,10 @@ footer#contact {
   display: none !important;
 }
 .page-shell .detail-article .detail-purpose { text-align: left !important; }
+
+/* Navbar icons: force one uniform box so every logo reads the same size. */
+.nav-links a img {
+  width: 22px !important;
+  height: 22px !important;
+  object-fit: contain !important;
+}
