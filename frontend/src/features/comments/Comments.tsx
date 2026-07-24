@@ -15,6 +15,9 @@ import { sendReplyEmail } from '../../lib/emailjs';
 
 const OWNER_EMAIL = 'damtafaiz@gmail.com';
 
+/** Quick emoji palette for the message input. */
+const EMOJIS = ['🔥', '❤️', '😂', '👍', '🎉', '✨', '🙏', '😍', '👏', '💯', '🚀', '😎'];
+
 /** Name-based avatar (gold initials) - reliable fallback when no/expired photo. */
 function avatarUrl(name?: string, owner = false) {
   const bg = owner ? '60a5fa' : 'D4AF37';
@@ -180,6 +183,7 @@ export function Comments({ variant = 'section' }: CommentsProps) {
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [rating, setRating] = useState(0);
+  const [emojiOpen, setEmojiOpen] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
 
   const isOwnerViewer = user?.email === OWNER_EMAIL;
@@ -349,11 +353,39 @@ export function Comments({ variant = 'section' }: CommentsProps) {
                     </Fragment>
                   ))}
                 </div>
-                <button type="button" className="btn-logout" onClick={logout}>{t('btn_logout')}</button>
+                <button type="button" className="btn-logout" onClick={logout}>
+                  <i className="ri-logout-box-r-line" /> {t('btn_logout')}
+                </button>
               </div>
               <div className="chat-input-row">
+                <div className="emoji-wrap">
+                  <button
+                    type="button"
+                    className="emoji-toggle"
+                    aria-label="Emoji"
+                    onClick={() => setEmojiOpen((o) => !o)}
+                  >
+                    <i className="ri-emotion-happy-line" />
+                  </button>
+                  {emojiOpen && (
+                    <div className="emoji-panel">
+                      {EMOJIS.map((e) => (
+                        <button
+                          type="button"
+                          key={e}
+                          onClick={() => {
+                            setText((prev) => prev + e);
+                            setEmojiOpen(false);
+                          }}
+                        >
+                          {e}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <textarea placeholder={t('comment_placeholder')} value={text} onChange={(e) => setText(e.target.value)} required />
-                <button type="submit" className="btn-send"><i className="ri-send-plane-fill" /></button>
+                <button type="submit" className="btn-send" aria-label="Kirim"><i className="ri-send-plane-fill" /></button>
               </div>
             </form>
           )}

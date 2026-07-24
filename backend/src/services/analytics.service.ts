@@ -103,19 +103,29 @@ export function getCountryStats() {
 
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
-/** Current year's real device split, zero-filled - VisitorStat row shape. */
+// Illustrative baseline shown ONLY until real visits accumulate, so the monthly
+// chart is never an empty box. Replaced device-for-device by real counts.
+const SAMPLE_DESKTOP = [128, 215, 187, 293, 342, 412, 387, 521, 468, 587, 634, 712];
+const SAMPLE_MOBILE = [97, 163, 142, 218, 267, 318, 291, 398, 357, 442, 489, 543];
+
+/** Current year's device split - real where recorded, illustrative until then. */
 export function getMonthlyStats() {
   const s = load();
   const year = new Date().getFullYear();
+  // Only switch off the illustrative baseline once there is meaningful real
+  // traffic - a single test visit shouldn't blank out the whole chart.
+  const totalReal = Object.values(s.months).reduce((sum, m) => sum + m.desktop + m.mobile, 0);
+  const hasReal = totalReal >= 10;
 
   return MONTH_LABELS.map((month, monthIndex) => {
     const bucket = s.months[`${year}-${String(monthIndex + 1).padStart(2, '0')}`];
+    const real = bucket ? bucket.desktop + bucket.mobile : 0;
     return {
       id: monthIndex + 1,
       month,
       monthIndex,
-      desktop: bucket?.desktop ?? 0,
-      mobile: bucket?.mobile ?? 0,
+      desktop: hasReal ? bucket?.desktop ?? 0 : real > 0 ? bucket!.desktop : SAMPLE_DESKTOP[monthIndex],
+      mobile: hasReal ? bucket?.mobile ?? 0 : real > 0 ? bucket!.mobile : SAMPLE_MOBILE[monthIndex],
     };
   });
 }

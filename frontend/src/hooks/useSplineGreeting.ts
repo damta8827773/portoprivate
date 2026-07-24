@@ -56,6 +56,14 @@ export function useSplineGreeting(wrapRef: RefObject<HTMLElement>) {
     const speak = () => {
       if (!window.speechSynthesis) return;
       window.speechSynthesis.cancel();
+      // Mute the background video while the robot talks so the two audios don't
+      // collide ("nabrak"); restore the previous state when it finishes.
+      const video = document.querySelector<HTMLVideoElement>('.bg-video');
+      const wasMuted = video?.muted ?? true;
+      if (video) video.muted = true;
+      const restore = () => {
+        if (video) video.muted = wasMuted;
+      };
       window.setTimeout(() => {
         const utter = new SpeechSynthesisUtterance(
           isEN()
@@ -66,6 +74,8 @@ export function useSplineGreeting(wrapRef: RefObject<HTMLElement>) {
         utter.rate = 1.0;
         utter.pitch = 1.1;
         utter.volume = 0.85;
+        utter.onend = restore;
+        utter.onerror = restore;
         window.speechSynthesis.resume();
         window.speechSynthesis.speak(utter);
       }, 150);
@@ -112,14 +122,25 @@ export function useSplineGreeting(wrapRef: RefObject<HTMLElement>) {
     );
     obs.observe(document.getElementById('home') || wrap);
 
+    // Clicking the robot itself (or the label) makes it talk. Guard against a
+    // rapid re-trigger so overlapping clicks don't stack speech.
     const label = wrap.querySelector<HTMLElement>('.robot-label');
-    const onClick = () => greet(true);
+    const card = wrap.querySelector<HTMLElement>('.spline-card');
+    let busy = false;
+    const onClick = () => {
+      if (busy) return;
+      busy = true;
+      window.setTimeout(() => (busy = false), 1200);
+      greet(true);
+    };
     const onTouch = (e: TouchEvent) => {
       e.preventDefault();
-      greet(true);
+      onClick();
     };
     label?.addEventListener('click', onClick);
     label?.addEventListener('touchend', onTouch, { passive: false });
+    card?.addEventListener('click', onClick);
+    card?.addEventListener('touchend', onTouch, { passive: false });
 
     return () => {
       timers.forEach((t) => clearTimeout(t));
@@ -128,6 +149,8 @@ export function useSplineGreeting(wrapRef: RefObject<HTMLElement>) {
       viewer?.removeEventListener('load', hideSplineLogo);
       label?.removeEventListener('click', onClick);
       label?.removeEventListener('touchend', onTouch);
+      card?.removeEventListener('click', onClick);
+      card?.removeEventListener('touchend', onTouch);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [wrapRef, lang]);
