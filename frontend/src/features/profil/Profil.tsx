@@ -68,7 +68,7 @@ export function Profil() {
           </div>
 
           <div className="profil-right">
-            <div className="detail-row"><span className="detail-label">{t('label_user')}</span><span className="detail-text">Damta Noviyan Muhamad Faiz</span></div>
+            <div className="detail-row"><span className="detail-label">{t('label_user')}</span><span className="detail-text">Damta Noviyan Muhamad Faiz<span className="verified-badge" title="Terverifikasi"><i className="ri-verified-badge-fill" /></span></span></div>
             <div className="detail-row"><span className="detail-label">{t('label_loc')}</span><span className="detail-text">Jakarta, Indonesia</span></div>
             <div className="detail-row"><span className="detail-label">{t('label_guild')}</span><span className="detail-text">UIN Syarif Hidayatullah Jakarta</span></div>
             <div className="detail-row"><span className="detail-label">{t('label_role')}</span><span className="detail-text">Full Stack Developer In PT. Biro Klasifikasi Indonesia</span></div>

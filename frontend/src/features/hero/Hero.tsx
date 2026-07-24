@@ -113,7 +113,12 @@ export function Hero() {
         </div>
 
         <h1 id="hero-title">
-          <span className="hero-name-text">DAMTA NOVIYAN MUHAMAD FAIZ</span>
+          <span className="hero-name-text">
+            DAMTA NOVIYAN MUHAMAD FAIZ
+            <span className="verified-badge verified-badge-hero" title="Terverifikasi">
+              <i className="ri-verified-badge-fill" />
+            </span>
+          </span>
         </h1>
 
         <div className="hero-role-row">
