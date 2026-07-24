@@ -337,8 +337,11 @@ export function Comments({ variant = 'section' }: CommentsProps) {
                   referrerPolicy="no-referrer"
                   onError={(e) => ((e.currentTarget as HTMLImageElement).src = avatarUrl(user.name, true))}
                 />
-                <span>{user.name}</span>
-                <div className="star-rating">
+                <span className="signed-as">
+                  {t('signed_as')} <strong>{user.name}</strong>
+                  {user.email && <em>({user.email})</em>}
+                </span>
+                <div className="star-rating" title={t('your_rating')}>
                   {[5, 4, 3, 2, 1].map((n) => (
                     <Fragment key={n}>
                       <input type="radio" name="stars" id={`star${n}`} value={n} checked={rating === n} onChange={() => setRating(n)} />

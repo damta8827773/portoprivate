@@ -1,316 +1,311 @@
 /* ==========================================================================
-   Comments — premium redesign (v3.8)
-   Loaded LAST so it wins the cascade over the flat base styles in app.css.
-   Direction: glass panel with a slowly rotating gradient rim, glowing avatars,
-   gradient speech bubbles with tails + shine, and an elevated input dock.
-   Works in both light and dark themes.
+   Comments — clean guestbook redesign (v4.0)
+   Modelled on the reference guestbook: a plain card, avatar + name + timestamp,
+   soft grey bubbles, and a minimal input with "Masuk sebagai … (email)".
+   The old terminal corners / scanline / gold rim are removed for a calm,
+   professional look. Loaded last so it wins the cascade.
    ========================================================================== */
 
-@property --cmt-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
+/* Strip the decorative "terminal" chrome that never matched the reference. */
+#comments .card-corner,
+#comments .card-scan,
+#comments .chat-terminal-bar,
+#comments .comment-tech-floaters {
+  display: none !important;
 }
 
-/* ---------- panel with animated gradient rim ---------- */
+/* ---------- panel: plain card ---------- */
 #comments .chat-wrapper {
   position: relative;
-  border: 0 !important;
-  border-radius: 24px !important;
+  max-width: 720px;
+  border-radius: 18px !important;
+  border: 1px solid color-mix(in srgb, var(--text-muted) 20%, transparent) !important;
   background: var(--chat-bg) !important;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4) !important;
-}
-
-body.light-mode #comments .chat-wrapper {
-  box-shadow: 0 24px 55px rgba(30, 41, 59, 0.14) !important;
-}
-
-/* The rim: a conic gradient that slowly rotates behind the panel. */
-#comments .chat-wrapper::before {
-  content: '';
-  position: absolute;
-  inset: -1.5px;
-  z-index: -1;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--cmt-angle),
-    #D4AF37,
-    #60a5fa,
-    #a78bfa,
-    #34d399,
-    #D4AF37
-  );
-  opacity: 0.75;
-  animation: cmtSpin 8s linear infinite;
-}
-
-@keyframes cmtSpin {
-  to {
-    --cmt-angle: 360deg;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #comments .chat-wrapper::before {
-    animation: none;
-  }
-}
-
-/* ---------- message area: subtle depth pattern ---------- */
-#comments .chat-messages {
-  position: relative;
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(212, 175, 55, 0.06), transparent 45%),
-    radial-gradient(circle at 88% 82%, rgba(96, 165, 250, 0.06), transparent 45%),
-    radial-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-  background-size: auto, auto, 22px 22px;
-  gap: 22px !important;
-}
-
-/* ---------- staggered entrance ---------- */
-#comments .chat-item-wrapper {
-  animation: cmtRise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-#comments .chat-item-wrapper:nth-child(2) { animation-delay: 0.05s; }
-#comments .chat-item-wrapper:nth-child(3) { animation-delay: 0.1s; }
-#comments .chat-item-wrapper:nth-child(4) { animation-delay: 0.15s; }
-
-@keyframes cmtRise {
-  from { opacity: 0; transform: translateY(14px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* ---------- avatars: glowing gradient ring ---------- */
-#comments .chat-avatar {
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: 50% !important;
-  padding: 2px;
-  background: linear-gradient(140deg, #60a5fa, #a78bfa);
-  box-shadow: 0 6px 16px rgba(96, 165, 250, 0.35);
-  object-fit: cover;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-#comments .chat-item.align-right .chat-avatar {
-  background: linear-gradient(140deg, #e6c65a, #D4AF37);
-  box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
-}
-
-#comments .chat-item:hover .chat-avatar {
-  transform: scale(1.08) rotate(-3deg);
-}
-
-/* ---------- name row ---------- */
-#comments .chat-name {
-  font-weight: 600;
-  letter-spacing: 0.2px;
-}
-
-#comments .chat-stars {
-  filter: drop-shadow(0 1px 4px rgba(212, 175, 55, 0.5));
-}
-
-/* timestamp chip in the header / reply name */
-.chat-time {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  font-weight: 400;
-  white-space: nowrap;
-  opacity: 0.85;
-}
-
-.chat-time i {
-  font-size: 0.72rem;
-}
-
-#comments .chat-header {
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-
-#comments .chat-reply-name .chat-time {
-  margin-left: 6px;
-}
-
-/* ---------- owner badge: gold pill with glow ---------- */
-#comments .owner-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  border: 0 !important;
-  color: #10151f !important;
-  background: linear-gradient(140deg, #f4d67a, #D4AF37) !important;
-  box-shadow: 0 3px 10px rgba(212, 175, 55, 0.45);
-  font-weight: 700 !important;
-}
-
-#comments .owner-badge::before {
-  content: '\f2c1'; /* remixicon shield-star */
-  font-family: 'remixicon';
-  font-size: 0.7rem;
-}
-
-/* ---------- bubbles: gradient + tail + glow ---------- */
-#comments .chat-bubble {
-  position: relative;
-  border: 1px solid color-mix(in srgb, var(--text-muted) 16%, transparent) !important;
-  border-radius: 4px 18px 18px 18px !important;
-  padding: 12px 18px !important;
-  background: linear-gradient(
-    160deg,
-    color-mix(in srgb, var(--chat-bubble) 96%, white 4%),
-    var(--chat-bubble)
-  ) !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-#comments .chat-bubble:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.22) !important;
-}
-
-/* The pointed top corner (asymmetric radius) already reads as a speech
-   bubble; owner messages mirror it to the right. */
-#comments .chat-item.align-right .chat-bubble {
-  border-radius: 18px 4px 18px 18px !important;
-}
-
-/* ---------- owner bubble: gold with a shine sweep ---------- */
-#comments .chat-bubble.owner {
-  color: #10151f !important;
-  border: 0 !important;
-  background: linear-gradient(140deg, #f4d67a, #D4AF37 55%, #c49a26) !important;
-  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4) !important;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28) !important;
   overflow: hidden;
 }
 
+body.light-mode #comments .chat-wrapper {
+  border-color: #e6e8ee !important;
+  box-shadow: 0 10px 30px rgba(30, 41, 59, 0.08) !important;
+}
+
+#comments .chat-wrapper::before {
+  content: none !important; /* no rotating gradient rim */
+}
+
+/* ---------- message area ---------- */
+#comments .chat-messages {
+  padding: 22px 22px 10px !important;
+  gap: 20px !important;
+  background: transparent !important;
+}
+
+#comments .chat-item {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* ---------- avatar: plain circle, thin ring ---------- */
+#comments .chat-avatar {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--text-muted) 22%, transparent);
+  box-shadow: none !important;
+  padding: 0 !important;
+  background: none !important;
+}
+
+/* ---------- name + timestamp row ---------- */
+#comments .chat-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+#comments .chat-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.chat-time {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+#comments .chat-stars {
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  filter: none;
+}
+
+/* Owner tag: small, subtle - not a big gold pill. */
+#comments .owner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  border: 1px solid color-mix(in srgb, #D4AF37 55%, transparent) !important;
+  color: #b8912a !important;
+  background: color-mix(in srgb, #D4AF37 12%, transparent) !important;
+  border-radius: 6px !important;
+  padding: 1px 7px !important;
+  font-size: 0.6rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.03em;
+  box-shadow: none !important;
+}
+#comments .owner-badge::before { content: none !important; }
+
+/* ---------- bubbles: soft grey, no border, gentle corner ---------- */
+#comments .chat-bubble {
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px 15px !important;
+  border-radius: 4px 14px 14px 14px !important;
+  border: 0 !important;
+  background: var(--chat-bubble) !important;
+  color: var(--text-color) !important;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  box-shadow: none !important;
+  transition: background 0.2s ease;
+}
+#comments .chat-bubble::before { content: none !important; }
+
+body.light-mode #comments .chat-bubble {
+  background: #f1f2f5 !important;
+  color: #1f2733 !important;
+}
+
+/* Owner message: mirrored right, subtle brand tint (not heavy gold). */
+#comments .chat-item.align-right { flex-direction: row-reverse; }
+#comments .chat-item.align-right .chat-header { flex-direction: row-reverse; }
+#comments .chat-item.align-right .chat-content { align-items: flex-end; display: flex; flex-direction: column; }
+
+#comments .chat-bubble.owner {
+  border-radius: 14px 4px 14px 14px !important;
+  background: color-mix(in srgb, #D4AF37 16%, var(--chat-bubble)) !important;
+  color: var(--text-color) !important;
+  box-shadow: none !important;
+  overflow: visible;
+}
+#comments .chat-bubble.owner::after { content: none !important; }
 body.light-mode #comments .chat-bubble.owner {
-  color: #10151f !important;
+  background: #fbf3da !important;
+  color: #4a3c10 !important;
 }
 
-#comments .chat-bubble.owner::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
-  transform: translateX(-120%);
-  animation: cmtShine 4.5s ease-in-out infinite;
+/* ---------- reply button: subtle text link ---------- */
+#comments .chat-reply-btn {
+  margin-top: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
+#comments .chat-item-wrapper:hover .chat-reply-btn,
+#comments .chat-reply-btn:focus-visible { opacity: 1; }
+#comments .chat-reply-btn:hover { color: #b8912a; }
+@media (max-width: 768px) { #comments .chat-reply-btn { opacity: 1; } }
 
-@keyframes cmtShine {
-  0%, 60% { transform: translateX(-120%); }
-  80%, 100% { transform: translateX(120%); }
-}
-
-/* ---------- replies: connected + tinted ---------- */
+/* ---------- replies: indented with a thin connector ---------- */
 #comments .chat-replies-container {
   position: relative;
-  margin-left: 62px !important;
-  padding-left: 18px;
-  margin-top: 14px;
+  margin-left: 54px !important;
+  padding-left: 16px;
+  margin-top: 12px;
 }
-
 #comments .chat-replies-container::before {
   content: '';
   position: absolute;
   left: 0;
-  top: -6px;
-  bottom: 12px;
+  top: -4px;
+  bottom: 10px;
   width: 2px;
   border-radius: 2px;
-  background: linear-gradient(to bottom, rgba(212, 175, 55, 0.6), transparent);
+  background: color-mix(in srgb, var(--text-muted) 25%, transparent);
 }
-
 #comments .chat-reply-avatar {
   width: 30px !important;
   height: 30px !important;
-  padding: 1.5px;
-  background: linear-gradient(140deg, #e6c65a, #D4AF37) !important;
-  border: 0 !important;
-}
-
-#comments .chat-reply-name {
-  color: #c9962a !important;
-}
-
-#comments .chat-reply-bubble {
-  border-radius: 4px 14px 14px 14px !important;
-  background: color-mix(in srgb, #D4AF37 12%, var(--chat-bubble)) !important;
-  border: 1px solid rgba(212, 175, 55, 0.25) !important;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14) !important;
-}
-
-/* ---------- input dock ---------- */
-#comments .chat-input-container {
-  border-top: 1px solid color-mix(in srgb, var(--text-muted) 14%, transparent) !important;
-  background: linear-gradient(
-    to top,
-    color-mix(in srgb, var(--chat-bg) 92%, transparent),
-    transparent
-  ) !important;
-  backdrop-filter: blur(10px);
-}
-
-#comments .chat-input-row {
-  border-radius: 18px !important;
+  border-radius: 50% !important;
   border: 1px solid color-mix(in srgb, var(--text-muted) 22%, transparent) !important;
-  background: color-mix(in srgb, var(--chat-bubble) 80%, transparent) !important;
-  padding: 8px 8px 8px 18px !important;
+  background: none !important;
+  padding: 0 !important;
+}
+#comments .chat-reply-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: #b8912a !important;
+  margin-bottom: 4px;
+}
+#comments .chat-reply-bubble {
+  border-radius: 4px 12px 12px 12px !important;
+  background: var(--chat-bubble) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--text-color) !important;
+}
+body.light-mode #comments .chat-reply-bubble { background: #f1f2f5 !important; color: #1f2733 !important; }
+
+/* ---------- input area: clean, like the reference ---------- */
+#comments .chat-input-container {
+  border-top: 1px solid color-mix(in srgb, var(--text-muted) 16%, transparent) !important;
+  background: transparent !important;
+  padding: 16px 20px 20px !important;
+  backdrop-filter: none;
 }
 
-#comments .chat-input-row:focus-within {
-  border-color: #D4AF37 !important;
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.16) !important;
+#comments .user-active-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
 }
 
+#comments .user-active-info img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#comments .signed-as {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+#comments .signed-as strong { color: var(--text-color); font-weight: 600; }
+#comments .signed-as em { font-style: normal; margin-left: 4px; opacity: 0.75; }
+
+#comments .star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 3px;
+  font-size: 1rem;
+  margin-left: auto;
+}
+#comments .star-rating label { color: #cbd5e1; }
 #comments .star-rating input:checked ~ label,
 #comments .star-rating label:hover,
-#comments .star-rating label:hover ~ label {
-  color: #D4AF37;
-  filter: drop-shadow(0 1px 4px rgba(212, 175, 55, 0.6));
-}
+#comments .star-rating label:hover ~ label { color: #f5b301; }
 
-/* ---------- send button: gradient pill, no longer a bare icon ---------- */
-#comments .btn-send {
-  width: 42px;
-  height: 42px;
-  flex-shrink: 0;
-  border-radius: 14px !important;
-  color: #10151f !important;
-  background: linear-gradient(140deg, #f4d67a, #D4AF37) !important;
-  box-shadow: 0 8px 18px rgba(212, 175, 55, 0.4) !important;
-  font-size: 1.15rem !important;
+#comments .btn-logout {
+  border: 0;
+  background: none;
+  color: #ef4444;
+  font-size: 0.85rem;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 4px 6px;
 }
+#comments .btn-logout:hover { text-decoration: underline; }
 
-#comments .btn-send::after {
-  display: none !important; /* drop the old glow overlay */
+/* clean rounded input + simple send button */
+#comments .chat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px !important;
+  border: 1px solid color-mix(in srgb, var(--text-muted) 24%, transparent) !important;
+  background: var(--chat-bg) !important;
+  padding: 6px 6px 6px 16px !important;
 }
+body.light-mode #comments .chat-input-row { background: #fff !important; }
 
-#comments .btn-send:hover {
-  transform: translateY(-2px) scale(1.06) !important;
-  color: #10151f !important;
-  text-shadow: none !important;
-  box-shadow: 0 12px 26px rgba(212, 175, 55, 0.55) !important;
-}
-
-/* ---------- login button: branded, not plain white ---------- */
-#comments .btn-auth {
-  background: linear-gradient(140deg, #ffffff, #f1f5f9);
-  color: #10151f;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(148, 163, 184, 0.3);
-}
-
-/* widget variant inherits everything except the big outer rim/shadow */
-.comments-widget-body .chat-wrapper {
+#comments .chat-input-row:focus-within {
+  border-color: #94a3b8 !important;
   box-shadow: none !important;
 }
-.comments-widget-body .chat-wrapper::before {
-  display: none;
+
+#comments .chat-input-row textarea {
+  color: var(--text-color) !important;
 }
+
+#comments .btn-send {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px !important;
+  display: grid;
+  place-items: center;
+  color: #fff !important;
+  background: #2563eb !important;
+  box-shadow: none !important;
+  font-size: 1.05rem !important;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+#comments .btn-send::after { display: none !important; }
+#comments .btn-send:hover {
+  background: #1d4ed8 !important;
+  transform: none !important;
+  color: #fff !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* login button: clean */
+#comments .btn-auth {
+  background: #fff;
+  color: #10151f;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* widget variant keeps the same clean look, minus the big outer shadow */
+.comments-widget-body .chat-wrapper { box-shadow: none !important; border: 0 !important; }
