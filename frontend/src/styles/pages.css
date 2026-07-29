@@ -1904,3 +1904,54 @@ footer#contact {
   .navbar::before { width: 220px; }
   .navbar .logo-container img { height: 38px !important; }
 }
+
+/* ==========================================================================
+   Navbar (v4.7) — restore the user's PNG logos + bigger brand logo
+   Each menu item shows the original custom PNG inside a uniform white circle
+   chip (so dark PNGs stay visible on the dark bar and every one is the exact
+   same size). The "D" brand logo is enlarged to match BKI's prominent logo.
+   Bar is pinned flush to the top so it looks identical before/after scrolling.
+   ========================================================================== */
+
+/* Pinned flush to the very top, fully opaque - no change on scroll. */
+.navbar-container { position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; }
+
+/* Bigger brand logo in the white angled box. */
+.navbar .logo-container { padding: 0 44px 0 22px !important; }
+.navbar .logo-container img { height: 56px !important; }
+
+/* Each menu icon: the user's PNG inside a uniform white circle chip. */
+.nav-links a .nav-ico {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 4px !important;
+  flex-shrink: 0 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.nav-links a .nav-ico img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block;
+}
+.nav-links a { gap: 7px !important; padding: 6px 8px !important; }
+.nav-links a span { font-size: 0.66rem !important; }
+
+/* Keep everything on one line on mid widths; shrink the chip a touch. */
+@media (min-width: 769px) and (max-width: 1450px) {
+  .nav-links ul { gap: 1px !important; }
+  .nav-links a { padding: 6px 6px !important; gap: 5px !important; }
+  .nav-links a span { font-size: 0.6rem !important; letter-spacing: 0.1px !important; }
+  .nav-links a .nav-ico { width: 23px !important; height: 23px !important; }
+}
+/* Truly tight: icon chips only (labels become tooltips). */
+@media (min-width: 769px) and (max-width: 1180px) {
+  .nav-links a span { display: none !important; }
+  .nav-links a { padding: 6px !important; }
+  .nav-links a .nav-ico { width: 28px !important; height: 28px !important; }
+}

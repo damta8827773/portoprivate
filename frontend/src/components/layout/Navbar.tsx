@@ -7,23 +7,23 @@ import type { TranslationKey } from '../../i18n/translations';
 interface NavItem {
   /** "#id" scrolls to a home section; "/path" opens a dedicated page. */
   href: string;
-  /** Remix icon class - vector, so every item is guaranteed the exact same size
-   *  (the old PNG logos had different internal padding and looked uneven). */
-  icon: string;
+  /** The user's own custom logo PNGs (restored). Rendered inside a uniform
+   *  white chip so every one shows the same size on the dark bar. */
+  img: string;
   key: TranslationKey;
 }
 
 const NAV: NavItem[] = [
-  { href: '#home', icon: 'ri-home-5-line', key: 'nav_home' },
-  { href: '#profil', icon: 'ri-user-3-line', key: 'nav_profil' },
-  { href: '#skill', icon: 'ri-code-s-slash-line', key: 'nav_skill' },
-  { href: '/projects', icon: 'ri-folder-3-line', key: 'nav_project' },
-  { href: '/achievements', icon: 'ri-medal-line', key: 'nav_cert' },
-  { href: '#about', icon: 'ri-information-line', key: 'about_title_main' },
-  { href: '/blog', icon: 'ri-article-line', key: 'nav_blog' },
-  { href: '/dashboard', icon: 'ri-dashboard-3-line', key: 'nav_dashboard' },
-  { href: '#comments', icon: 'ri-chat-3-line', key: 'nav_comments' },
-  { href: '#contact', icon: 'ri-mail-line', key: 'nav_contact' },
+  { href: '#home', img: 'home.png', key: 'nav_home' },
+  { href: '#profil', img: 'profil.png', key: 'nav_profil' },
+  { href: '#skill', img: 'skill.png', key: 'nav_skill' },
+  { href: '/projects', img: 'proyek.png', key: 'nav_project' },
+  { href: '/achievements', img: 'sertif.png', key: 'nav_cert' },
+  { href: '#about', img: 'tentang kami.png', key: 'about_title_main' },
+  { href: '/blog', img: 'proyek.png', key: 'nav_blog' },
+  { href: '/dashboard', img: 'dasbor.png', key: 'nav_dashboard' },
+  { href: '#comments', img: 'komen&rate.png', key: 'nav_comments' },
+  { href: '#contact', img: 'kontak.png', key: 'nav_contact' },
 ];
 
 export function Navbar() {
@@ -67,11 +67,16 @@ export function Navbar() {
         <div className={`nav-links${menuOpen ? ' active' : ''}`} id="navMenu">
           <ul>
             {NAV.map((item) => {
-              // BKI-style bar shows uppercase text labels; the vector icon is
-              // kept in the DOM (hidden by CSS) so nothing breaks if reverted.
               const icon = (
                 <>
-                  <i className={`nav-ico ${item.icon}`} aria-hidden="true" />
+                  <span className="nav-ico">
+                    <img
+                      src={`/assets/img/${item.img}`}
+                      alt=""
+                      aria-hidden="true"
+                      onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
+                    />
+                  </span>
                   <span>{t(item.key)}</span>
                 </>
               );
