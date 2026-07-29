@@ -7,25 +7,23 @@ import type { TranslationKey } from '../../i18n/translations';
 interface NavItem {
   /** "#id" scrolls to a home section; "/path" opens a dedicated page. */
   href: string;
-  img: string;
+  /** Remix icon class - vector, so every item is guaranteed the exact same size
+   *  (the old PNG logos had different internal padding and looked uneven). */
+  icon: string;
   key: TranslationKey;
-  size: number;
 }
 
-// One uniform icon box for every item so no logo looks bigger/smaller than the
-// rest; the images are centered and contained inside it via CSS.
-const NAV_ICON = 22;
 const NAV: NavItem[] = [
-  { href: '#home', img: 'home.png', key: 'nav_home', size: NAV_ICON },
-  { href: '#profil', img: 'profil.png', key: 'nav_profil', size: NAV_ICON },
-  { href: '#skill', img: 'skill.png', key: 'nav_skill', size: NAV_ICON },
-  { href: '/projects', img: 'proyek.png', key: 'nav_project', size: NAV_ICON },
-  { href: '/achievements', img: 'sertif.png', key: 'nav_cert', size: NAV_ICON },
-  { href: '#about', img: 'tentang kami.png', key: 'about_title_main', size: NAV_ICON },
-  { href: '/blog', img: 'proyek.png', key: 'nav_blog', size: NAV_ICON },
-  { href: '/dashboard', img: 'dasbor.png', key: 'dashboard_title', size: NAV_ICON },
-  { href: '#comments', img: 'komen&rate.png', key: 'comment_title', size: NAV_ICON },
-  { href: '#contact', img: 'kontak.png', key: 'nav_contact', size: NAV_ICON },
+  { href: '#home', icon: 'ri-home-5-line', key: 'nav_home' },
+  { href: '#profil', icon: 'ri-user-3-line', key: 'nav_profil' },
+  { href: '#skill', icon: 'ri-code-s-slash-line', key: 'nav_skill' },
+  { href: '/projects', icon: 'ri-folder-3-line', key: 'nav_project' },
+  { href: '/achievements', icon: 'ri-medal-line', key: 'nav_cert' },
+  { href: '#about', icon: 'ri-information-line', key: 'about_title_main' },
+  { href: '/blog', icon: 'ri-article-line', key: 'nav_blog' },
+  { href: '/dashboard', icon: 'ri-dashboard-3-line', key: 'dashboard_title' },
+  { href: '#comments', icon: 'ri-chat-3-line', key: 'comment_title' },
+  { href: '#contact', icon: 'ri-mail-line', key: 'nav_contact' },
 ];
 
 export function Navbar() {
@@ -71,12 +69,7 @@ export function Navbar() {
             {NAV.map((item) => {
               const icon = (
                 <>
-                  <img
-                    src={`/assets/img/${item.img}`}
-                    alt={t(item.key)}
-                    style={{ width: item.size, height: item.size }}
-                    onError={(e) => ((e.currentTarget as HTMLImageElement).style.display = 'none')}
-                  />
+                  <i className={`nav-ico ${item.icon}`} aria-hidden="true" />
                   <span>{t(item.key)}</span>
                 </>
               );

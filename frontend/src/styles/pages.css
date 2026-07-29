@@ -1574,3 +1574,55 @@ footer#contact {
   height: 22px !important;
   object-fit: contain !important;
 }
+
+/* ==========================================================================
+   Navbar (v4.3) — uniform vector icons + cleaner, corporate-style bar
+   Every menu icon is now a Remix vector glyph, so they are pixel-identical in
+   size (no more small/large PNG mismatch). Layout kept clean and professional.
+   ========================================================================== */
+
+/* Every navbar icon: one exact size, no exceptions. */
+.nav-links a .nav-ico {
+  font-size: 18px !important;
+  line-height: 1;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+/* Old PNG rule no longer needed - but keep any stray <img> uniform too. */
+.nav-links a img { width: 18px !important; height: 18px !important; object-fit: contain !important; }
+
+/* Cleaner item spacing + professional hover/active states. */
+.nav-links a {
+  gap: 6px !important;
+  padding: 8px 10px;
+  border-radius: 10px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.nav-links a:hover {
+  color: var(--primary-neon);
+  background: color-mix(in srgb, var(--primary-neon) 10%, transparent);
+}
+.nav-links a:hover .nav-ico { color: var(--primary-neon); }
+
+@media (min-width: 769px) and (max-width: 1300px) {
+  .nav-links a .nav-ico { font-size: 17px !important; width: 17px; height: 17px; }
+}
+@media (min-width: 769px) and (max-width: 1080px) {
+  .nav-links a { padding: 8px !important; }
+}
+
+/* 10 items + controls don't fit a pill with full labels below ~1300px, and
+   truncated "BERA..." text looks broken. Show clean icon-only there (the label
+   stays available as the item's tooltip); full labels return on wide screens. */
+@media (min-width: 769px) and (max-width: 1300px) {
+  .nav-links a span { display: none !important; }
+  .nav-links a { padding: 9px 11px !important; }
+  .nav-links a .nav-ico { font-size: 19px !important; width: 19px; height: 19px; }
+  .nav-links ul { gap: 4px !important; }
+}
