@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useI18n } from '../../i18n/useI18n';
 import { useAppStore } from '../../store/useAppStore';
@@ -34,6 +34,16 @@ export function Navbar() {
   const [bursting, setBursting] = useState(false);
   const isHome = useLocation().pathname === '/';
 
+  // BKI-style shrink-on-scroll: the bar is tall with a big logo at the very top
+  // and compacts into a shorter sticky bar once the page scrolls (offset 60px).
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const onTheme = () => {
     toggleTheme();
     setBursting(false);
@@ -46,8 +56,8 @@ export function Navbar() {
   const isDark = theme === 'dark';
 
   return (
-    <div className="navbar-container">
-      <nav className="navbar">
+    <div className={`navbar-container${scrolled ? ' scrolled' : ''}`}>
+      <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="nav-left">
           <div className="logo-container">
             <img src="/assets/img/logo.png" alt="Logo Damta" />

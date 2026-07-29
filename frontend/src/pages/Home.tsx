@@ -24,18 +24,23 @@ export function Home() {
   }, [hash]);
 
   return (
-    <div id="main-content" style={{ width: '100%', overflowX: 'hidden' }}>
+    <>
+      {/* Navbar is OUTSIDE #main-content: that wrapper sets `perspective` for
+          the 3D cards, and a perspective ancestor breaks `position: fixed`, so
+          the sticky bar has to live above it. */}
       <Navbar />
-      <Hero />
+      <div id="main-content" style={{ width: '100%', overflowX: 'hidden' }}>
+        <Hero />
       <Profil />
       <Skills />
       <Stack />
       <Projects />
       <Certificates />
       <About />
-      <Dashboard />
-      <Comments />
-      <Footer />
-    </div>
+        <Dashboard />
+        <Comments />
+        <Footer />
+      </div>
+    </>
   );
 }
