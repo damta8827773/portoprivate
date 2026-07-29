@@ -1626,3 +1626,115 @@ footer#contact {
   .nav-links a .nav-ico { font-size: 19px !important; width: 19px; height: 19px; }
   .nav-links ul { gap: 4px !important; }
 }
+
+/* ==========================================================================
+   Navbar — BKI-style corporate bar (v4.4)
+   Reference: bkinusantara.co.id — full-width dark slate-blue bar pinned to the
+   top, white logo box on the left, uppercase white text menu on the right,
+   sticky on scroll. Replaces the floating glass pill. Bar stays dark blue in
+   both light & dark themes (white text reads on it either way).
+   ========================================================================== */
+
+:root { --bki-blue: #23446d; --bki-blue-2: #1b3557; --bki-accent: #fedd50; }
+
+/* Full-width container pinned to the very top. */
+.navbar-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  transform: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* The bar itself: solid dark band, edge to edge, no pill radius. */
+.navbar {
+  width: 100% !important;
+  max-width: none !important;
+  height: 68px !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  border-bottom: 3px solid var(--bki-accent) !important;
+  background: linear-gradient(180deg, var(--bki-blue) 0%, var(--bki-blue-2) 100%) !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25) !important;
+  padding: 0 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px;
+}
+.navbar:hover { background: linear-gradient(180deg, var(--bki-blue) 0%, var(--bki-blue-2) 100%) !important; }
+
+/* Logo in a white box on the left (like BKI's white logo panel). */
+.navbar .logo-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+.navbar .logo-container img { height: 34px; width: auto; filter: none !important; }
+
+/* Menu pushed to the right, text-only, uppercase, evenly spaced. */
+.nav-links { margin-left: auto; }
+.nav-links ul {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  flex-wrap: nowrap !important;
+}
+.nav-links a {
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  color: #eaf1fb !important;
+  background: transparent !important;
+  transition: color 0.2s ease, background 0.2s ease !important;
+}
+.nav-links a .nav-ico { display: none !important; }        /* BKI menu is text-only */
+.nav-links a span {
+  display: inline !important;
+  font-size: 0.74rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  color: inherit !important;
+}
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+.nav-links a:hover span { color: #fff !important; }
+
+/* Controls (language + theme) on the far right, sitting on the dark bar. */
+.nav-links .controls { margin-left: 10px; }
+.nav-links .controls .control-btn {
+  color: #eaf1fb !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Push page content below the taller fixed bar. */
+#main-content { padding-top: 4px; }
+
+/* Tighten spacing on mid widths so all items stay on one line. */
+@media (min-width: 769px) and (max-width: 1360px) {
+  .navbar { padding: 0 20px !important; }
+  .nav-links a { padding: 7px 8px !important; }
+  .nav-links a span { font-size: 0.68rem !important; letter-spacing: 0.2px !important; }
+}
+
+/* Mobile: keep the existing hamburger drawer, just recolour the bar. */
+@media (max-width: 768px) {
+  .navbar { height: 60px !important; padding: 0 16px !important; }
+  .nav-links a span { display: inline !important; }
+}

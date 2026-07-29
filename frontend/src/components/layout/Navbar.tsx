@@ -67,6 +67,8 @@ export function Navbar() {
         <div className={`nav-links${menuOpen ? ' active' : ''}`} id="navMenu">
           <ul>
             {NAV.map((item) => {
+              // BKI-style bar shows uppercase text labels; the vector icon is
+              // kept in the DOM (hidden by CSS) so nothing breaks if reverted.
               const icon = (
                 <>
                   <i className={`nav-ico ${item.icon}`} aria-hidden="true" />
