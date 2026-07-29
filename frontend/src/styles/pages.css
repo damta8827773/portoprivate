@@ -1777,3 +1777,130 @@ footer#contact {
   .nav-links a { padding: 8px !important; }
   .nav-links a .nav-ico { font-size: 19px !important; width: 19px !important; height: 19px !important; }
 }
+
+/* ==========================================================================
+   Navbar — faithful BKI look (v4.6, authoritative — overrides earlier blocks)
+   Reference bkinusantara.co.id: full-width slate-blue bar, a WHITE ANGLED
+   (parallelogram) logo box on the left sitting over a darker slate diagonal
+   band, and the menu on the right. Content aligned within a centered max-width
+   like BKI's .container. Menu keeps its icons (uniform) + labels.
+   ========================================================================== */
+
+.navbar {
+  position: relative !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 74px !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  background: linear-gradient(180deg, #34506e 0%, #294464 100%) !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.28) !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* Darker slate diagonal band behind the logo (BKI's angled shape). */
+.navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 360px;
+  background: #20406b;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 46px) 100%, 0 100%);
+  z-index: 0;
+}
+
+/* Left: white parallelogram logo box, taller and prominent like BKI. */
+.navbar .nav-left {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: stretch;
+  padding-left: max(24px, calc((100% - 1240px) / 2));
+}
+.navbar .logo-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 40px 0 20px;
+  background: #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: 6px 0 18px rgba(0, 0, 0, 0.22);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 26px) 100%, 0 100%);
+}
+.navbar .logo-container img { height: 46px !important; width: auto !important; filter: none !important; }
+
+/* Right: menu within the centered container, icons + labels, roomy. */
+.nav-links {
+  position: relative;
+  z-index: 2;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  padding-right: max(24px, calc((100% - 1240px) / 2));
+}
+.nav-links ul { display: flex !important; align-items: center !important; gap: 2px !important; flex-wrap: nowrap !important; }
+.nav-links a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 9px !important;
+  border-radius: 6px !important;
+  color: #e7eefa !important;
+  background: transparent !important;
+  flex-shrink: 0 !important;
+  transition: color 0.2s ease, background 0.2s ease !important;
+}
+.nav-links li { flex-shrink: 0 !important; min-width: max-content !important; }
+.nav-links a .nav-ico {
+  display: inline-flex !important;
+  align-items: center; justify-content: center;
+  font-size: 17px !important; width: 17px !important; height: 17px !important;
+  flex-shrink: 0; color: inherit !important;
+}
+.nav-links a span {
+  display: inline !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  max-width: none !important;
+  color: inherit !important;
+}
+.nav-links a:hover, .nav-links a:focus-visible { color: #fedd50 !important; background: rgba(255,255,255,0.1) !important; }
+.nav-links a:hover .nav-ico, .nav-links a:hover span { color: #fedd50 !important; }
+
+.nav-links .controls { margin-left: 12px; }
+.nav-links .controls .control-btn {
+  color: #e7eefa !important;
+  border-color: rgba(255,255,255,0.35) !important;
+  background: rgba(255,255,255,0.1) !important;
+}
+
+#main-content { padding-top: 0 !important; }
+
+@media (min-width: 769px) and (max-width: 1400px) {
+  .navbar .nav-left { padding-left: 20px; }
+  .nav-links { padding-right: 16px; }
+  .nav-links a { padding: 7px 7px !important; gap: 5px !important; }
+  .nav-links a span { font-size: 0.64rem !important; letter-spacing: 0.15px !important; }
+  .nav-links a .nav-ico { font-size: 15px !important; width: 15px !important; height: 15px !important; }
+}
+@media (min-width: 769px) and (max-width: 1150px) {
+  .nav-links a span { display: none !important; }
+  .nav-links a { padding: 8px !important; }
+  .nav-links a .nav-ico { font-size: 18px !important; width: 18px !important; height: 18px !important; }
+}
+@media (max-width: 768px) {
+  .navbar { height: 62px !important; }
+  .navbar::before { width: 220px; }
+  .navbar .logo-container img { height: 38px !important; }
+}
