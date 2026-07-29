@@ -21,8 +21,8 @@ const NAV: NavItem[] = [
   { href: '/achievements', icon: 'ri-medal-line', key: 'nav_cert' },
   { href: '#about', icon: 'ri-information-line', key: 'about_title_main' },
   { href: '/blog', icon: 'ri-article-line', key: 'nav_blog' },
-  { href: '/dashboard', icon: 'ri-dashboard-3-line', key: 'dashboard_title' },
-  { href: '#comments', icon: 'ri-chat-3-line', key: 'comment_title' },
+  { href: '/dashboard', icon: 'ri-dashboard-3-line', key: 'nav_dashboard' },
+  { href: '#comments', icon: 'ri-chat-3-line', key: 'nav_comments' },
   { href: '#contact', icon: 'ri-mail-line', key: 'nav_contact' },
 ];
 
