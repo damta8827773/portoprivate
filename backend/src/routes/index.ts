@@ -24,6 +24,7 @@ import {
   hitVisitor,
 } from '../controllers/stats.controller.js';
 import { listComments, createComment } from '../controllers/comments.controller.js';
+import { listLikes, likeComment, flagComment } from '../controllers/likes.controller.js';
 import { createContact } from '../controllers/contact.controller.js';
 import { getGithub } from '../controllers/github.controller.js';
 import { validate } from '../middleware/validate.js';
@@ -63,6 +64,11 @@ apiRouter.get('/insights/umami', getUmami);
 // Comments (chat room) - replaces Firestore
 apiRouter.get('/comments', listComments);
 apiRouter.post('/comments', requireAuth, validate(createCommentSchema), createComment);
+
+// Instagram-style likes (public) + reports (owner-moderated), file-backed.
+apiRouter.get('/comments/likes', listLikes);
+apiRouter.post('/comments/:id/like', likeComment);
+apiRouter.post('/comments/:id/report', flagComment);
 
 // Contact
 apiRouter.post('/contact', validate(createContactSchema), createContact);

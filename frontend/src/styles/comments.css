@@ -274,8 +274,21 @@ body.light-mode #comments .chat-input-row { background: #fff !important; }
 }
 
 #comments .chat-input-row textarea {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 26px !important;
+  line-height: 1.5 !important;
+  padding: 6px 6px !important;
+  margin: 0 !important;
+  resize: none !important;
   color: var(--text-color) !important;
 }
+#comments .chat-input-row textarea::placeholder { color: var(--text-muted); opacity: 0.9; }
+/* Emoji button shouldn't overlap the field; keep everything in a tidy row. */
+#comments .chat-input-row { padding: 6px 8px !important; gap: 6px !important; }
+#comments .emoji-toggle { width: 34px !important; height: 34px !important; }
 
 #comments .btn-send {
   width: 38px;
@@ -380,3 +393,37 @@ body.light-mode #comments .emoji-panel { background: #fff; }
   background: #2563eb !important;
 }
 #comments .btn-send:hover { background: #1d4ed8 !important; transform: scale(1.06) !important; }
+
+/* ---------- like + report actions (v4.9, Instagram-style) ---------- */
+#comments .chat-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+#comments .chat-like,
+#comments .chat-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: inherit;
+  color: var(--text-muted);
+  padding: 2px 2px;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+#comments .chat-like i { font-size: 1.05rem; }
+#comments .chat-like:hover { color: #e0245e; }
+#comments .chat-like.liked { color: #e0245e; }
+#comments .chat-like.liked i { animation: likePop 0.3s ease; }
+@keyframes likePop { 0% { transform: scale(0.7); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+
+#comments .chat-report i { font-size: 0.95rem; }
+#comments .chat-report:hover { color: #ef4444; }
+#comments .chat-report.reported { color: #ef4444; cursor: default; }
+
+/* Reply button now lives inside the actions row - drop its hover-only hiding. */
+#comments .chat-actions .chat-reply-btn { opacity: 1 !important; margin-top: 0 !important; }

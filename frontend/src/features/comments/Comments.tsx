@@ -12,6 +12,23 @@ import { useI18n } from '../../i18n/useI18n';
 import { useFirebaseAuth } from '../../hooks/useFirebaseAuth';
 import { db } from '../../lib/firebase';
 import { sendReplyEmail } from '../../lib/emailjs';
+import { api } from '../../lib/api';
+
+/** localStorage-backed set of ids (which comments this browser liked/reported). */
+function loadIdSet(key: string): Set<string> {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(key) || '[]') as string[]);
+  } catch {
+    return new Set();
+  }
+}
+function saveIdSet(key: string, set: Set<string>) {
+  try {
+    localStorage.setItem(key, JSON.stringify([...set]));
+  } catch {
+    /* storage full/blocked - non-fatal */
+  }
+}
 
 const OWNER_EMAIL = 'damtafaiz@gmail.com';
 
@@ -104,12 +121,25 @@ function ChatItem({
   replies,
   isOwnerViewer,
   onReply,
+  likeCount,
+  liked,
+  onLike,
+  reportCount,
+  reported,
+  onReport,
 }: {
   c: FsComment;
   replies: FsReply[];
   isOwnerViewer: boolean;
   onReply: (id: string, text: string) => void;
+  likeCount: number;
+  liked: boolean;
+  onLike: () => void;
+  reportCount: number;
+  reported: boolean;
+  onReport: () => void;
 }) {
+  const { t } = useI18n();
   const [replyOpen, setReplyOpen] = useState(false);
   const isOwnerMsg = c.email === OWNER_EMAIL;
   const align = isOwnerMsg ? 'align-right' : 'align-left';
@@ -134,14 +164,41 @@ function ChatItem({
               <ChatTime ts={c.timestamp} />
             </div>
             <div className={`chat-bubble ${isOwnerMsg ? 'owner' : ''}`}>{c.comment}</div>
-            {canReply && (
-              <>
+
+            {/* Instagram-style actions: like (everyone) + report (owner only). */}
+            <div className="chat-actions">
+              <button
+                type="button"
+                className={`chat-like${liked ? ' liked' : ''}`}
+                onClick={onLike}
+                aria-pressed={liked}
+                title={t('like')}
+              >
+                <i className={liked ? 'ri-heart-3-fill' : 'ri-heart-3-line'} />
+                {likeCount > 0 && <span>{likeCount}</span>}
+              </button>
+
+              {canReply && (
                 <button className="chat-reply-btn" onClick={() => setReplyOpen((o) => !o)}>
-                  <i className="ri-reply-line" /> Balas
+                  <i className="ri-reply-line" /> {t('reply')}
                 </button>
-                {replyOpen && <ReplyForm commentId={c.id} onSend={onReply} />}
-              </>
-            )}
+              )}
+
+              {isOwnerViewer && !isOwnerMsg && (
+                <button
+                  type="button"
+                  className={`chat-report${reported ? ' reported' : ''}`}
+                  onClick={onReport}
+                  disabled={reported}
+                  title={t('report')}
+                >
+                  <i className={reported ? 'ri-flag-2-fill' : 'ri-flag-2-line'} />
+                  {reported ? t('reported') : t('report')}
+                  {reportCount > 0 && <span> ({reportCount})</span>}
+                </button>
+              )}
+            </div>
+            {replyOpen && <ReplyForm commentId={c.id} onSend={onReply} />}
           </div>
         </div>
         <div className="chat-replies-container" style={{ marginLeft: 60 }}>
@@ -185,6 +242,46 @@ export function Comments({ variant = 'section' }: CommentsProps) {
   const [rating, setRating] = useState(0);
   const [emojiOpen, setEmojiOpen] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
+
+  // Instagram-style likes (public) + reports (owner-only). Counts come from the
+  // backend; which items THIS browser liked/reported lives in localStorage.
+  const [likeCounts, setLikeCounts] = useState<Record<string, number>>({});
+  const [reportCounts, setReportCounts] = useState<Record<string, number>>({});
+  const [likedIds, setLikedIds] = useState<Set<string>>(() => loadIdSet('cmt_liked'));
+  const [reportedIds, setReportedIds] = useState<Set<string>>(() => loadIdSet('cmt_reported'));
+
+  useEffect(() => {
+    api
+      .get<{ likes: Record<string, number>; reports: Record<string, number> }>('/comments/likes')
+      .then((d) => {
+        setLikeCounts(d.likes || {});
+        setReportCounts(d.reports || {});
+      })
+      .catch(() => {
+        /* backend offline - likes just start from zero */
+      });
+  }, []);
+
+  const toggleLike = (id: string) => {
+    const liked = likedIds.has(id);
+    const next = new Set(likedIds);
+    if (liked) next.delete(id);
+    else next.add(id);
+    setLikedIds(next);
+    saveIdSet('cmt_liked', next);
+    setLikeCounts((c) => ({ ...c, [id]: Math.max(0, (c[id] ?? 0) + (liked ? -1 : 1)) }));
+    api.post(`/comments/${id}/like`, { liked: !liked }).catch(() => {});
+  };
+
+  const reportComment = (id: string) => {
+    if (reportedIds.has(id)) return;
+    const next = new Set(reportedIds);
+    next.add(id);
+    setReportedIds(next);
+    saveIdSet('cmt_reported', next);
+    setReportCounts((c) => ({ ...c, [id]: (c[id] ?? 0) + 1 }));
+    api.post(`/comments/${id}/report`, {}).catch(() => {});
+  };
 
   const isOwnerViewer = user?.email === OWNER_EMAIL;
 
@@ -318,7 +415,19 @@ export function Comments({ variant = 'section' }: CommentsProps) {
             <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>{t('chat_empty')}</p>
           ) : (
             comments.map((c) => (
-              <ChatItem key={c.id} c={c} replies={replies[c.id] || []} isOwnerViewer={isOwnerViewer} onReply={sendReply} />
+              <ChatItem
+                key={c.id}
+                c={c}
+                replies={replies[c.id] || []}
+                isOwnerViewer={isOwnerViewer}
+                onReply={sendReply}
+                likeCount={likeCounts[c.id] ?? 0}
+                liked={likedIds.has(c.id)}
+                onLike={() => toggleLike(c.id)}
+                reportCount={reportCounts[c.id] ?? 0}
+                reported={reportedIds.has(c.id)}
+                onReport={() => reportComment(c.id)}
+              />
             ))
           )}
         </div>

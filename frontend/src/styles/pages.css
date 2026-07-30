@@ -1995,3 +1995,18 @@ footer#contact {
   .navbar, .navbar.scrolled { height: 60px !important; }
   .navbar .logo-container img, .navbar.scrolled .logo-container img { height: 36px !important; }
 }
+
+/* ==========================================================================
+   Navbar (v4.9) — taller/roomier before scroll + bigger brand logo
+   Matches BKI: generous header height at the top that compacts on scroll, with
+   the "D" logo large enough to fill the white angled box.
+   ========================================================================== */
+.navbar { height: 118px !important; }
+.navbar.scrolled { height: 64px !important; }
+
+.navbar .logo-container { padding: 0 46px 0 20px !important; }
+.navbar .logo-container img { height: 86px !important; }
+.navbar.scrolled .logo-container img { height: 46px !important; }
+
+/* Roomier menu spacing when the bar is tall (before scroll). */
+.navbar:not(.scrolled) .nav-links a { padding: 9px 9px !important; }
