@@ -2034,3 +2034,16 @@ footer#contact {
 .navbar .logo-container { padding: 0 48px 0 18px !important; }
 .navbar .logo-container img { height: 100px !important; transform: scale(1.12); transform-origin: left center; }
 .navbar.scrolled .logo-container img { height: 50px !important; }
+
+/* ==========================================================================
+   Navbar (v5.1) — layered shape: logo band taller, pokes below the main bar
+   Per the reference diagram (SESUDAH): the dark logo band + white logo box are
+   TALLER than the slate menu bar and extend below it, giving the stepped
+   parallelogram look. The menu bar itself is shorter and flush at the top.
+   ========================================================================== */
+.navbar { overflow: visible !important; align-items: flex-start !important; }
+.navbar .nav-links { align-self: stretch; align-items: center; }
+.navbar::before { height: calc(100% + 38px) !important; }
+.navbar.scrolled::before { height: calc(100% + 26px) !important; }
+.navbar .logo-container { align-self: flex-start !important; height: calc(100% + 38px) !important; }
+.navbar.scrolled .logo-container { height: calc(100% + 26px) !important; }
