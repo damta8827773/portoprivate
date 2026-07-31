@@ -95,7 +95,7 @@ export function Navbar() {
               const label = t(item.key);
 
               return (
-                <li key={item.href} title={label}>
+                <li key={item.href} title={label} data-nav={item.key}>
                   {item.href.startsWith('#') ? (
                     // Section anchors only resolve on the home page - from a
                     // sub-page, route home first and let Home scroll to the hash.

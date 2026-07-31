@@ -2010,3 +2010,27 @@ footer#contact {
 
 /* Roomier menu spacing when the bar is tall (before scroll). */
 .navbar:not(.scrolled) .nav-links a { padding: 9px 9px !important; }
+
+/* ==========================================================================
+   Navbar (v5.0) — equalise icon sizes + bigger brand logo
+   Some custom PNGs (Pencapaian/Dasbor/Obrolan/Kontak) carry extra transparent
+   padding, so inside the uniform chip they render smaller. Scale those up to
+   match, tighten the chip padding so every icon fills it, and enlarge the "D".
+   ========================================================================== */
+
+/* All chips: less inner padding so icons fill more of the circle. */
+.nav-links a .nav-ico { padding: 2px !important; }
+.nav-links a .nav-ico img { transform: scale(1.12); }
+
+/* The four icons the source PNGs render smaller - scale them up to match. */
+.nav-links li[data-nav="nav_cert"] .nav-ico img,
+.nav-links li[data-nav="nav_dashboard"] .nav-ico img,
+.nav-links li[data-nav="nav_comments"] .nav-ico img,
+.nav-links li[data-nav="nav_contact"] .nav-ico img {
+  transform: scale(1.5);
+}
+
+/* Bigger "D" brand logo so it fills the white angled box. */
+.navbar .logo-container { padding: 0 48px 0 18px !important; }
+.navbar .logo-container img { height: 100px !important; transform: scale(1.12); transform-origin: left center; }
+.navbar.scrolled .logo-container img { height: 50px !important; }
