@@ -2047,3 +2047,73 @@ footer#contact {
 .navbar.scrolled::before { height: calc(100% + 26px) !important; }
 .navbar .logo-container { align-self: flex-start !important; height: calc(100% + 38px) !important; }
 .navbar.scrolled .logo-container { height: calc(100% + 26px) !important; }
+
+/* ==========================================================================
+   Navbar (v5.2) — no icon circles, right-sized D logo, top gap before scroll
+   1. Remove the white chip behind each menu icon (icons render white directly).
+   2. The "D" logo back to a sensible size (was oversized).
+   3. Before scroll a transparent strip sits above the slate menu band so the
+      dark logo plate pokes UP through it (the "jarak" in the reference); the
+      strip collapses on scroll into a solid flush bar.
+   ========================================================================== */
+
+/* 1 — no circle; icons directly on the bar, rendered white so they show. */
+.nav-links a .nav-ico {
+  width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+.nav-links a .nav-ico img {
+  filter: brightness(0) invert(1) !important;   /* white icon on the navy bar */
+  transform: scale(1) !important;
+}
+/* keep the four padded PNGs visually matched */
+.nav-links li[data-nav="nav_cert"] .nav-ico img,
+.nav-links li[data-nav="nav_dashboard"] .nav-ico img,
+.nav-links li[data-nav="nav_comments"] .nav-ico img,
+.nav-links li[data-nav="nav_contact"] .nav-ico img { transform: scale(1.3) !important; }
+
+/* 2 — D logo: sensible size, no extra scaling. */
+.navbar .logo-container img { height: 66px !important; transform: none !important; }
+.navbar.scrolled .logo-container img { height: 44px !important; }
+
+/* 3 — transparent gap above the menu band before scroll; solid on scroll. */
+.navbar {
+  background: linear-gradient(180deg, transparent 0 20px, #24476f 20px, #1c3557 100%) !important;
+}
+.navbar.scrolled {
+  background: linear-gradient(180deg, #24476f 0%, #1c3557 100%) !important;
+}
+/* Push the menu + controls into the slate band (below the transparent strip). */
+.navbar:not(.scrolled) .nav-links { padding-top: 20px; }
+
+/* ==========================================================================
+   Navbar (v5.3) — D logo sized to actually fill the white plate
+   logo.png is 500x500 (square) while the white angled plate is ~156px tall,
+   so the previous 66px logo floated small inside it. Scale it to the plate.
+   ========================================================================== */
+.navbar .logo-container {
+  padding: 0 52px 0 16px !important;
+  align-items: center !important;
+}
+.navbar .logo-container img {
+  height: 118px !important;
+  width: auto !important;
+  transform: none !important;
+}
+.navbar.scrolled .logo-container img { height: 62px !important; }
+
+@media (max-width: 768px) {
+  .navbar .logo-container img,
+  .navbar.scrolled .logo-container img { height: 46px !important; }
+}
+
+/* v5.4 — logo.png has large transparent padding around the "D", so the glyph
+   still read small at 118px. Scale the artwork up inside a clipped plate. */
+.navbar .logo-container { overflow: hidden !important; }
+.navbar .logo-container img { transform: scale(1.65) !important; transform-origin: center !important; }
+.navbar.scrolled .logo-container img { transform: scale(1.55) !important; }
