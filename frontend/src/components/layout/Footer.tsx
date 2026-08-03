@@ -28,6 +28,8 @@ export function Footer() {
         <span aria-hidden="true">·</span>
         <Link to="/journey">{t('journey_title')}</Link>
         <span aria-hidden="true">·</span>
+        <Link to="/buildlog">{t('buildlog_title')}</Link>
+        <span aria-hidden="true">·</span>
         <Link to="/legal/privacy-policy">{t('legal_privacy')}</Link>
         <span aria-hidden="true">·</span>
         <Link to="/legal/terms-of-service">{t('legal_terms')}</Link>

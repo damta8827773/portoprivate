@@ -5,9 +5,11 @@ import emailjs from '@emailjs/browser';
  * (mirrors the original site). Keys are EmailJS *public* identifiers; override
  * via VITE_EMAILJS_* env vars to point at a different EmailJS account/template.
  */
-const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_x3ywsyi';
-const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'bm3li3y';
-const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'mKDqgvRxiQmiif3aQ';
+// Kept out of source: with these three values anyone can send mail through the
+// account and burn its monthly quota. Configure them in frontend/.env.
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 let initialized = false;
 function ensureInit() {
@@ -26,6 +28,8 @@ export async function sendReplyEmail(params: {
   fromPhoto?: string;
 }) {
   if (!params.email) return;
+  // No credentials configured: skip silently so replies still save.
+  if (!SERVICE_ID || !TEMPLATE_ID || !PUBLIC_KEY) return;
   ensureInit();
   const photo =
     params.fromPhoto ||

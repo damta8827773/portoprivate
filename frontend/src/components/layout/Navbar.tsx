@@ -15,14 +15,14 @@ interface NavItem {
 
 const NAV: NavItem[] = [
   { href: '#home', img: 'home.png', key: 'nav_home' },
-  { href: '#profil', img: 'profil.png', key: 'nav_profil' },
-  { href: '#skill', img: 'skill.png', key: 'nav_skill' },
+  { href: '/profil', img: 'profil.png', key: 'nav_profil' },
+  { href: '/skills', img: 'skill.png', key: 'nav_skill' },
   { href: '/projects', img: 'proyek.png', key: 'nav_project' },
   { href: '/achievements', img: 'sertif.png', key: 'nav_cert' },
   { href: '#about', img: 'tentang kami.png', key: 'about_title_main' },
   { href: '/blog', img: 'proyek.png', key: 'nav_blog' },
   { href: '/dashboard', img: 'dasbor.png', key: 'nav_dashboard' },
-  { href: '#comments', img: 'komen&rate.png', key: 'nav_comments' },
+  { href: '/comments', img: 'komen&rate.png', key: 'nav_comments' },
   { href: '#contact', img: 'kontak.png', key: 'nav_contact' },
 ];
 
@@ -60,7 +60,7 @@ export function Navbar() {
       <nav className={`navbar${scrolled ? ' scrolled' : ''}`}>
         <div className="nav-left">
           <div className="logo-container">
-            <img src="/assets/img/logo.png" alt="Logo Damta" />
+            <img src="/assets/img/logo-nexus.png" alt="Nexus Omni D - Vanguard Tech" />
           </div>
         </div>
 

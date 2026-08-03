@@ -153,6 +153,11 @@ export const translations = {
     journey_desc:
       'Geser tahunnya dan lihat portofolio ini membangun ulang kisahnya - dari siswa TKJ sampai developer profesional.',
     journey_active: 'Yang sedang berjalan di tahun ini',
+    buildlog_title: 'Catatan Pembuatan',
+    buildlog_desc:
+      'Perjalanan membangun portofolio dan sistem lainnya - apa yang dikerjakan, kendalanya, dan solusinya.',
+    page_skills_desc: 'Teknologi dan perkakas yang saya pakai sehari-hari.',
+    page_comments_desc: 'Tinggalkan pesan, saran, atau sekadar menyapa.',
   },
   en: {
     nav_home: 'Home',
@@ -305,6 +310,11 @@ export const translations = {
     journey_desc:
       'Drag the year and watch this portfolio rebuild its own story - from vocational student to professional developer.',
     journey_active: 'Active during this year',
+    buildlog_title: 'Build Log',
+    buildlog_desc:
+      'How this portfolio and my other systems were built - what I worked on, the obstacles, and the fixes.',
+    page_skills_desc: 'The technologies and tools I work with day to day.',
+    page_comments_desc: 'Leave a message, a suggestion, or just say hello.',
   },
 } as const;
 

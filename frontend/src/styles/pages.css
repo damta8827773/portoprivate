@@ -2117,3 +2117,174 @@ footer#contact {
 .navbar .logo-container { overflow: hidden !important; }
 .navbar .logo-container img { transform: scale(1.65) !important; transform-origin: center !important; }
 .navbar.scrolled .logo-container img { transform: scale(1.55) !important; }
+
+/* ==========================================================================
+   Navbar (v5.5) — new NEXUS OMNI D wordmark logo
+   The new artwork is a wide wordmark (647x440) designed for a dark backdrop,
+   so the plate is dark instead of white and the logo is sized by width.
+   ========================================================================== */
+.navbar .logo-container {
+  background: transparent !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  padding: 0 34px 0 22px !important;
+  overflow: visible !important;
+}
+.navbar .logo-container img {
+  height: auto !important;
+  width: 210px !important;
+  transform: none !important;
+  filter: drop-shadow(0 4px 14px rgba(80, 120, 255, 0.35));
+}
+.navbar.scrolled .logo-container img { width: 132px !important; }
+
+@media (max-width: 768px) {
+  .navbar .logo-container img,
+  .navbar.scrolled .logo-container img { width: 120px !important; }
+}
+
+/* ==========================================================================
+   Navbar (v5.6) — fix logo clipping + controls cut off at the right edge
+   The wordmark was taller than the bar so "NEXUS"/"VANGUARD TECH" were sliced,
+   and the theme toggle overflowed past the viewport. Constrain the logo to the
+   bar height and let the right-hand controls always fit.
+   ========================================================================== */
+
+/* Logo: bounded by the bar so nothing is ever sliced off. */
+.navbar .logo-container {
+  align-self: center !important;
+  height: auto !important;
+  max-height: 100% !important;
+  padding: 0 28px 0 18px !important;
+  overflow: visible !important;
+}
+.navbar .logo-container img {
+  width: auto !important;
+  max-width: 190px !important;
+  height: auto !important;
+  max-height: 74px !important;
+  object-fit: contain !important;
+}
+.navbar.scrolled .logo-container img { max-height: 46px !important; max-width: 140px !important; }
+
+/* Right side: never let the language/theme controls spill off-screen. */
+.navbar { padding-right: 0 !important; }
+.nav-links { padding-right: max(18px, calc((100% - 1320px) / 2)) !important; }
+.nav-links .controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  flex-shrink: 0 !important;
+  margin-left: 10px !important;
+}
+.nav-links ul { flex-wrap: nowrap !important; }
+
+@media (max-width: 768px) {
+  .navbar .logo-container img,
+  .navbar.scrolled .logo-container img { max-height: 40px !important; max-width: 130px !important; }
+}
+
+/* v5.7 — the logo still sat flush to the top and clipped "NEXUS". Center the
+   whole left cluster vertically inside the bar. */
+.navbar { align-items: center !important; }
+.navbar .nav-left {
+  display: flex !important;
+  align-items: center !important;
+  align-self: center !important;
+  height: auto !important;
+}
+.navbar .logo-container { margin: 0 !important; }
+
+/* ==========================================================================
+   Navbar (v5.8) — white angled plate behind the wordmark
+   The new logo's "NEXUS" / "VANGUARD TECH" text is dark navy, which disappears
+   against the navy bar. Restore the BKI-style white angled plate so the mark
+   reads clearly, with the logo fully inside it (never clipped).
+   ========================================================================== */
+.navbar .logo-container {
+  background: #ffffff !important;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 26px) 100%, 0 100%) !important;
+  box-shadow: 6px 0 18px rgba(0, 0, 0, 0.22) !important;
+  padding: 10px 46px 10px 20px !important;
+  height: 100% !important;
+  align-self: stretch !important;
+  display: flex !important;
+  align-items: center !important;
+}
+.navbar .logo-container img {
+  max-height: 78px !important;
+  max-width: 200px !important;
+  filter: none !important;
+}
+.navbar.scrolled .logo-container img { max-height: 44px !important; max-width: 145px !important; }
+
+/* v5.9 — compact state: keep the plate flush with the bar (no overhang) so it
+   can't cover page content, and keep the wordmark fully inside it. */
+.navbar.scrolled::before { height: 100% !important; }
+.navbar.scrolled .logo-container {
+  height: 100% !important;
+  padding: 6px 40px 6px 18px !important;
+}
+.navbar.scrolled .logo-container img { max-height: 40px !important; }
+
+/* v6.0 — size the wordmark by explicit height (width follows the 647:440 ratio)
+   so it never gets clipped by the plate in either state. */
+.navbar .logo-container img { height: 72px !important; max-height: none !important; max-width: none !important; width: auto !important; }
+.navbar.scrolled .logo-container img { height: 38px !important; }
+.navbar.scrolled .logo-container { padding: 0 38px 0 18px !important; }
+
+/* ==========================================================================
+   Build Log timeline (/buildlog) + standalone section pages
+   ========================================================================== */
+
+.buildlog { list-style: none; margin: 0; padding: 0 0 0 26px; position: relative; }
+.buildlog::before {
+  content: '';
+  position: absolute;
+  left: 7px; top: 6px; bottom: 6px;
+  width: 2px; border-radius: 2px;
+  background: linear-gradient(to bottom, var(--primary-neon), transparent);
+}
+.buildlog-item { position: relative; margin-bottom: 26px; }
+.buildlog-marker {
+  position: absolute;
+  left: -26px; top: 20px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  border: 3px solid var(--primary-neon);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-neon) 18%, transparent);
+}
+.buildlog-card {
+  border: var(--card-border);
+  border-radius: 18px;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  padding: 20px 22px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.buildlog-card:hover { transform: translateY(-3px); box-shadow: 0 16px 34px var(--shadow-color); }
+.buildlog-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+.buildlog-project {
+  font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+  color: var(--primary-neon);
+  border: 1px solid color-mix(in srgb, var(--primary-neon) 40%, transparent);
+  background: color-mix(in srgb, var(--primary-neon) 10%, transparent);
+  padding: 3px 10px; border-radius: 999px;
+}
+.buildlog-date { font-size: 0.78rem; color: var(--text-muted); }
+.buildlog-title { margin: 0 0 12px; font-size: 1.18rem; line-height: 1.35; color: var(--text-color); }
+.buildlog-media { border-radius: 14px; overflow: hidden; border: var(--card-border); margin-bottom: 14px; }
+.buildlog-media img { display: block; width: 100%; height: auto; }
+.buildlog-body { margin: 0; color: var(--text-muted); line-height: 1.75; white-space: pre-line; }
+.buildlog-link { margin-top: 14px; display: inline-flex !important; }
+
+/* Section pages reuse the home sections; drop their scroll-reveal + top gap. */
+.section-page section { padding-top: 0 !important; min-height: 0 !important; }
+.section-page .hidden { opacity: 1 !important; transform: none !important; }
+.section-page section > h2 { display: none; }   /* PageShell already shows the title */
+
+@media (max-width: 768px) {
+  .buildlog { padding-left: 20px; }
+  .buildlog-marker { left: -20px; width: 13px; height: 13px; }
+}

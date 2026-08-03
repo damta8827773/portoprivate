@@ -15,6 +15,8 @@ import { BlogDetailPage } from './pages/BlogDetailPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { AboutPage } from './pages/AboutPage';
 import { JourneyPage } from './pages/JourneyPage';
+import { BuildLogPage } from './pages/BuildLogPage';
+import { ProfilPage, SkillsPage, CommentsPage } from './pages/SectionPages';
 import { LegalPage } from './pages/LegalPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ChatWidget } from './components/layout/ChatWidget';
@@ -50,6 +52,10 @@ export default function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/journey" element={<JourneyPage />} />
+        <Route path="/buildlog" element={<BuildLogPage />} />
+        <Route path="/profil" element={<ProfilPage />} />
+        <Route path="/skills" element={<SkillsPage />} />
+        <Route path="/comments" element={<CommentsPage />} />
         <Route path="/legal/privacy-policy" element={<LegalPage document="privacy" />} />
         <Route path="/legal/terms-of-service" element={<LegalPage document="terms" />} />
         <Route path="*" element={<NotFoundPage />} />
