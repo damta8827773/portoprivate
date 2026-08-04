@@ -3,7 +3,7 @@ import { PageShell } from '../components/layout/PageShell';
 import { StackChips } from '../components/ui/StackChips';
 import { useI18n } from '../i18n/useI18n';
 import { assetUrl } from '../lib/assetUrl';
-import { buildLog } from '../data/buildLog';
+import { buildLog, filledBuildLog, pendingBuildLogCount } from '../data/buildLog';
 
 const ALL = '__all__';
 
@@ -16,13 +16,16 @@ export function BuildLogPage() {
   const { t, lang } = useI18n();
   const [project, setProject] = useState(ALL);
 
+  // Only stories that have been written are shown; the rest stay hidden until
+  // their body is filled in, so the page never looks half-finished.
   const projects = useMemo(
-    () => Array.from(new Set(buildLog.map((e) => e.project))).sort(),
+    () => Array.from(new Set(filledBuildLog.map((e) => e.project))).sort(),
     [],
   );
 
   const entries = useMemo(
-    () => (project === ALL ? buildLog : buildLog.filter((e) => e.project === project)),
+    () =>
+      project === ALL ? filledBuildLog : filledBuildLog.filter((e) => e.project === project),
     [project],
   );
 
@@ -55,7 +58,7 @@ export function BuildLogPage() {
       )}
 
       {entries.length === 0 ? (
-        <p className="empty-state">{t('empty_result')}</p>
+        <p className="empty-state">{t('buildlog_empty')}</p>
       ) : (
         <ol className="buildlog">
           {entries.map((e) => (
@@ -99,6 +102,13 @@ export function BuildLogPage() {
             </li>
           ))}
         </ol>
+      )}
+
+      {/* Quiet note so it's obvious more stories are on the way. */}
+      {pendingBuildLogCount > 0 && (
+        <p className="buildlog-pending">
+          {pendingBuildLogCount} / {buildLog.length} {t('buildlog_pending')}
+        </p>
       )}
     </PageShell>
   );

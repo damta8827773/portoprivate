@@ -34,7 +34,8 @@ coverage/
 .turbo/
 *.tsbuildinfo
 
-# local AI/dev instruction file (kept local, not published)
+# local dev notes (kept local, not published)
+*.local.md
 CLAUDE.md
 claude.md
 

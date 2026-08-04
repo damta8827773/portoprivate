@@ -2329,3 +2329,12 @@ footer#contact {
   .navbar .logo-container img,
   .navbar.scrolled .logo-container img { height: 34px !important; max-height: 34px !important; }
 }
+
+/* Quiet note under the Build Log listing the stories still to be written. */
+.buildlog-pending {
+  margin: 26px 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
