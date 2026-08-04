@@ -2288,3 +2288,44 @@ footer#contact {
   .buildlog { padding-left: 20px; }
   .buildlog-marker { left: -20px; width: 13px; height: 13px; }
 }
+
+/* ==========================================================================
+   Navbar (v6.1, FINAL) — logo never overflows its plate, in either state
+   Measured bug: when compact the plate collapsed to 38px while a leftover
+   transform: scale kept the artwork at ~59px, so it spilled 10px above and
+   below. Reset the transform, give the plate a real height to resolve against,
+   and size the logo from the bar height so it always fits.
+   ========================================================================== */
+
+/* The left cluster must stretch, otherwise `height: 100%` on the plate has no
+   containing height to resolve against and collapses. */
+.navbar .nav-left {
+  align-self: stretch !important;
+  height: auto !important;
+  align-items: stretch !important;
+}
+
+.navbar .logo-container {
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow: hidden !important;
+}
+
+/* One authoritative sizing rule: no transform, height driven by the bar. */
+.navbar .logo-container img,
+.navbar.scrolled .logo-container img {
+  transform: none !important;
+  width: auto !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+.navbar .logo-container img { height: 68px !important; max-height: 68px !important; }
+.navbar.scrolled .logo-container img { height: 40px !important; max-height: 40px !important; }
+
+@media (max-width: 768px) {
+  .navbar .logo-container img,
+  .navbar.scrolled .logo-container img { height: 34px !important; max-height: 34px !important; }
+}
