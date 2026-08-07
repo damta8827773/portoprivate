@@ -18,6 +18,17 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
     return fail(res, 400, 'Database request error');
   }
 
+  // The database is simply not reachable (not running, wrong URL). That is a
+  // service state, not a bug, so answer 503 - the frontend then falls back to
+  // its bundled content instead of logging a wall of 500s.
+  if (
+    err instanceof Prisma.PrismaClientInitializationError ||
+    (err instanceof Error && /Can't reach database server|ECONNREFUSED/i.test(err.message))
+  ) {
+    logger.warn('Database unavailable - serving fallback response');
+    return fail(res, 503, 'Database unavailable');
+  }
+
   logger.error({ err }, 'Unhandled error');
   return fail(res, 500, 'Internal server error');
 }

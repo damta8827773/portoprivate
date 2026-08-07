@@ -238,6 +238,7 @@ export function Comments({ variant = 'section' }: CommentsProps) {
   const [comments, setComments] = useState<FsComment[]>([]);
   const [replies, setReplies] = useState<Record<string, FsReply[]>>({});
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [text, setText] = useState('');
   const [rating, setRating] = useState(0);
   const [emojiOpen, setEmojiOpen] = useState(false);
@@ -298,7 +299,13 @@ export function Comments({ variant = 'section' }: CommentsProps) {
         setComments(snap.docs.map((d) => ({ id: d.id, ...(d.data() as Omit<FsComment, 'id'>) })));
         setLoading(false);
       },
-      () => setLoading(false),
+      () => {
+        // Firestore refused or dropped the stream. Say so instead of claiming
+        // there are no messages - that reads as "empty" when it is really
+        // "couldn't load", which is what made the room look wiped.
+        setLoadError(true);
+        setLoading(false);
+      },
     );
     return unsub;
   }, []);
@@ -412,7 +419,9 @@ export function Comments({ variant = 'section' }: CommentsProps) {
           {loading ? (
             <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>{t('chat_loading')}</p>
           ) : !comments.length ? (
-            <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>{t('chat_empty')}</p>
+            <p style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
+              {loadError ? t('chat_load_error') : t('chat_empty')}
+            </p>
           ) : (
             comments.map((c) => (
               <ChatItem
