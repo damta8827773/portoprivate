@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/assets/img/Icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <!-- Pinch-zoom stays enabled: blocking it fails WCAG 1.4.4 and Android
+         honours the restriction, leaving low-vision users unable to zoom. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Damta Noviyan Muhamad Faiz | Future Tech Leader</title>
     <meta
       name="description"

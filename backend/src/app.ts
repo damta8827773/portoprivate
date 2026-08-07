@@ -12,17 +12,47 @@ import { errorHandler } from './middleware/error.js';
 export function createApp() {
   const app = express();
 
-  app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
+  // Behind a reverse proxy (Vercel/Nginx/Cloudflare) the client IP arrives in
+  // X-Forwarded-For; without this every request looks like the proxy's IP and
+  // one visitor could exhaust the rate limit for everyone.
+  app.set('trust proxy', 1);
+  app.disable('x-powered-by');
+
+  app.use(
+    helmet({
+      crossOriginResourcePolicy: { policy: 'cross-origin' },
+      // The API only ever returns JSON, so lock its own responses down hard.
+      contentSecurityPolicy: {
+        directives: { defaultSrc: ["'none'"], frameAncestors: ["'none'"] },
+      },
+      referrerPolicy: { policy: 'no-referrer' },
+      hsts: { maxAge: 31536000, includeSubDomains: true, preload: true },
+    }),
+  );
+
   app.use(
     cors({
       origin: env.corsOrigins,
       credentials: true,
+      methods: ['GET', 'POST', 'OPTIONS'],
+      maxAge: 86400,
     }),
   );
-  app.use(express.json({ limit: '1mb' }));
+  app.use(express.json({ limit: '256kb' }));
   app.use(pinoHttp({ logger }));
 
-  // Basic rate-limit on write-heavy endpoints.
+  // Floor under every endpoint so reads can't be hammered either.
+  app.use(
+    '/api',
+    rateLimit({
+      windowMs: 60 * 1000,
+      limit: 300,
+      standardHeaders: true,
+      legacyHeaders: false,
+    }),
+  );
+
+  // Tighter cap on anything that writes.
   const writeLimiter = rateLimit({
     windowMs: 60 * 1000,
     limit: 30,

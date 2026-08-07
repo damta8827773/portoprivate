@@ -10,7 +10,9 @@ const envSchema = z.object({
     .string()
     .min(1)
     .default('mysql://damta:damtapass@localhost:3306/damta_portfolio'),
-  CORS_ORIGIN: z.string().default('http://localhost:5173'),
+  // Comma-separated allowlist. Covers the project's dev port (5180) and Vite's
+  // default (5173) so a fresh clone isn't blocked by CORS out of the box.
+  CORS_ORIGIN: z.string().default('http://localhost:5180,http://localhost:5173'),
   GITHUB_USERNAME: z.string().default('damta8827773'),
   GITHUB_TOKEN: z.string().optional(),
   // Owner identity - only this (verified) email may post replies.

@@ -28,23 +28,31 @@ export function useVisitorCounter() {
 
   useEffect(() => {
     let cancelled = false;
+
     (async () => {
+      // 1) Show the real total immediately. Previously the first visit waited on
+      //    a third-party geo lookup (up to 4s, longer when blocked), which left
+      //    the card spinning; the count never depended on that call.
       try {
-        const alreadyHit = sessionStorage.getItem('hasVisited');
-        let data: { count: number };
-        if (alreadyHit) {
-          data = await api.get<{ count: number }>('/visitors/count');
-        } else {
-          const country = await lookupCountry();
-          data = await api.post<{ count: number }>('/visitors/hit', { country });
-          sessionStorage.setItem('hasVisited', 'true');
-        }
+        const data = await api.get<{ count: number }>('/visitors/count');
         if (!cancelled) setCount(data.count);
       } catch {
         // Backend offline: show nothing rather than an invented number.
         if (!cancelled) setCount(null);
       }
+
+      // 2) Record this visit in the background, once per browser session.
+      if (sessionStorage.getItem('hasVisited')) return;
+      sessionStorage.setItem('hasVisited', 'true');
+      try {
+        const country = await lookupCountry();
+        const data = await api.post<{ count: number }>('/visitors/hit', { country });
+        if (!cancelled) setCount(data.count);
+      } catch {
+        // The visit just isn't recorded; the displayed total stays valid.
+      }
     })();
+
     return () => {
       cancelled = true;
     };
