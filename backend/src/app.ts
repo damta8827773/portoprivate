@@ -41,14 +41,17 @@ export function createApp() {
   app.use(express.json({ limit: '256kb' }));
   app.use(pinoHttp({ logger }));
 
-  // Floor under every endpoint so reads can't be hammered either.
+  // Floor under every endpoint so reads can't be hammered. A single page load
+  // fetches ~11 endpoints, so 300/min started returning 429 to real visitors
+  // browsing quickly; 600 still stops abuse with room for normal use.
   app.use(
     '/api',
     rateLimit({
       windowMs: 60 * 1000,
-      limit: 300,
+      limit: 600,
       standardHeaders: true,
       legacyHeaders: false,
+      skip: (req) => req.path === '/health',
     }),
   );
 
